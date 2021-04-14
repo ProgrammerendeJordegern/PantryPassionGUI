@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using PantryPassion.Models;
+using PantryPassionGUI.Models;
 
 namespace PantryPassion.Test.Unit
 {
