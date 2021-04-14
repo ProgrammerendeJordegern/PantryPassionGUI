@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PantryPassionGUI", "PantryPassionGUI\PantryPassionGUI.csproj", "{DB88EF52-88B2-4C99-90EE-A3DD834A9A44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PantryPassionGUI", "PantryPassionGUI\PantryPassionGUI.csproj", "{DB88EF52-88B2-4C99-90EE-A3DD834A9A44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PantryPassion.Test.Unit", "PantryPassion.Test.Unit\PantryPassion.Test.Unit.csproj", "{DEF6B8BE-CCA5-4435-9B19-55FEBC7094CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DB88EF52-88B2-4C99-90EE-A3DD834A9A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB88EF52-88B2-4C99-90EE-A3DD834A9A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB88EF52-88B2-4C99-90EE-A3DD834A9A44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEF6B8BE-CCA5-4435-9B19-55FEBC7094CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEF6B8BE-CCA5-4435-9B19-55FEBC7094CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEF6B8BE-CCA5-4435-9B19-55FEBC7094CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEF6B8BE-CCA5-4435-9B19-55FEBC7094CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
