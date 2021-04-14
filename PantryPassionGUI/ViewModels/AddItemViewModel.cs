@@ -179,6 +179,7 @@ namespace PantryPassionGUI.ViewModels
             set
             {
                 SetProperty(ref _quantity, value);
+
             }
         }
 
