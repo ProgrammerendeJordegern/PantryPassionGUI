@@ -10,6 +10,9 @@ namespace PantryPassionGUI.ViewModels
 {
     public class AddItemViewModel : BindableBase
     {
+        private string _name;
+        private int _quantity;
+        private string _category;
         private string _barcode;
         private BackendConnection _backendConnection;
         private ICommand _cancelCommand;
@@ -49,6 +52,11 @@ namespace PantryPassionGUI.ViewModels
         {
             get { return _item; }
             set { SetProperty(ref _item, value); }
+            }
+            set
+            {
+                SetProperty(ref _item, value);
+            }
         }
 
         public int CameraListIndex
@@ -84,6 +92,7 @@ namespace PantryPassionGUI.ViewModels
         public ICommand TurnOffCamera
         {
             get { return _turnOffCamera ?? (_turnOffCamera = new DelegateCommand(TurnOffCamHandler)); }
+            }
         }
 
         private void TurnOffCamHandler()
@@ -135,6 +144,7 @@ namespace PantryPassionGUI.ViewModels
         public ICommand CancelCommand
         {
             get { return _cancelCommand ?? (_cancelCommand = new DelegateCommand(CancelHandler)); }
+            }
         }
 
         private void CancelHandler()
@@ -148,6 +158,40 @@ namespace PantryPassionGUI.ViewModels
             Console.WriteLine("sadf");
         }
 
-    }
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                SetProperty(ref _name, value);
+            }
+        }
 
+        public int Quantity
+        {
+            get
+            {
+                return _quantity;
+            }
+            set
+            {
+                SetProperty(ref _quantity, value);
+            }
+        }
+
+        public string Category
+        {
+            get
+            {
+                return _category;
+            }
+            set
+            {
+                SetProperty(ref _category, value);
+            }
+        }
+    }
 }

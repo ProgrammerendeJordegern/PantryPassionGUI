@@ -14,7 +14,7 @@ namespace PantryPassionGUI.Models
             _reader = new BarcodeReader();
             ActivateBool = true;
         }
-
+        
         public string GetBarcode(Bitmap image)
         {
             
