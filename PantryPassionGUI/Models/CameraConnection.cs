@@ -7,6 +7,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using AForge.Video;
 using Prism.Mvvm;
 
 namespace PantryPassionGUI.Models
@@ -14,11 +15,11 @@ namespace PantryPassionGUI.Models
     public class CameraConnection : BindableBase, ICamera
     {
         private FilterInfoCollection _filterInfoCollection;
-        private VideoCaptureDevice _videoCaptureDevice;
+        private IVideoSource _videoCaptureDevice;
         public ObservableCollection<string> CamerasList { get; private set; }
         private int _cameraListIndex;
         private BitmapImage _cameraFeed;
-        private ReadBarcode _reader;
+        private IBarcodeReader _reader;
         private ITimer<Timer> _timer;
 
         public event EventHandler<BarcodeFoundEventArgs> BarcodeFoundEvent;
@@ -40,6 +41,14 @@ namespace PantryPassionGUI.Models
                     return _instance;
                 }
             }
+        }
+        
+        //For test
+        public CameraConnection(ITimer<Timer> timer, IBarcodeReader barcodeReader, IVideoSource videoSource)
+        {
+            _timer = timer;
+            _reader = barcodeReader;
+            _videoCaptureDevice = videoSource;
         }
 
         private CameraConnection()
