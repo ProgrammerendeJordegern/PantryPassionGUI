@@ -84,6 +84,8 @@ namespace PantryPassionGUI.ViewModels
         {
             Barcode = e.Barcode;
             _soundPlayer.Play();
+
+            item.Quantity++;
         }
 
         public string CameraButtonText
@@ -191,6 +193,7 @@ namespace PantryPassionGUI.ViewModels
             set
             {
                 SetProperty(ref _quantity, value);
+
             }
         }
 

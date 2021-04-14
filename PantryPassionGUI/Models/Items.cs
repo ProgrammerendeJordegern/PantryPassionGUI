@@ -62,6 +62,7 @@ namespace PantryPassionGUI.Models
                     ClearErrors("Quantity");
                 }
                 SetProperty(ref _quantity, value);
+               
             }
         }
 
