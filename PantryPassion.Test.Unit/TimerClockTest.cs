@@ -5,18 +5,18 @@ namespace PantryPassion.Test.Unit
 {
     public class TimerClockTest
     {
-        private TimerClock uut;
+        private TimerClock _uut;
 
         [SetUp]
         public void Setup()
         {
-            uut = new TimerClock(10);
+            _uut = new TimerClock(10);
         }
 
         [Test]
         public void Timer_Interval_CorrectValue()
         {
-            Assert.That(uut.GetTimer().Interval, Is.EqualTo(10));
+            Assert.That(_uut.GetTimer().Interval, Is.EqualTo(10));
         }
     }
 }
