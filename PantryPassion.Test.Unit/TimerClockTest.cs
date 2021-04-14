@@ -18,5 +18,19 @@ namespace PantryPassion.Test.Unit
         {
             Assert.That(_uut.GetTimer().Interval, Is.EqualTo(10));
         }
+
+        [Test]
+        public void Timer_Enabled_ValueIsTrue()
+        {
+            _uut.Enable();
+            Assert.That(_uut.GetTimer().Enabled, Is.True);
+        }
+
+        [Test]
+        public void TTimer_Enabled_ValueIsFalse()
+        {
+            _uut.Disable();
+            Assert.That(_uut.GetTimer().Enabled, Is.False);
+        }
     }
 }
