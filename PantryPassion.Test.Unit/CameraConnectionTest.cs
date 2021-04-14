@@ -22,7 +22,6 @@ namespace PantryPassion.Test.Unit
             _uut = new CameraConnection(_timer, _barcodeReader,_video);
         }
 
-
         //[Test]
         //public void CameraOn_Set_VideoTunedOn()
         //{
@@ -42,9 +41,12 @@ namespace PantryPassion.Test.Unit
             _video.Received(1).SignalToStop();
         }
 
-        //[Test]
-        //public void TimeHandler_Timer_Activated()
-        //{
-        //}
+        [Test]
+        public void CameraListIndex_set_ToCorrecValue()
+        {
+            _uut.SetCameraListIndex(1);
+            Assert.That(_uut.GetCameraListIndex(),Is.EqualTo(1));
+        }
+
     }
 }

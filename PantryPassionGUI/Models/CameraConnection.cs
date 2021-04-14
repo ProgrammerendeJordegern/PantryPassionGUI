@@ -91,6 +91,11 @@ namespace PantryPassionGUI.Models
             _cameraListIndex = index;
         }
 
+        public int GetCameraListIndex()
+        {
+            return _cameraListIndex;
+        }
+
         private void VideoCaptureDevice_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
             Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
