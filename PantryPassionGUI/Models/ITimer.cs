@@ -1,6 +1,6 @@
 ﻿namespace PantryPassionGUI.Models
 {
-    interface ITimer<T>
+    public interface ITimer<T>
     {
         void Enable();
         void Disable();
