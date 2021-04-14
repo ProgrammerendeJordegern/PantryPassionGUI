@@ -7,16 +7,17 @@ namespace PantryPassionGUI.Models
     {
         private BarcodeReader _reader;
         private bool _activate;
+        public bool ActivateBool { get; private set; }
 
         public ReadBarcode()
         {
             _reader = new BarcodeReader();
             _activate = true;
         }
-        
+
         public string GetBarcode(Bitmap image)
         {
-            if (_activate == true)
+            if (ActivateBool == true)
             {
                 var barcode = _reader.Decode(image);
 
@@ -31,12 +32,12 @@ namespace PantryPassionGUI.Models
 
         public void Deactivate()
         {
-            _activate = false;
+            ActivateBool = false;
         }
 
         public void Activate()
         {
-            _activate = true;
+            ActivateBool = true;
         }
     }
 }
