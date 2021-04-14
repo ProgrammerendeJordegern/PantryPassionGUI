@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PantryPassionGUI.Views;
 
 namespace PantryPassionGUI
 {
@@ -23,6 +24,11 @@ namespace PantryPassionGUI
         public MainWindow()
         {
             InitializeComponent();
+
+            AddItemView addItemView = new AddItemView();
+            //addItemView.Owner = App.Current.MainWindow;
+
+            addItemView.ShowDialog();
         }
     }
 }
