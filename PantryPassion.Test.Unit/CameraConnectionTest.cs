@@ -61,5 +61,9 @@ namespace PantryPassion.Test.Unit
             Assert.That(_uut.GetCameraListIndex(),Is.EqualTo(1));
         }
 
+        //[Test]
+        //public void TimeHandler_Timer_Activated()
+        //{
+        //}
     }
 }
