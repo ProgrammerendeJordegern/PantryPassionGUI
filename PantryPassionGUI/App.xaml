@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:PantryPassionGUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ImageBrush x:Key="BgImage" ImageSource="Images/pantrypassionlogoudentekst.jpg" Opacity="0.2" AlignmentX="Center" AlignmentY="Center"  />
     </Application.Resources>
 </Application>
