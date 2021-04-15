@@ -27,7 +27,7 @@ namespace PantryPassion.Test.Unit
         }
 
         [Test]
-        public void TTimer_Enabled_ValueIsFalse()
+        public void Timer_Enabled_ValueIsFalse()
         {
             _uut.Disable();
             Assert.That(_uut.GetTimer().Enabled, Is.False);
