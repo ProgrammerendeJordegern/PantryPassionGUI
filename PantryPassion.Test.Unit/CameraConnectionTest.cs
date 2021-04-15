@@ -1,4 +1,5 @@
-﻿using System.Timers;
+﻿using System.Drawing;
+using System.Timers;
 using AForge.Video;
 using NSubstitute;
 using NUnit.Framework;
@@ -22,16 +23,16 @@ namespace PantryPassion.Test.Unit
             _uut = new CameraConnection(_timer, _barcodeReader,_video);
         }
 
-        //[Test]
-        //public void CameraOn_Set_VideoTunedOn()
-        //{
-        //    _uut.CameraOn();
+        [Test]
+        public void CameraOn_Set_VideoTunedOn()
+        {
+            _uut.CameraOn();
 
-        //    _video.Received(1).Start();
-        //}
+            _video.Received(1).Start();
+        }
 
         [Test]
-        public void CameraOFF_Set_VideoTunedOff()
+        public void CameraOFF_Calls_SignalToStop()
         {
 
             _video.IsRunning.Returns(true);
@@ -40,6 +41,18 @@ namespace PantryPassion.Test.Unit
 
             _video.Received(1).SignalToStop();
         }
+
+        [Test]
+        public void CameraOFF_Calls_WaitForStop()
+        {
+
+            _video.IsRunning.Returns(true);
+
+            _uut.CameraOff();
+
+            _video.Received(1).WaitForStop();
+        }
+
 
         [Test]
         public void CameraListIndex_set_ToCorrecValue()

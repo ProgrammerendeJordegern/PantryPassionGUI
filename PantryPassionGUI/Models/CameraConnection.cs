@@ -64,6 +64,8 @@ namespace PantryPassionGUI.Models
             {
                 CamerasList.Add(device.Name);
             }
+
+            _videoCaptureDevice = new VideoCaptureDevice(_filterInfoCollection[_cameraListIndex].MonikerString);
         }
 
         public BitmapImage CameraFeed
@@ -80,7 +82,6 @@ namespace PantryPassionGUI.Models
 
         public void CameraOn()
         {
-            _videoCaptureDevice = new VideoCaptureDevice(_filterInfoCollection[_cameraListIndex].MonikerString);
             _videoCaptureDevice.NewFrame += VideoCaptureDevice_NewFrame;
             _videoCaptureDevice.Start();
         }
