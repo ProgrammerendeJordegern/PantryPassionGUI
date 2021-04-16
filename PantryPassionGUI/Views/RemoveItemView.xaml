@@ -48,8 +48,19 @@
                 <TextBox Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=item.Name}"></TextBox>
 
                 <Label Grid.Row="1" Grid.Column="0" Margin="0,5">Antal:</Label>
-                <TextBox Grid.Row="1" Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=item.Quantity}"></TextBox>
-
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="13" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="13" />
+                        <RowDefinition Height="13" />
+                    </Grid.RowDefinitions>
+                    <TextBox Name="NUDTextBox"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" TextAlignment="Right" Text="{Binding Path=item.Quantity}"/>
+                    <RepeatButton Name="NUDButtonUP"  Grid.Column="1" Grid.Row="0" FontSize="8" FontFamily="Marlett" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding Path=UpArrowCommand}">5</RepeatButton>
+                    <RepeatButton Name="NUDButtonDown"  Grid.Column="1" Grid.Row="1" FontSize="8"  FontFamily="Marlett" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="13" VerticalAlignment="Bottom" Command="{Binding Path=DownArrowCommand}">6</RepeatButton>
+                </Grid>
                 <Label Grid.Row="3" Grid.Column="0" Margin="0,5">Kategori:</Label>
                 <TextBox Grid.Row="3" Grid.Column="1" x:Name="CategoryComboBox" IsReadOnly="True" MinWidth="200" Margin="0,5" Text="{Binding Path=item.Category}"></TextBox>
 

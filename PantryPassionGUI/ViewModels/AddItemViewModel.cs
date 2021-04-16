@@ -15,6 +15,8 @@ namespace PantryPassionGUI.ViewModels
         private BackendConnection _backendConnection;
         private ICommand _cancelCommand;
         private ICommand _okCommand;
+        private ICommand _upArrowCommand;
+        private ICommand _downArrowCommand;
         private Items _item;
         public CameraViewModel _cameraViewModel { get; private set; }
 
@@ -85,6 +87,58 @@ namespace PantryPassionGUI.ViewModels
         public void ItemNotFound()
         {
             Console.WriteLine("sadf");
+        }
+
+        public ICommand UpArrowCommand
+        {
+            get
+            {
+                return _upArrowCommand ??= new DelegateCommand(UpArrowHandler, UpArrowCanExecute)
+                    .ObservesProperty(() => item.Quantity);
+            }
+        }
+
+        private bool UpArrowCanExecute()
+        {
+            int originalQuantity = item.Quantity;
+            if (item.Quantity >= originalQuantity)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void UpArrowHandler()
+        {
+            item.Quantity++;
+        }
+
+        public ICommand DownArrowCommand
+        {
+            get
+            {
+                return _okCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
+                    .ObservesProperty(() => item.Quantity);
+            }
+        }
+
+        private void DownArrowHandler()
+        {
+            item.Quantity--;
+        }
+        private bool DownArrowCanExecute()
+        {
+            if (item.Quantity >= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
