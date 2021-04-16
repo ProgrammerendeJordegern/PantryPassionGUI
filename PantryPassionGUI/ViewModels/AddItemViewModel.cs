@@ -10,9 +10,6 @@ namespace PantryPassionGUI.ViewModels
 {
     public class AddItemViewModel : BindableBase
     {
-        private string _name;
-        private int _quantity;
-        private string _category;
         private string _barcode;
         private BackendConnection _backendConnection;
         private ICommand _cancelCommand;
@@ -158,41 +155,6 @@ namespace PantryPassionGUI.ViewModels
             Console.WriteLine("sadf");
         }
 
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                SetProperty(ref _name, value);
-            }
-        }
-
-        public int Quantity
-        {
-            get
-            {
-                return _quantity;
-            }
-            set
-            {
-                SetProperty(ref _quantity, value);
-
-            }
-        }
-
-        public string Category
-        {
-            get
-            {
-                return _category;
-            }
-            set
-            {
-                SetProperty(ref _category, value);
-            }
-        }
     }
+
 }
