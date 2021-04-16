@@ -20,11 +20,19 @@ namespace PantryPassionGUI.ViewModels
         private ISoundPlayer _soundPlayer;
         private int _cameraListIndex;
         private string _barcode;
+        public Items _viewModelItem { get; set; }
+        public ViewModelState _modelState { get; set; }
 
         public enum CameraState
         {
             CameraOn,
-            CameraOff
+            CameraOff,
+        }
+
+        public enum ViewModelState
+        {
+            AddItem,
+            RemoveItem
         }
 
         private CameraState _stateForCamera;
@@ -41,20 +49,35 @@ namespace PantryPassionGUI.ViewModels
             _stateForCamera = CameraState.CameraOn;
             CameraList = new ObservableCollection<string>();
             CameraList = Camera.CamerasList;
+            _viewModelItem = new Items();
         }
 
         public string Barcode
         {
-            get { return _barcode; }
-            set { SetProperty(ref _barcode, value); }
+            get
+            {
+                return _barcode;
+            }
+            set
+            {
+                SetProperty(ref _barcode, value);
+            }
         }
 
         private void FoundBarcode(object sender, BarcodeFoundEventArgs e)
         {
             Barcode = e.Barcode;
-            _soundPlayer.Play();
 
-            //item.Quantity++;
+            switch (_modelState)
+            {
+                case ViewModelState.AddItem:
+                    _viewModelItem.Quantity++;
+                    _soundPlayer.Play();
+                    break;
+                case ViewModelState.RemoveItem:
+                    _soundPlayer.Play();
+                    break;
+            }
         }
 
         public int CameraListIndex
