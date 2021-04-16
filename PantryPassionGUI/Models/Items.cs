@@ -11,6 +11,7 @@ namespace PantryPassionGUI.Models
         private string _name;
         private int _quantity;
         private string _date;
+        private string _category;
 
         public Items()
         {
@@ -75,6 +76,18 @@ namespace PantryPassionGUI.Models
             set
             {
                 SetProperty(ref _date, value);
+            }
+        }
+
+        public string Category
+        {
+            get
+            {
+                return _category;
+            }
+            set
+            {
+                SetProperty(ref _category, value);
             }
         }
 
