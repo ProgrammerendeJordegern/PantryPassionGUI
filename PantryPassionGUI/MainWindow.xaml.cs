@@ -23,7 +23,7 @@ namespace PantryPassionGUI
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
     }
 }
