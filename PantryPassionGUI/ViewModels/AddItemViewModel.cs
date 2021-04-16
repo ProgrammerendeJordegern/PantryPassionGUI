@@ -10,9 +10,6 @@ namespace PantryPassionGUI.ViewModels
 {
     public class AddItemViewModel : BindableBase
     {
-        private string _name;
-        private int _quantity;
-        private string _category;
         private string _barcode;
         private BackendConnection _backendConnection;
         private ICommand _cancelCommand;
@@ -24,7 +21,12 @@ namespace PantryPassionGUI.ViewModels
         private int _cameraListIndex;
         private Items _item;
 
-        public enum CameraState { CameraOn, CameraOff }
+        public enum CameraState
+        {
+            CameraOn,
+            CameraOff
+        }
+
         private CameraState _stateForCamera;
 
         public ObservableCollection<string> CameraList { get; private set; }
@@ -45,22 +47,13 @@ namespace PantryPassionGUI.ViewModels
 
         public Items item
         {
-            get
-            {
-                return _item;
-            }
-            set
-            {
-                SetProperty(ref _item, value);
-            }
+            get { return _item; }
+            set { SetProperty(ref _item, value); }
         }
 
         public int CameraListIndex
         {
-            get
-            {
-                return _cameraListIndex;
-            }
+            get { return _cameraListIndex; }
             set
             {
                 Camera.SetCameraListIndex(value);
@@ -70,14 +63,8 @@ namespace PantryPassionGUI.ViewModels
 
         public string Barcode
         {
-            get
-            {
-                return _barcode;
-            }
-            set
-            {
-                SetProperty(ref _barcode, value);
-            }
+            get { return _barcode; }
+            set { SetProperty(ref _barcode, value); }
         }
 
         private void FoundBarcode(object sender, BarcodeFoundEventArgs e)
@@ -90,22 +77,13 @@ namespace PantryPassionGUI.ViewModels
 
         public string CameraButtonText
         {
-            get
-            {
-                return _cameraButtonText;
-            }
-            set
-            {
-                SetProperty(ref _cameraButtonText, value);
-            }
+            get { return _cameraButtonText; }
+            set { SetProperty(ref _cameraButtonText, value); }
         }
 
         public ICommand TurnOffCamera
         {
-            get
-            {
-                return _turnOffCamera ?? (_turnOffCamera = new DelegateCommand(TurnOffCamHandler));
-            }
+            get { return _turnOffCamera ?? (_turnOffCamera = new DelegateCommand(TurnOffCamHandler)); }
         }
 
         private void TurnOffCamHandler()
@@ -130,7 +108,8 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
-                return _okCommand ?? (_okCommand = new DelegateCommand(OkHandler, OkCommandCanExecute).ObservesProperty(() => item.Quantity).ObservesProperty(() => item.Name));
+                return _okCommand ?? (_okCommand = new DelegateCommand(OkHandler, OkCommandCanExecute)
+                    .ObservesProperty(() => item.Quantity).ObservesProperty(() => item.Name));
             }
         }
 
@@ -155,10 +134,7 @@ namespace PantryPassionGUI.ViewModels
 
         public ICommand CancelCommand
         {
-            get
-            {
-                return _cancelCommand ?? (_cancelCommand = new DelegateCommand(CancelHandler));
-            }
+            get { return _cancelCommand ?? (_cancelCommand = new DelegateCommand(CancelHandler)); }
         }
 
         private void CancelHandler()
@@ -172,41 +148,6 @@ namespace PantryPassionGUI.ViewModels
             Console.WriteLine("sadf");
         }
 
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                SetProperty(ref _name, value);
-            }
-        }
-
-        public int Quantity
-        {
-            get
-            {
-                return _quantity;
-            }
-            set
-            {
-                SetProperty(ref _quantity, value);
-
-            }
-        }
-
-        public string Category
-        {
-            get
-            {
-                return _category;
-            }
-            set
-            {
-                SetProperty(ref _category, value);
-            }
-        }
     }
+
 }
