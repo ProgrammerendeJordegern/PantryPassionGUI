@@ -37,6 +37,23 @@ namespace PantryPassionGUI.ViewModels
             MessageBox.Show("This is where u add an item...");
         }
 
+        ICommand _findItemCommand;
+
+        public ICommand FindItemCommand
+        {
+            get { return _findItemCommand ?? (_findItemCommand = new DelegateCommand(FindItemExecute)); }
+        }
+
+        void FindItemExecute()
+        {
+            FindItemWindow FIWindow = new FindItemWindow();
+            FIWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            if (FIWindow.ShowDialog() == true)
+            {
+                // Kan returnere det fundne item, msgbox er bare for debug
+                MessageBox.Show((FIWindow.FindItemDataGrid.SelectedItem as Item).Name);
+            }
+        }
         //FindItem
     }
 }
