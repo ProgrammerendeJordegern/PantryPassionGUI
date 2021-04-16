@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using Prism.Mvvm;
 
 namespace PantryPassionGUI.Models
@@ -75,6 +76,7 @@ namespace PantryPassionGUI.Models
             }
             set
             {
+
                 SetProperty(ref _date, value);
             }
         }
@@ -88,6 +90,7 @@ namespace PantryPassionGUI.Models
             set
             {
                 SetProperty(ref _category, value);
+                Debug.WriteLine(Category);
             }
         }
 
