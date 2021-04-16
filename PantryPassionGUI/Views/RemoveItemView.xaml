@@ -48,8 +48,15 @@
                 <TextBox Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=item.Name}"></TextBox>
 
                 <Label Grid.Row="1" Grid.Column="0" Margin="0,5">Antal:</Label>
-                <TextBox Grid.Row="1" Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=item.Quantity}"></TextBox>
-
+                <Grid Grid.Row="1" Grid.Column="1" Margin="0,5" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="173*"/>
+                        <ColumnDefinition Width="27*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="txtNum" x:FieldModifier="private" Text="{Binding Path=item.Quantity}" Margin="3,2,13,3" Grid.ColumnSpan="2" />
+                    <Button x:Name="cmdUp" x:FieldModifier="private" FontSize="10" Padding="0,-4,0,0" Content="▲" Width="10" Command="{Binding Path=UpArrowCommand}" Margin="14,2,3,12" Grid.Column="1" />
+                    <Button x:Name="cmdDown" x:FieldModifier="private" FontSize="10" Padding="0,-3,0,0" Content="▼" Width="10" Command="{Binding Path=DownArrowCommand}" Margin="14,12,3,3" Grid.Column="1" />
+                </Grid>
                 <Label Grid.Row="3" Grid.Column="0" Margin="0,5">Kategori:</Label>
                 <TextBox Grid.Row="3" Grid.Column="1" x:Name="CategoryComboBox" IsReadOnly="True" MinWidth="200" Margin="0,5" Text="{Binding Path=item.Category}"></TextBox>
 

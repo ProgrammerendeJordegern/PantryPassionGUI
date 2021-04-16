@@ -93,7 +93,21 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
-                return _upArrowCommand ??= new DelegateCommand(UpArrowHandler);
+                return _upArrowCommand ??= new DelegateCommand(UpArrowHandler, UpArrowCanExecute)
+                    .ObservesProperty(() => item.Quantity);
+            }
+        }
+
+        private bool UpArrowCanExecute()
+        {
+            int originalQuantity = item.Quantity;
+            if (item.Quantity >= originalQuantity)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -115,10 +129,9 @@ namespace PantryPassionGUI.ViewModels
         {
             item.Quantity--;
         }
-
         private bool DownArrowCanExecute()
         {
-            if (item.Quantity >=1)
+            if (item.Quantity >= 1)
             {
                 return true;
             }
