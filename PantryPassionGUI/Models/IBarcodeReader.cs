@@ -2,7 +2,7 @@
 
 namespace PantryPassionGUI.Models
 {
-    interface IBarcodeReader
+    public interface IBarcodeReader
     {
         string GetBarcode(Bitmap image);
         void Deactivate();

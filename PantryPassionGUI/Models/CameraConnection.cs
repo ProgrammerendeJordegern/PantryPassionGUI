@@ -7,6 +7,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using AForge.Video;
 using Prism.Mvvm;
 
 namespace PantryPassionGUI.Models
@@ -14,11 +15,11 @@ namespace PantryPassionGUI.Models
     public class CameraConnection : BindableBase, ICamera
     {
         private FilterInfoCollection _filterInfoCollection;
-        private VideoCaptureDevice _videoCaptureDevice;
+        private IVideoSource _videoCaptureDevice;
         public ObservableCollection<string> CamerasList { get; private set; }
         private int _cameraListIndex;
         private BitmapImage _cameraFeed;
-        private ReadBarcode _reader;
+        private IBarcodeReader _reader;
         private ITimer<Timer> _timer;
 
         public event EventHandler<BarcodeFoundEventArgs> BarcodeFoundEvent;
@@ -41,6 +42,14 @@ namespace PantryPassionGUI.Models
                 }
             }
         }
+        
+        //For test
+        public CameraConnection(ITimer<Timer> timer, IBarcodeReader barcodeReader, IVideoSource videoSource)
+        {
+            _timer = timer;
+            _reader = barcodeReader;
+            _videoCaptureDevice = videoSource;
+        }
 
         private CameraConnection()
         {
@@ -55,6 +64,8 @@ namespace PantryPassionGUI.Models
             {
                 CamerasList.Add(device.Name);
             }
+
+            _videoCaptureDevice = new VideoCaptureDevice(_filterInfoCollection[_cameraListIndex].MonikerString);
         }
 
         public BitmapImage CameraFeed
@@ -71,7 +82,6 @@ namespace PantryPassionGUI.Models
 
         public void CameraOn()
         {
-            _videoCaptureDevice = new VideoCaptureDevice(_filterInfoCollection[_cameraListIndex].MonikerString);
             _videoCaptureDevice.NewFrame += VideoCaptureDevice_NewFrame;
             _videoCaptureDevice.Start();
         }
@@ -80,6 +90,11 @@ namespace PantryPassionGUI.Models
         public void SetCameraListIndex(int index)
         {
             _cameraListIndex = index;
+        }
+
+        public int GetCameraListIndex()
+        {
+            return _cameraListIndex;
         }
 
         private void VideoCaptureDevice_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
