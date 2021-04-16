@@ -49,7 +49,7 @@ namespace PantryPassionGUI.ViewModels
         {
             get { return _item; }
             set { SetProperty(ref _item, value); }
-            }
+        }
             set
             {
                 SetProperty(ref _item, value);
@@ -89,7 +89,7 @@ namespace PantryPassionGUI.ViewModels
         public ICommand TurnOffCamera
         {
             get { return _turnOffCamera ?? (_turnOffCamera = new DelegateCommand(TurnOffCamHandler)); }
-            }
+        }
         }
 
         private void TurnOffCamHandler()
@@ -141,7 +141,7 @@ namespace PantryPassionGUI.ViewModels
         public ICommand CancelCommand
         {
             get { return _cancelCommand ?? (_cancelCommand = new DelegateCommand(CancelHandler)); }
-            }
+        }
         }
 
         private void CancelHandler()
