@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using AForge.Video.DirectShow;
 using System.Drawing;
 using System.IO;
@@ -101,10 +102,14 @@ namespace PantryPassionGUI.Models
         {
             Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
 
+           
+
             string barcode = _reader.GetBarcode(bitmap);
 
+            //Debug.WriteLine("her");
             if (barcode != null)
             {
+                //Debug.WriteLine("test2");
                 BarcodeFound(new BarcodeFoundEventArgs { Barcode = barcode });
                 _reader.Deactivate();
                 _timer.Enable();
