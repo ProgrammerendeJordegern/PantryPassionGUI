@@ -51,7 +51,9 @@
                 <TextBox Grid.Row="1" Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=item.Quantity}"></TextBox>
 
                 <Label Grid.Row="2" Grid.Column="0" Margin="0,5">Holdbarhedsdato:</Label>
-                <TextBox Grid.Row="2" Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=item.Date}"></TextBox>
+
+                <DatePicker Grid.Row="2" Grid.Column="1" Text="{Binding Path=item.Date}"></DatePicker>
+                
 
                 <Label Grid.Row="3" Grid.Column="0" Margin="0,5">Kategori:</Label>
                 <ComboBox Grid.Row="3" Grid.Column="1" x:Name="CategoryComboBox" MinWidth="200" Margin="0,5" SelectedIndex="0" SelectedItem="{Binding Path=item.Category}">
