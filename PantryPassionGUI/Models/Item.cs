@@ -14,6 +14,7 @@ namespace PantryPassionGUI.Models
             EAN = ean;
             AverageLifespanDays = averageLifespanDays;
             ItemSize = itemSize;
+
         }
 
         public string Name { get; set; }
