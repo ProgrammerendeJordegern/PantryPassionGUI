@@ -54,7 +54,7 @@
                 <TextBox Grid.Row="2" Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=item.Date}"></TextBox>
 
                 <Label Grid.Row="3" Grid.Column="0" Margin="0,5">Kategori:</Label>
-                <ComboBox Grid.Row="3" Grid.Column="1" x:Name="CategoryComboBox" MinWidth="200" Margin="0,5" SelectedIndex="0" SelectedItem="{Binding Path=}">
+                <ComboBox Grid.Row="3" Grid.Column="1" x:Name="CategoryComboBox" MinWidth="200" Margin="0,5" SelectedIndex="0" SelectedItem="{Binding Path=item.Category}">
                     <ComboBoxItem Tag="AllItems">Alle vare</ComboBoxItem>
                     <ComboBoxItem Tag="Fridge">Køleskab</ComboBoxItem>
                     <ComboBoxItem Tag="Freezer">Fryser</ComboBoxItem>
