@@ -12,39 +12,17 @@ namespace PantryPassionGUI.ViewModels
 {
     public class AddItemViewModel : BindableBase
     {
-        private string _barcode;
         private BackendConnection _backendConnection;
         private ICommand _cancelCommand;
         private ICommand _okCommand;
-        private ICommand _turnOffCamera;
-        public CameraConnection Camera { get; private set; }
-        private string _cameraButtonText;
-        private ISoundPlayer _soundPlayer;
-        private int _cameraListIndex;
         private Items _item;
-
-        public enum CameraState
-        {
-            CameraOn,
-            CameraOff
-        }
-
-        private CameraState _stateForCamera;
-
-        public ObservableCollection<string> CameraList { get; private set; }
+        public CameraViewModel _cameraViewModel { get; private set; }
 
         public AddItemViewModel()
         {
-            Camera = CameraConnection.Instance;
-            Camera.CameraOn();
-            Camera.BarcodeFoundEvent += FoundBarcode;
-            _cameraButtonText = "Sluk kamera";
-            _soundPlayer = new SoundPlayer();
-            _stateForCamera = CameraState.CameraOn;
-            CameraList = new ObservableCollection<string>();
-            CameraList = Camera.CamerasList;
             _backendConnection = new BackendConnection();
             _item = new Items();
+            _cameraViewModel = new CameraViewModel();
         }
 
         public Items item
@@ -56,69 +34,6 @@ namespace PantryPassionGUI.ViewModels
             set
             {
                 SetProperty(ref _item, value);
-            }
-        }
-
-        public int CameraListIndex
-        {
-            get { return _cameraListIndex; }
-            set
-            {
-                Camera.SetCameraListIndex(value);
-                SetProperty(ref _cameraListIndex, value);
-            }
-        }
-
-        public string Barcode
-        {
-            get { return _barcode; }
-            set { SetProperty(ref _barcode, value); }
-        }
-
-        private void FoundBarcode(object sender, BarcodeFoundEventArgs e)
-        {
-            Barcode = e.Barcode;
-            _soundPlayer.Play();
-
-            item.Quantity++;
-        }
-
-        public string CameraButtonText
-        {
-            get
-            {
-                return _cameraButtonText;
-            }
-            set
-            {
-                SetProperty(ref _cameraButtonText, value);
-            }
-        }
-
-        public ICommand TurnOffCamera
-        {
-            get
-            {
-                return _turnOffCamera ?? (_turnOffCamera = new DelegateCommand(TurnOffCamHandler));
-            }
-        }
-
-
-        private void TurnOffCamHandler()
-        {
-            switch (_stateForCamera)
-            {
-                case AddItemViewModel.CameraState.CameraOn:
-                    _stateForCamera = AddItemViewModel.CameraState.CameraOff;
-                    CameraButtonText = "Tænd kamera";
-                    Camera.CameraOff();
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() => { Camera.CameraFeed = null; }));
-                    break;
-                case AddItemViewModel.CameraState.CameraOff:
-                    _stateForCamera = AddItemViewModel.CameraState.CameraOn;
-                    CameraButtonText = "Sluk kamera";
-                    Camera.CameraOn();
-                    break;
             }
         }
 
@@ -134,7 +49,7 @@ namespace PantryPassionGUI.ViewModels
         private void OkHandler()
         {
             _backendConnection.SetNewItem("Test", "Test", "Test");
-            Camera.CameraOff();
+            _cameraViewModel.Camera.CameraOff();
             Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
 
@@ -161,7 +76,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void CancelHandler()
         {
-            Camera.CameraOff();
+            _cameraViewModel.Camera.CameraOff();
             Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
 
