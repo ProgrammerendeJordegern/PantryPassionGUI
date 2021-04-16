@@ -53,32 +53,11 @@ namespace PantryPassion.Test.Unit
             _video.Received(1).WaitForStop();
         }
 
-
-        [Test]
-        public void CameraOFF_Calls_WaitForStop()
-        {
-
-            _video.IsRunning.Returns(true);
-
-            _uut.CameraOff();
-
-            _video.Received(1).WaitForStop();
-        }
-
-
         [Test]
         public void CameraListIndex_set_ToCorrecValue()
         {
             _uut.SetCameraListIndex(1);
             Assert.That(_uut.GetCameraListIndex(),Is.EqualTo(1));
         }
-
-        [Test]
-        public void CameraListIndex_set_ToCorrecValue()
-        {
-            _uut.SetCameraListIndex(1);
-            Assert.That(_uut.GetCameraListIndex(),Is.EqualTo(1));
-        }
-
     }
 }

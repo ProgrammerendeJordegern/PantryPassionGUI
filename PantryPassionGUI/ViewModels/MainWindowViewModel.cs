@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using PantryPassionGUI.Models;
+using PantryPassionGUI.Views;
 using Prism.Commands;
 
 
@@ -34,7 +35,9 @@ namespace PantryPassionGUI.ViewModels
 
         void AddItemExecute()
         {
-            MessageBox.Show("This is where u add an item...");
+            AddItemView addItem = new AddItemView();
+
+            addItem.ShowDialog();
         }
 
         //FindItem

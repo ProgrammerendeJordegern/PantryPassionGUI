@@ -24,11 +24,6 @@ namespace PantryPassionGUI
         public MainWindow()
         {
             InitializeComponent();
-
-            AddItemView addItemView = new AddItemView();
-            //addItemView.Owner = App.Current.MainWindow;
-
-            addItemView.ShowDialog();
         }
     }
 }

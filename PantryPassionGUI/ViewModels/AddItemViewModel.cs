@@ -2,7 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Media3D;
 using PantryPassionGUI.Models;
+using PantryPassionGUI.ViewModels;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -47,9 +49,10 @@ namespace PantryPassionGUI.ViewModels
 
         public Items item
         {
-            get { return _item; }
-            set { SetProperty(ref _item, value); }
-        }
+            get
+            {
+                return _item;
+            }
             set
             {
                 SetProperty(ref _item, value);
@@ -82,28 +85,37 @@ namespace PantryPassionGUI.ViewModels
 
         public string CameraButtonText
         {
-            get { return _cameraButtonText; }
-            set { SetProperty(ref _cameraButtonText, value); }
+            get
+            {
+                return _cameraButtonText;
+            }
+            set
+            {
+                SetProperty(ref _cameraButtonText, value);
+            }
         }
 
         public ICommand TurnOffCamera
         {
-            get { return _turnOffCamera ?? (_turnOffCamera = new DelegateCommand(TurnOffCamHandler)); }
+            get
+            {
+                return _turnOffCamera ?? (_turnOffCamera = new DelegateCommand(TurnOffCamHandler));
+            }
         }
-        }
+
 
         private void TurnOffCamHandler()
         {
             switch (_stateForCamera)
             {
-                case CameraState.CameraOn:
-                    _stateForCamera = CameraState.CameraOff;
+                case AddItemViewModel.CameraState.CameraOn:
+                    _stateForCamera = AddItemViewModel.CameraState.CameraOff;
                     CameraButtonText = "Tænd kamera";
                     Camera.CameraOff();
                     Application.Current.Dispatcher.BeginInvoke(new Action(() => { Camera.CameraFeed = null; }));
                     break;
-                case CameraState.CameraOff:
-                    _stateForCamera = CameraState.CameraOn;
+                case AddItemViewModel.CameraState.CameraOff:
+                    _stateForCamera = AddItemViewModel.CameraState.CameraOn;
                     CameraButtonText = "Sluk kamera";
                     Camera.CameraOn();
                     break;
@@ -140,9 +152,12 @@ namespace PantryPassionGUI.ViewModels
 
         public ICommand CancelCommand
         {
-            get { return _cancelCommand ?? (_cancelCommand = new DelegateCommand(CancelHandler)); }
+            get
+            {
+                return _cancelCommand ?? (_cancelCommand = new DelegateCommand(CancelHandler));
+            }
         }
-        }
+
 
         private void CancelHandler()
         {
@@ -154,7 +169,5 @@ namespace PantryPassionGUI.ViewModels
         {
             Console.WriteLine("sadf");
         }
-
     }
-
 }
