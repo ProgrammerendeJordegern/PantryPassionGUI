@@ -25,8 +25,6 @@ namespace PantryPassionGUI.ViewModels
             _backendConnection = new BackendConnection();
             _item = new Items();
             _cameraViewModel = new CameraViewModel();
-            _cameraViewModel._modelState = CameraViewModel.ViewModelState.AddItem;
-            _cameraViewModel._viewModelItem = item;
         }
 
         public Items item
