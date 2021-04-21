@@ -50,8 +50,8 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
-                return _okCommand ?? (_okCommand = new DelegateCommand(OkHandler, OkCommandCanExecute)
-                    .ObservesProperty(() => Item.Quantity).ObservesProperty(() => Item.Name));
+                return _okCommand ??= new DelegateCommand(OkHandler, OkCommandCanExecute)
+                    .ObservesProperty(() => Item.Quantity).ObservesProperty(() => Item.Name);
             }
         }
 
@@ -78,7 +78,7 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
-                return _cancelCommand ?? (_cancelCommand = new DelegateCommand(CancelHandler));
+                return _cancelCommand ??= new DelegateCommand(CancelHandler);
             }
         }
 
