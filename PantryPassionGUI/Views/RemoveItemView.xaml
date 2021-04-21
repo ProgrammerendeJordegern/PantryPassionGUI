@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PantryPassionGUI.Views"
         xmlns:viewModels="clr-namespace:PantryPassionGUI.ViewModels"
+        xmlns:view="clr-namespace:PantryPassionGUI.Views"
         mc:Ignorable="d"
         Title="Fjern vare" Height="450" Width="800">
-    <!--<Window.DataContext>
-        --><!--<viewModels:RemoveItemViewModel>
-        </viewModels:RemoveItemViewModel>--><!--
-    </Window.DataContext>-->
+    <Window.DataContext>
+        <viewModels:RemoveItemViewModel>
+        </viewModels:RemoveItemViewModel>
+    </Window.DataContext>
     <StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -45,7 +46,7 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Column="0" Margin="0,5">Navn:</Label>
-                <TextBox Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=item.Name}"></TextBox>
+                <TextBox Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=Item.Name}"></TextBox>
 
                 <Label Grid.Row="1" Grid.Column="0" Margin="0,5">Antal:</Label>
                 <Grid Grid.Row="1" Grid.Column="1">
@@ -57,36 +58,21 @@
                         <RowDefinition Height="13" />
                         <RowDefinition Height="13" />
                     </Grid.RowDefinitions>
-                    <TextBox Name="NUDTextBox"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" TextAlignment="Right" Text="{Binding Path=item.Quantity}"/>
+                    <TextBox Name="NUDTextBox"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" TextAlignment="Right" Text="{Binding Path=Item.Quantity}"/>
                     <RepeatButton Name="NUDButtonUP"  Grid.Column="1" Grid.Row="0" FontSize="8" FontFamily="Marlett" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding Path=UpArrowCommand}">5</RepeatButton>
                     <RepeatButton Name="NUDButtonDown"  Grid.Column="1" Grid.Row="1" FontSize="8"  FontFamily="Marlett" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="13" VerticalAlignment="Bottom" Command="{Binding Path=DownArrowCommand}">6</RepeatButton>
                 </Grid>
                 <Label Grid.Row="3" Grid.Column="0" Margin="0,5">Kategori:</Label>
-                <TextBox Grid.Row="3" Grid.Column="1" x:Name="CategoryComboBox" IsReadOnly="True" MinWidth="200" Margin="0,5" Text="{Binding Path=item.Category}"></TextBox>
+                <TextBox Grid.Row="3" Grid.Column="1" x:Name="CategoryComboBox" IsReadOnly="True" MinWidth="200" Margin="0,5" Text="{Binding Path=Item.Category}"></TextBox>
 
                 <Label Grid.Row="4" Grid.Column="0" Margin="0,5">Stregkode:</Label>
-                <TextBox Grid.Row="4" Grid.Column="1" MinWidth="200" Margin="0,5" IsReadOnly="True" Text="{Binding Path=Barcode}"></TextBox>
+                <TextBox Grid.Row="4" Grid.Column="1" MinWidth="200" Margin="0,5" IsReadOnly="True" Text="{Binding Path=CameraViewModel.Barcode}"></TextBox>
             </Grid>
+            
+            <view:CameraView Grid.Row="2" Grid.Column="1"></view:CameraView>
 
             <Button Grid.Row="3" HorizontalAlignment="Center">Fjern vare</Button>
 
-            <!--Column2-->
-            <Grid Grid.Row="2" Grid.Column="1" Margin="5,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <ComboBox Grid.Row="0" ItemsSource="{Binding Path=CameraList}" SelectedIndex="{Binding Path=CameraListIndex}"></ComboBox>
-                <Image Grid.Row="1" MinHeight="150" MaxHeight="150" MinWidth="300" MaxWidth="300" Margin="0,5" Source="{Binding Path=Camera.CameraFeed}"></Image>
-                <Button Grid.Row="2" HorizontalAlignment="Center" Margin="0,5" Content="{Binding Path=CameraButtonText}" Command="{Binding Path=TurnOffCamera}"></Button>
-                <Label Grid.Row="3" Margin="0,5">Placer vare foran kamera</Label>
-            </Grid>
         </Grid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
