@@ -14,34 +14,31 @@ namespace PantryPassionGUI.ViewModels
 {
     public class RemoveItemViewModel : BindableBase
     {
-        //        private string _barcode;
-        //        private BackendConnection _backendConnection;
-        //        private ICommand _cancelCommand;
-        //        private ICommand _okCommand;
-        //        private ICommand _turnOffCamera;
-        //        public CameraConnection Camera { get; private set; }
-        //        private string _cameraButtonText;
-        //        private ISoundPlayer _soundPlayer;
-        //        private int _cameraListIndex;
-                private Items _item;
-        //        private CameraState _stateForCamera;
-
-        //        public ObservableCollection<string> CameraList { get; private set; }
+        public CameraViewModel CameraViewModel { get; private set; }
+        private BackendConnection _backendConnection;
+        private ICommand _cancelCommand;
+        private ICommand _okCommand;
+        private ICommand _upArrowCommand;
+        private ICommand _downArrowCommand;
+        private Items _item;
+        private int _originalQuantity;
 
         public RemoveItemViewModel()
         {
-            //            Camera = CameraConnection.Instance;
-            //            Camera.CameraOn();
-            //            Camera.BarcodeFoundEvent += FoundBarcode;
-            //            _cameraButtonText = "Sluk kamera";
-            //            _soundPlayer = new SoundPlayer();
-            //            CameraList = new ObservableCollection<string>();
-            //            CameraList = Camera.CamerasList;
-            //            _backendConnection = new BackendConnection();
+            CameraViewModel = new CameraViewModel();
+            _backendConnection = new BackendConnection();
             _item = new Items();
+            CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
+            _originalQuantity = 5;
         }
 
-        public Items item
+        private void BarcodeAction(object sender, EventArgs e)
+        {
+            _item = _backendConnection.CheckBarcode(CameraViewModel.Barcode);
+            _originalQuantity = _item.Quantity;
+        }
+
+        public Items Item
         {
             get
             {
@@ -53,95 +50,23 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        //        public string Barcode
-        //        {
-        //            get
-        //            {
-        //                return _barcode;
-        //            }
-        //            set
-        //            {
-        //                SetProperty(ref _barcode, value);
-        //            }
-        //        }
-
-        //        private void FoundBarcode(object sender, BarcodeFoundEventArgs e)
-        //        {
-        //            Barcode = e.Barcode;
-        //            _soundPlayer.Play();
-        //        }
-
-        //        public string CameraButtonText
-        //        {
-        //            get
-        //            {
-        //                return _cameraButtonText;
-        //            }
-        //            set
-        //            {
-        //                SetProperty(ref _cameraButtonText, value);
-        //            }
-        //        }
-
-        //        public ICommand TurnOffCamera
-        //        {
-        //            get
-        //            {
-        //                return _turnOffCamera ?? (_turnOffCamera = new DelegateCommand(TurnOffCamHandler));
-        //            }
-        //        }
-
-
-        //        private void TurnOffCamHandler()
-        //        {
-        //            switch (_stateForCamera)
-        //            {
-        //                case AddItemViewModel.CameraState.CameraOn:
-        //                    _stateForCamera = AddItemViewModel.CameraState.CameraOff;
-        //                    CameraButtonText = "Tænd kamera";
-        //                    Camera.CameraOff();
-        //                    Application.Current.Dispatcher.BeginInvoke(new Action(() => { Camera.CameraFeed = null; }));
-        //                    break;
-        //                case AddItemViewModel.CameraState.CameraOff:
-        //                    _stateForCamera = AddItemViewModel.CameraState.CameraOn;
-        //                    CameraButtonText = "Sluk kamera";
-        //                    Camera.CameraOn();
-        //                    break;
-        //            }
-        //        }
-        private ICommand _upArrowCommand;
-        private ICommand _downArrowCommand;
-
         public ICommand UpArrowCommand
         {
             get
             {
-                return _upArrowCommand ??= new DelegateCommand(UpArrowHandler);
+                return _upArrowCommand ??= new DelegateCommand(UpArrowHandler, UpArrowCanExecute)
+                    .ObservesProperty(() => Item.Quantity);
             }
         }
 
         private void UpArrowHandler()
         {
-            item.Quantity++;
+            Item.Quantity++;
         }
 
-        public ICommand DownArrowCommand
+        private bool UpArrowCanExecute()
         {
-            get
-            {
-                return _downArrowCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
-                    .ObservesProperty(() => item.Quantity);
-            }
-        }
-
-        private void DownArrowHandler()
-        {
-            item.Quantity--;
-        }
-
-        private bool DownArrowCanExecute()
-        {
-            if (item.Quantity >= 1)
+            if (Item.Quantity < _originalQuantity)
             {
                 return true;
             }
@@ -149,6 +74,62 @@ namespace PantryPassionGUI.ViewModels
             {
                 return false;
             }
+        }
+
+        public ICommand DownArrowCommand
+        {
+            get
+            {
+                return _downArrowCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
+                    .ObservesProperty(() => Item.Quantity);
+            }
+        }
+
+        private void DownArrowHandler()
+        {
+            Item.Quantity--;
+        }
+
+        private bool DownArrowCanExecute()
+        {
+            if (Item.Quantity >= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public ICommand OkCommand
+        {
+            get
+            {
+                return _okCommand ??= new DelegateCommand(OkHandler);
+            }
+        }
+
+        private void OkHandler()
+        {
+            _backendConnection.SetQuantity(_item.Name, _item.Quantity);
+            CameraViewModel.Camera.CameraOff();
+            Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
+        }
+
+        public ICommand CancelCommand
+        {
+            get
+            {
+                return _cancelCommand ??= new DelegateCommand(CancelHandler);
+            }
+        }
+
+
+        private void CancelHandler()
+        {
+            CameraViewModel.Camera.CameraOff();
+            Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
     }
 }
