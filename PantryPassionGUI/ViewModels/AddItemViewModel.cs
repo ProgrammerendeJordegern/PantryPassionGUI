@@ -112,7 +112,7 @@ namespace PantryPassionGUI.ViewModels
             get
             {
                 return _downArrowCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
-                    .ObservesProperty(() => item.Quantity);
+                    .ObservesProperty(() => Item.Quantity);
             }
         }
 
