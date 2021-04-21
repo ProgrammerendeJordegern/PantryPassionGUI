@@ -2,9 +2,9 @@
 {
     public class BackendConnection
     {
-        public void CheckBarcode(string barcode)
+        public Items CheckBarcode(string barcode)
         {
-
+            return new Items();
         }
 
         public void SetNewItem(string name, string category, string barcode)
