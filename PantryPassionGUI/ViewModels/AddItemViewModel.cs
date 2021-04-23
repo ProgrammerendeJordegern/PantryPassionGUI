@@ -29,9 +29,9 @@ namespace PantryPassionGUI.ViewModels
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
         }
 
-        private void BarcodeAction(object sender, EventArgs e)
-        {
-            Item = _backendConnection.CheckBarcode(CameraViewModel.Barcode);
+        private async void BarcodeAction(object sender, EventArgs e)
+        { 
+            Item = await BackendConnection.CheckBarcode(CameraViewModel.Barcode);
             Item.Quantity++;
         }
 
