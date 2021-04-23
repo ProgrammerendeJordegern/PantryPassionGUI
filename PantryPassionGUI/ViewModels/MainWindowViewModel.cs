@@ -15,8 +15,9 @@ namespace PantryPassionGUI.ViewModels
 {
     class MainWindowViewModel
     {
-        ICommand _addItemCommand;
-        ICommand _removeItemCommand;
+        private ICommand _addItemCommand;
+        private ICommand _removeItemCommand;
+        private ICommand _shoppingListCommand;
 
         public tempUser T1
         {
@@ -52,6 +53,17 @@ namespace PantryPassionGUI.ViewModels
             removeItem.ShowDialog();
         }
 
+        public ICommand ShoppingListCommand
+        {
+            get { return _shoppingListCommand ??= new DelegateCommand(ShoppingListExecute); }
+        }
+
+        private void ShoppingListExecute()
+        {
+            ShoppinglistView shoppinglist = new ShoppinglistView();
+            shoppinglist.ShowDialog();
+        }
+
         ICommand _findItemCommand;
 
         public ICommand FindItemCommand
@@ -69,6 +81,5 @@ namespace PantryPassionGUI.ViewModels
                 MessageBox.Show((FIWindow.FindItemDataGrid.SelectedItem as Item).Name);
             }
         }
-        //FindItem
     }
 }
