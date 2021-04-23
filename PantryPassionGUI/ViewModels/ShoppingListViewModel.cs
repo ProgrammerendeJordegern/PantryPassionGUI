@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace PantryPassionGUI.ViewModels
 {
     public class ShoppingListViewModel : BindableBase
     {
+        public ObservableCollection<Items> ItemsList { get; set; }
+
         private BackendConnection _backendConnection;
         private ICommand _autoGenerateListCommand;
         private ICommand _addItemToListCommand;
@@ -36,7 +39,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void AutoGenerateListHandler()
         {
-
+            //Fra præferencer
         }
 
         public ICommand AddItemToListCommand
@@ -49,7 +52,34 @@ namespace PantryPassionGUI.ViewModels
 
         private void AddItemToListHandler()
         {
+            //Brug find funktion fra finditemview
+            FindItemWindow findItemView = new FindItemWindow();
+            //findItemView.ShowDialog();
 
+            
+        }
+
+        private Items _currentItem = null;
+        public Items CurrentItem
+        {
+            get
+            {
+                return _currentItem;
+            }
+            set
+            {
+                SetProperty(ref _currentItem, value);
+            }
+        }
+
+        private int _currentIndex = -1;
+        public int CurrentIndex
+        {
+            get { return _currentIndex; }
+            set
+            {
+                SetProperty(ref _currentIndex, value);
+            }
         }
 
         public ICommand ClearListCommand
@@ -62,9 +92,10 @@ namespace PantryPassionGUI.ViewModels
 
         private void ClearListHandler()
         {
-            //Clear list in db
-
             //Clear list in view
+            ItemsList.Clear();
+
+            //Clear list in db
 
         }
 
@@ -78,7 +109,11 @@ namespace PantryPassionGUI.ViewModels
 
         private void AddItemsOnListToOwnedItemsHandler()
         {
+            //Tjek om varen allerede findes i ejede vare - true = tilføj antallet til det nuværende antal
 
+            //Hvis varen ikke allerede findes i ejede vare tjek db om varen findes der - true = tilføj antal og kategori
+
+            //Hvis varen ikke finde nogen steder skal der så tilføjes stregkode og kategori??
         }
 
         public ICommand UpdateListCommand
