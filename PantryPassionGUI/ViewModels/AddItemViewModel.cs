@@ -43,7 +43,7 @@ namespace PantryPassionGUI.ViewModels
             }
             set
             {
-                SetProperty(ref _item, value);
+                SetProperty(ref _item, value); 
             }
         }
 
