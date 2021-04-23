@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
@@ -91,7 +92,7 @@ namespace PantryPassionGUI.ViewModels
 
         public void ItemNotFound()
         {
-            Console.WriteLine("sadf");
+            Console.WriteLine("Error! Vare ikke fundet!");
         }
 
         public ICommand UpArrowCommand
@@ -111,7 +112,7 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
-                return _okCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
+                return _downArrowCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
                     .ObservesProperty(() => Item.Quantity);
             }
         }
