@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
@@ -50,6 +51,7 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
+                Debug.WriteLine("OkCommand called");
                 return _okCommand ??= new DelegateCommand(OkHandler, OkCommandCanExecute)
                     .ObservesProperty(() => Item.Quantity).ObservesProperty(() => Item.Name);
             }
@@ -57,6 +59,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void OkHandler()
         {
+            Debug.WriteLine("OkHandler called");
             _backendConnection.SetNewItem("Test", "Test", "Test");
             CameraViewModel.Camera.CameraOff();
             Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
@@ -64,12 +67,15 @@ namespace PantryPassionGUI.ViewModels
 
         private bool OkCommandCanExecute()
         {
+            Debug.WriteLine("Hello from can execute");
             if (Item.Quantity >= 1 && String.IsNullOrEmpty(Item.Name) == false)
             {
+                Debug.WriteLine("canExecuteTrue");
                 return true;
             }
             else
             {
+                Debug.WriteLine("canExecuteFalse");
                 return false;
             }
         }
@@ -111,7 +117,7 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
-                return _okCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
+                return _downArrowCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
                     .ObservesProperty(() => Item.Quantity);
             }
         }
