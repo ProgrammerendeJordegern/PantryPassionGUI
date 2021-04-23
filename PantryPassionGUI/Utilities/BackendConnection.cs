@@ -8,40 +8,37 @@ namespace PantryPassionGUI.Models
 {
     public class BackendConnection
     {
-        static readonly HttpClient client = new HttpClient();
-        private string _baseUrl = "https://localhost:44328/item";
+        private static readonly HttpClient Client = new HttpClient();
+        private static string _baseUrl = "https://localhost:44328/item";
 
-        public static async Items CheckBarcode(string barcode)
+        public static async Task<Items> CheckBarcode(string barcode)
         {
-            string url = _base
-            return new Items();
-        }
+            string url = _baseUrl += "/" + barcode;
 
-        public static async Task<List<Reservation>> GetReservationsAsync()
-        {
-            using (var request = new HttpRequestMessage(HttpMethod.Get, baseUrl))
-            using (var response = await client.SendAsync(request))
+            using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
-                var content = await response.Content.ReadAsStringAsync();
-
-                if (response.IsSuccessStatusCode == false)
+                using (var response = await Client.SendAsync(request))
                 {
-                    throw new ApiException
+                    var content = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode == false)
                     {
-                        StatusCode = (int)response.StatusCode,
-                        Content = content
-                    };
-                }
+                        throw new ApiException
+                        {
+                            StatusCode = (int)response.StatusCode,
+                            Content = content
+                        };
+                    }
 
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true,
-                };
-                return JsonSerializer.Deserialize<List<Reservation>>(content, options);
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                    };
+
+                    return JsonSerializer.Deserialize<Items>(content, options);
+                }
             }
         }
-
-
 
         public void SetNewItem(string name, string category, string barcode)
         {
