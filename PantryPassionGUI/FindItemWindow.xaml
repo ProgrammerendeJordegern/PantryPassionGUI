@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PantryPassionGUI"
         xmlns:viewModels="clr-namespace:PantryPassionGUI.ViewModels"
         mc:Ignorable="d"
-        Title="FindItem" Height="456" Width="411">
+        Title="FindItem" Height="456" Width="524">
     <Window.Resources>
         <Style x:Key="RoundedCorner" TargetType="{x:Type Button}">
             <Setter Property="Foreground" Value="White"></Setter>
@@ -47,7 +47,8 @@
         <TextBox Text="{Binding Path=EANFilter, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="150,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
         <TextBlock FontWeight="DemiBold" Text="Find by name:" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" Width="135" Height="16"/>
         <TextBlock FontWeight="DemiBold" Text="Find by EAN:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,18,0,0" Width="142" Height="16"/>
-        <Button IsDefault="True" IsCancel="True" Style="{StaticResource RoundedCorner}" Content="OK" HorizontalAlignment="Left" Margin="297,39,0,0" VerticalAlignment="Top" Width="89" Height="23" Click="Button_Click"/>
+        <Button IsDefault="True" IsCancel="True" Style="{StaticResource RoundedCorner}" Content="OK" HorizontalAlignment="Left" Margin="425,39,0,0" VerticalAlignment="Top" Width="89" Height="23" Click="Button_Click"/>
+        <Button Command="{Binding Path=ScanEANCommand}" IsDefault="True" IsCancel="True" Style="{StaticResource RoundedCorner}" Content="Scan EAN" HorizontalAlignment="Left" Margin="297,39,0,0" VerticalAlignment="Top" Width="89" Height="23" />
 
     </Grid>
 </Window>

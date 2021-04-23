@@ -9,13 +9,14 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using PantryPassionGUI.Models;
+using PantryPassionGUI.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 
 namespace PantryPassionGUI.ViewModels
 {
     
-    class FindItemViewModel : BindableBase
+    public class FindItemViewModel : BindableBase
     {
         private FindItemWindow FindItemWindow;
         public ObservableCollection<Item> Items { get; set; }
@@ -25,7 +26,7 @@ namespace PantryPassionGUI.ViewModels
             Item i1 = new Item("Nutella", "42069", 100, "500g");
             Item i2 = new Item("Kyllingebryst", "1337", 10, "1000g");
             Item i3 = new Item("Støvsuger", "666", 3, "69kg");
-            Item i4 = new Item("Blomkål", "Blomkål", 9999, "~kg");
+            Item i4 = new Item("Blomkål", "5705830008275", 9999, "~kg");
             Item i5 = new Item("Glock 9mm", "MLG42066669", 1, "1kg");
 
             Items = new ObservableCollection<Item>();
@@ -51,6 +52,8 @@ namespace PantryPassionGUI.ViewModels
                 return ((item as Item).Name.IndexOf(NameFilter, StringComparison.OrdinalIgnoreCase) >= 0);
             else return true;
         }
+
+       
 
         private ICollectionView ViewFilter;
         private string namefilter;
@@ -87,6 +90,19 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
+        ICommand _scanEANCommand;
+
+        public ICommand ScanEANCommand
+        {
+            get { return _scanEANCommand ?? (_scanEANCommand = new DelegateCommand(ScanEANExecute)); }
+        }
+
+        void ScanEANExecute()
+        {
+            ScanEANWindow SEW1 = new ScanEANWindow(this);
+            SEW1.ShowDialog();
+        }
+
         //ICommand _okButtonCommand;
 
         //public ICommand OkButtonCommand
@@ -118,7 +134,7 @@ namespace PantryPassionGUI.ViewModels
     }
 
 
-    
+
 
 
 
