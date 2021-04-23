@@ -25,7 +25,7 @@ namespace PantryPassionGUI.Models
 
         public Item()
         { }
-
+        public int ItemId { get; set; }
         public string Ean { get; set; }
 
         public string Name
