@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,66 +9,66 @@ using Prism.Mvvm;
 
 namespace PantryPassionGUI.Models
 {
-    public class Item : BindableBase, INotifyDataErrorInfo
+    public class InventoryItem : BindableBase, INotifyDataErrorInfo
     {
-        private string _name;
-        private DateTime _date;
+        private int _amount;
+        private string _category;
 
-        public Item(string name, string ean = "", int averageLifespanDays = 0, int itemSize = 0)
-        {
-            Name = name;
-            Ean = ean;
-            AverageLifespanDays = averageLifespanDays;
-            Size = itemSize;
-        }
+        public int InventoryId { get; set; }
+        public int InventoryType { get; set; }
+        public Item Item { get; set; }
 
-        public Item()
-        { }
-
-        public string Ean { get; set; }
-
-        public string Name
+        public int Amount
         {
             get
             {
-                return _name;
+                return _amount;
             }
             set
             {
-                if (String.IsNullOrEmpty(value))
+                if (value < 0)
                 {
                     List<string> errors = new List<string>
                     {
-                        "Navn skal udfyldes."
+                        "Antal kan ikke være negativ."
                     };
-                    SetErrors("Name", errors);
+                    SetErrors("Quantity", errors);
                 }
                 else
                 {
-                    ClearErrors("Name");
+                    ClearErrors("Quantity");
                 }
-                SetProperty(ref _name, value);
+                SetProperty(ref _amount, value);
+
             }
         }
 
-        public DateTime Date
+        public string Category
         {
             get
             {
-                return _date;
+                return _category;
             }
             set
             {
-
-                SetProperty(ref _date, value);
-                AverageLifespanDays = Math.Abs((_date - DateTime.Now).Days);
+                SetProperty(ref _category, value);
+                switch (_category)
+                {
+                    case "Alle vare":
+                        InventoryType = 0;
+                        break;
+                    case "Køleskab":
+                        InventoryType = 1;
+                        break;
+                    case "Fryser":
+                        InventoryType = 2;
+                        break;
+                    case "Spisekammer (øvrige vare)":
+                        InventoryType = 3;
+                        break;
+                }
             }
         }
-
-        public int AverageLifespanDays { get; set; }
-        public int Size { get; set; }
-        public string SizeUnit { get; set; }
-        public int DesiredMinimumAmount { get; set; }
 
         #region INotifyDataErrorInfo implementation
         public bool HasErrors

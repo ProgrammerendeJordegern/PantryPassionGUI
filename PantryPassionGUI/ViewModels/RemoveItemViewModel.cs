@@ -32,9 +32,9 @@ namespace PantryPassionGUI.ViewModels
             _originalQuantity = 5;
         }
 
-        private void BarcodeAction(object sender, EventArgs e)
+        private async void BarcodeAction(object sender, EventArgs e)
         {
-            _item = _backendConnection.CheckBarcode(CameraViewModel.Barcode);
+            _item = await BackendConnection.CheckBarcode(CameraViewModel.Barcode);
             _originalQuantity = _item.Quantity;
         }
 
