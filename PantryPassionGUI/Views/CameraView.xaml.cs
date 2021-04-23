@@ -12,18 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PantryPassionGUI.Views;
 
-namespace PantryPassionGUI
+namespace PantryPassionGUI.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CameraView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CameraView : UserControl
     {
-        public MainWindow()
+        public CameraView()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
     }
 }

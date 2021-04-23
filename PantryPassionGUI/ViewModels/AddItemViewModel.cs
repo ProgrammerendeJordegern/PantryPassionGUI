@@ -12,42 +12,29 @@ namespace PantryPassionGUI.ViewModels
 {
     public class AddItemViewModel : BindableBase
     {
-        private string _barcode;
         private BackendConnection _backendConnection;
         private ICommand _cancelCommand;
         private ICommand _okCommand;
-        private ICommand _turnOffCamera;
-        public CameraConnection Camera { get; private set; }
-        private string _cameraButtonText;
-        private ISoundPlayer _soundPlayer;
-        private int _cameraListIndex;
+        private ICommand _upArrowCommand;
+        private ICommand _downArrowCommand;
         private Items _item;
-
-        public enum CameraState
-        {
-            CameraOn,
-            CameraOff
-        }
-
-        private CameraState _stateForCamera;
-
-        public ObservableCollection<string> CameraList { get; private set; }
+        public CameraViewModel CameraViewModel { get; private set; }
 
         public AddItemViewModel()
         {
-            Camera = CameraConnection.Instance;
-            Camera.CameraOn();
-            Camera.BarcodeFoundEvent += FoundBarcode;
-            _cameraButtonText = "Sluk kamera";
-            _soundPlayer = new SoundPlayer();
-            _stateForCamera = CameraState.CameraOn;
-            CameraList = new ObservableCollection<string>();
-            CameraList = Camera.CamerasList;
             _backendConnection = new BackendConnection();
             _item = new Items();
+            CameraViewModel = new CameraViewModel();
+            CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
         }
 
-        public Items item
+        private void BarcodeAction(object sender, EventArgs e)
+        {
+            Item = _backendConnection.CheckBarcode(CameraViewModel.Barcode);
+            Item.Quantity++;
+        }
+
+        public Items Item
         {
             get
             {
@@ -59,88 +46,25 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        public int CameraListIndex
-        {
-            get { return _cameraListIndex; }
-            set
-            {
-                Camera.SetCameraListIndex(value);
-                SetProperty(ref _cameraListIndex, value);
-            }
-        }
-
-        public string Barcode
-        {
-            get { return _barcode; }
-            set { SetProperty(ref _barcode, value); }
-        }
-
-        private void FoundBarcode(object sender, BarcodeFoundEventArgs e)
-        {
-            Barcode = e.Barcode;
-            _soundPlayer.Play();
-
-            item.Quantity++;
-        }
-
-        public string CameraButtonText
-        {
-            get
-            {
-                return _cameraButtonText;
-            }
-            set
-            {
-                SetProperty(ref _cameraButtonText, value);
-            }
-        }
-
-        public ICommand TurnOffCamera
-        {
-            get
-            {
-                return _turnOffCamera ?? (_turnOffCamera = new DelegateCommand(TurnOffCamHandler));
-            }
-        }
-
-
-        private void TurnOffCamHandler()
-        {
-            switch (_stateForCamera)
-            {
-                case AddItemViewModel.CameraState.CameraOn:
-                    _stateForCamera = AddItemViewModel.CameraState.CameraOff;
-                    CameraButtonText = "Tænd kamera";
-                    Camera.CameraOff();
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() => { Camera.CameraFeed = null; }));
-                    break;
-                case AddItemViewModel.CameraState.CameraOff:
-                    _stateForCamera = AddItemViewModel.CameraState.CameraOn;
-                    CameraButtonText = "Sluk kamera";
-                    Camera.CameraOn();
-                    break;
-            }
-        }
-
         public ICommand OkCommand
         {
             get
             {
-                return _okCommand ?? (_okCommand = new DelegateCommand(OkHandler, OkCommandCanExecute)
-                    .ObservesProperty(() => item.Quantity).ObservesProperty(() => item.Name));
+                return _okCommand ??= new DelegateCommand(OkHandler, OkCommandCanExecute)
+                    .ObservesProperty(() => Item.Quantity).ObservesProperty(() => Item.Name);
             }
         }
 
         private void OkHandler()
         {
             _backendConnection.SetNewItem("Test", "Test", "Test");
-            Camera.CameraOff();
+            CameraViewModel.Camera.CameraOff();
             Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
 
         private bool OkCommandCanExecute()
         {
-            if (item.Quantity >= 1 && String.IsNullOrEmpty(item.Name) == false)
+            if (Item.Quantity >= 1 && String.IsNullOrEmpty(Item.Name) == false)
             {
                 return true;
             }
@@ -154,20 +78,59 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
-                return _cancelCommand ?? (_cancelCommand = new DelegateCommand(CancelHandler));
+                return _cancelCommand ??= new DelegateCommand(CancelHandler);
             }
         }
 
 
         private void CancelHandler()
         {
-            Camera.CameraOff();
+            CameraViewModel.Camera.CameraOff();
             Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
 
         public void ItemNotFound()
         {
             Console.WriteLine("sadf");
+        }
+
+        public ICommand UpArrowCommand
+        {
+            get
+            {
+                return _upArrowCommand ??= new DelegateCommand(UpArrowHandler);
+            }
+        }
+
+        private void UpArrowHandler()
+        {
+            Item.Quantity++;
+        }
+
+        public ICommand DownArrowCommand
+        {
+            get
+            {
+                return _okCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
+                    .ObservesProperty(() => Item.Quantity);
+            }
+        }
+
+        private void DownArrowHandler()
+        {
+            Item.Quantity--;
+        }
+
+        private bool DownArrowCanExecute()
+        {
+            if (Item.Quantity >= 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Media;
 
 namespace PantryPassionGUI.Models
 {
@@ -15,7 +16,9 @@ namespace PantryPassionGUI.Models
         {
             if (Mute == false)
             {
-                Console.Beep();
+                //Console.Beep();
+                System.Media.SystemSounds.Beep.Play();
+                
             }
         }
     }
