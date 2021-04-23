@@ -26,8 +26,8 @@
             <Label Grid.Row="0" Grid.Column="0" Content="Indkøbsliste: "></Label>
             <DataGrid Grid.Row="1"
                   IsSynchronizedWithCurrentItem="True"
-                  ItemsSource="{Binding Path=Debtors}"
-                  SelectedItem="{Binding Path=CurrentDebtor}"
+                  ItemsSource="{Binding Path=ItemsList}"
+                  SelectedItem="{Binding Path=CurrentItem}"
                   SelectedIndex="{Binding Path=CurrentIndex}" 
                   AutoGenerateColumns="False"
                   Margin="10,0"
