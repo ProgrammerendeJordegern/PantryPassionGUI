@@ -10,20 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PantryPassionGUI.Views;
 
-namespace PantryPassionGUI
+namespace PantryPassionGUI.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for RemoveItemView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class RemoveItemView : Window
     {
-        public MainWindow()
+        public RemoveItemView()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
     }
 }

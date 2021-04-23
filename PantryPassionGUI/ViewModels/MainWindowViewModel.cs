@@ -15,7 +15,10 @@ namespace PantryPassionGUI.ViewModels
 {
     class MainWindowViewModel
     {
-        public tempUser t1
+        ICommand _addItemCommand;
+        ICommand _removeItemCommand;
+
+        public tempUser T1
         {
             get;
             set;
@@ -23,23 +26,49 @@ namespace PantryPassionGUI.ViewModels
         
         public MainWindowViewModel()
         {
-            t1 = new tempUser("Jesper");
+            T1 = new tempUser("Jesper");
         }
-
-        ICommand _addItemCommand;
 
         public ICommand AddItemCommand
         {
-            get { return _addItemCommand ?? (_addItemCommand = new DelegateCommand(AddItemExecute)); }
+            get { return _addItemCommand ??= new DelegateCommand(AddItemExecute); }
         }
 
-        void AddItemExecute()
+        private void AddItemExecute()
         {
             AddItemView addItem = new AddItemView();
 
             addItem.ShowDialog();
         }
+        public ICommand RemoveItemCommand
+        {
+            get { return _removeItemCommand ??= new DelegateCommand(RemoveItemExecute); }
+        }
 
+        private void RemoveItemExecute()
+        {
+            RemoveItemView removeItem = new RemoveItemView();
+
+            removeItem.ShowDialog();
+        }
+
+        ICommand _findItemCommand;
+
+        public ICommand FindItemCommand
+        {
+            get { return _findItemCommand ?? (_findItemCommand = new DelegateCommand(FindItemExecute)); }
+        }
+
+        void FindItemExecute()
+        {
+            FindItemWindow FIWindow = new FindItemWindow();
+            FIWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            if (FIWindow.ShowDialog() == true)
+            {
+                // Kan returnere det fundne item, msgbox er bare for debug
+                MessageBox.Show((FIWindow.FindItemDataGrid.SelectedItem as Item).Name);
+            }
+        }
         //FindItem
     }
 }

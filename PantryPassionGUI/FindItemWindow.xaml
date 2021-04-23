@@ -1,4 +1,4 @@
-﻿<Window x:Class="PantryPassionGUI.FindItem"
+﻿<Window x:Class="PantryPassionGUI.FindItemWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PantryPassionGUI"
         xmlns:viewModels="clr-namespace:PantryPassionGUI.ViewModels"
         mc:Ignorable="d"
-        Title="FindItem" Height="449" Width="411">
+        Title="FindItem" Height="456" Width="411">
     <Window.Resources>
         <Style x:Key="RoundedCorner" TargetType="{x:Type Button}">
             <Setter Property="Foreground" Value="White"></Setter>
@@ -27,21 +27,27 @@
         <viewModels:FindItemViewModel></viewModels:FindItemViewModel>
     </Window.DataContext>
     <Grid>
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Path=Items}" HorizontalAlignment="Left" Height="342" Margin="10,67,0,0" VerticalAlignment="Top" Width="376">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="FindItemDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding Path=Items}" HorizontalAlignment="Left" Margin="10,67,10,10" VerticalAlignment="Stretch">
             <DataGrid.Columns>
-                
-                <DataGridTextColumn Header="Name" Width="2*" Binding="{Binding Path=Name}"></DataGridTextColumn>
+
+                <DataGridTextColumn Header="Name" Width="2*" Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
                 <DataGridTextColumn Header="EAN" Width="2*" Binding="{Binding Path=EAN}"></DataGridTextColumn>
                 <DataGridTextColumn Header="LifespanDays" Width="2*" Binding="{Binding Path=AverageLifespanDays}"></DataGridTextColumn>
                 <DataGridTextColumn Header="ItemSize" Width="2*" Binding="{Binding Path=ItemSize}"></DataGridTextColumn>
             </DataGrid.Columns>
-        </DataGrid> 
+        </DataGrid>
 
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,39,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="135"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="150,39,0,0" TextWrapping="Wrap" Text="EAN" VerticalAlignment="Top" Width="142"/>
-        <TextBlock FontWeight="DemiBold" Text="Find by name:" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" Width="135"/>
-        <TextBlock FontWeight="DemiBold" Text="Find by EAN:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,18,0,0" Width="142"/>
-        <Button Style="{StaticResource RoundedCorner}" Content="Search" HorizontalAlignment="Left" Margin="297,39,0,0" VerticalAlignment="Top" Width="89" Height="23"/>
+        <TextBox x:Name="txtBoxName" Text="{Binding Path=NameFilter, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="10,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
+        <TextBox Text="{Binding Path=EANFilter, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="150,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
+        <TextBlock FontWeight="DemiBold" Text="Find by name:" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" Width="135" Height="16"/>
+        <TextBlock FontWeight="DemiBold" Text="Find by EAN:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,18,0,0" Width="142" Height="16"/>
+        <Button IsDefault="True" IsCancel="True" Style="{StaticResource RoundedCorner}" Content="OK" HorizontalAlignment="Left" Margin="297,39,0,0" VerticalAlignment="Top" Width="89" Height="23" Click="Button_Click"/>
 
     </Grid>
 </Window>

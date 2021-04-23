@@ -17,11 +17,25 @@ namespace PantryPassionGUI
     /// <summary>
     /// Interaction logic for FindItemWindow.xaml
     /// </summary>
-    public partial class FindItem : Window
+    public partial class FindItemWindow : Window
     {
-        public FindItem()
+        public FindItemWindow()
         {
             InitializeComponent();
+            this.PreviewKeyDown += new KeyEventHandler(CloseOnEscape);
         }
-    }
+
+        //ikke den foretrukkede metode, men det andet virkede ikke :( 
+        // = MVVM overholdes ikke 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
+
+        private void CloseOnEscape(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+                Close();
+        }
+    } 
 }
