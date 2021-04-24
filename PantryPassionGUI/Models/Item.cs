@@ -14,6 +14,15 @@ namespace PantryPassionGUI.Models
     {
         private string _name;
         private DateTime _date;
+        private int _size;
+        private string _sizeUnit;
+
+        public enum UnitsEnum
+        {
+            Gram,
+            kg,
+            Liter
+        }
 
         public Item(string name, string ean = "", int averageLifespanDays = 0, int itemSize = 0)
         {
@@ -24,7 +33,10 @@ namespace PantryPassionGUI.Models
         }
 
         public Item()
-        { }
+        {
+            _date = DateTime.Now;
+        }
+
         public int ItemId { get; set; }
         public string Ean { get; set; }
 
@@ -60,15 +72,37 @@ namespace PantryPassionGUI.Models
             }
             set
             {
-
+                AverageLifespanDays = Math.Abs((value.Date - DateTime.Now.Date).Days);
                 SetProperty(ref _date, value);
-                AverageLifespanDays = Math.Abs((_date - DateTime.Now).Days);
+                
             }
         }
 
         public int AverageLifespanDays { get; set; }
-        public int Size { get; set; }
-        public string SizeUnit { get; set; }
+        public int Size 
+        {
+            get
+            {
+                return _size;
+            }
+            set
+            {
+                SetProperty(ref _size, value);
+            }
+        }
+
+        public string SizeUnit
+        {
+            get
+            {
+                return _sizeUnit;
+            }
+            set
+            {
+                Debug.WriteLine(value);
+                SetProperty(ref _sizeUnit, value);
+            }
+        }
         public int DesiredMinimumAmount { get; set; }
 
         #region INotifyDataErrorInfo implementation

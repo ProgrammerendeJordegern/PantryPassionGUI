@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +18,20 @@ namespace PantryPassionGUI.Models
 
         public int InventoryId { get; set; }
         public int InventoryType { get; set; }
+
         public Item Item { get; set; }
+
+
+        //Skal måske bare fjernes igen da man ikke kan lave mellemrum!!
+        public enum CategoryEnum
+        {
+            Allevare
+        }
+
+        public InventoryItem()
+        {
+            Item = new Item();
+        }
 
         public int Amount
         {
@@ -51,22 +66,28 @@ namespace PantryPassionGUI.Models
             }
             set
             {
+                SetInventoryType(value);
                 SetProperty(ref _category, value);
-                switch (_category)
-                {
-                    case "Alle vare":
-                        InventoryType = 0;
-                        break;
-                    case "Køleskab":
-                        InventoryType = 1;
-                        break;
-                    case "Fryser":
-                        InventoryType = 2;
-                        break;
-                    case "Spisekammer (øvrige vare)":
-                        InventoryType = 3;
-                        break;
-                }
+            }
+        }
+
+        private void SetInventoryType(string category)
+        {
+            switch (category)
+            {
+                case "System.Windows.Controls.ComboBoxItem: Alle vare":
+                    InventoryType = 0;
+                    break;
+                case "System.Windows.Controls.ComboBoxItem: Køleskab":
+                    InventoryType = 1;
+                    break;
+                case "System.Windows.Controls.ComboBoxItem: Fryser":
+                    InventoryType = 2;
+                    break;
+                case "System.Windows.Controls.ComboBoxItem: Spisekammer (øvrige vare)":
+                    InventoryType = 3;
+                    break;
+                
             }
         }
 

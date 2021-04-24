@@ -20,33 +20,33 @@ namespace PantryPassionGUI.ViewModels
         private ICommand _okCommand;
         private ICommand _upArrowCommand;
         private ICommand _downArrowCommand;
-        private Items _item;
+        private InventoryItem _inventoryItem;
         private int _originalQuantity;
 
         public RemoveItemViewModel()
         {
             CameraViewModel = new CameraViewModel();
             _backendConnection = new BackendConnection();
-            _item = new Items();
+            _inventoryItem = new InventoryItem();
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
             _originalQuantity = 5;
         }
 
         private async void BarcodeAction(object sender, EventArgs e)
         {
-            _item = await BackendConnection.CheckBarcode(CameraViewModel.Barcode);
-            _originalQuantity = _item.Quantity;
+            _inventoryItem = await BackendConnection.CheckBarcode(CameraViewModel.Barcode);
+            _originalQuantity = _inventoryItem.Amount;
         }
 
-        public Items Item
+        public InventoryItem InventoryItem
         {
             get
             {
-                return _item;
+                return _inventoryItem;
             }
             set
             {
-                SetProperty(ref _item, value);
+                SetProperty(ref _inventoryItem, value);
             }
         }
 
@@ -55,18 +55,18 @@ namespace PantryPassionGUI.ViewModels
             get
             {
                 return _upArrowCommand ??= new DelegateCommand(UpArrowHandler, UpArrowCanExecute)
-                    .ObservesProperty(() => Item.Quantity);
+                    .ObservesProperty(() => InventoryItem.Amount);
             }
         }
 
         private void UpArrowHandler()
         {
-            Item.Quantity++;
+            InventoryItem.Amount++;
         }
 
         private bool UpArrowCanExecute()
         {
-            if (Item.Quantity < _originalQuantity)
+            if (InventoryItem.Amount < _originalQuantity)
             {
                 return true;
             }
@@ -81,18 +81,18 @@ namespace PantryPassionGUI.ViewModels
             get
             {
                 return _downArrowCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
-                    .ObservesProperty(() => Item.Quantity);
+                    .ObservesProperty(() => InventoryItem.Amount);
             }
         }
 
         private void DownArrowHandler()
         {
-            Item.Quantity--;
+            InventoryItem.Amount--;
         }
 
         private bool DownArrowCanExecute()
         {
-            if (Item.Quantity >= 1)
+            if (InventoryItem.Amount >= 1)
             {
                 return true;
             }
@@ -112,7 +112,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void OkHandler()
         {
-            _backendConnection.SetQuantity(_item.Name, _item.Quantity);
+            _backendConnection.SetQuantity(_inventoryItem.Item.Name, _inventoryItem.Amount);
             CameraViewModel.Camera.CameraOff();
             Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }

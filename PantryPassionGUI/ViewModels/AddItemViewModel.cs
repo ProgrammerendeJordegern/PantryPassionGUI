@@ -18,32 +18,32 @@ namespace PantryPassionGUI.ViewModels
         private ICommand _okCommand;
         private ICommand _upArrowCommand;
         private ICommand _downArrowCommand;
-        private Items _item;
+        private InventoryItem _inventoryItem;
         public CameraViewModel CameraViewModel { get; private set; }
 
         public AddItemViewModel()
         {
             _backendConnection = new BackendConnection();
-            _item = new Items();
+            _inventoryItem = new InventoryItem();
             CameraViewModel = new CameraViewModel();
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
         }
 
         private async void BarcodeAction(object sender, EventArgs e)
         { 
-            Item = await BackendConnection.CheckBarcode(CameraViewModel.Barcode);
-            Item.Quantity++;
+            InventoryItem = await BackendConnection.CheckBarcode(CameraViewModel.Barcode);
+            InventoryItem.Amount++;
         }
 
-        public Items Item
+        public InventoryItem InventoryItem
         {
             get
             {
-                return _item;
+                return _inventoryItem;
             }
             set
             {
-                SetProperty(ref _item, value);
+                SetProperty(ref _inventoryItem, value);
             }
         }
 
@@ -52,7 +52,7 @@ namespace PantryPassionGUI.ViewModels
             get
             {
                 return _okCommand ??= new DelegateCommand(OkHandler, OkCommandCanExecute)
-                    .ObservesProperty(() => Item.Quantity).ObservesProperty(() => Item.Name);
+                    .ObservesProperty(() => InventoryItem.Amount).ObservesProperty(() => InventoryItem.Item.Name);
             }
         }
 
@@ -65,7 +65,7 @@ namespace PantryPassionGUI.ViewModels
 
         private bool OkCommandCanExecute()
         {
-            if (Item.Quantity >= 1 && String.IsNullOrEmpty(Item.Name) == false)
+            if (InventoryItem.Amount >= 1 && String.IsNullOrEmpty(InventoryItem.Item.Name) == false)
             {
                 return true;
             }
@@ -105,7 +105,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void UpArrowHandler()
         {
-            Item.Quantity++;
+            InventoryItem.Amount++;
         }
 
         public ICommand DownArrowCommand
@@ -113,18 +113,18 @@ namespace PantryPassionGUI.ViewModels
             get
             {
                 return _downArrowCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
-                    .ObservesProperty(() => Item.Quantity);
+                    .ObservesProperty(() => InventoryItem.Amount);
             }
         }
 
         private void DownArrowHandler()
         {
-            Item.Quantity--;
+            InventoryItem.Amount--;
         }
 
         private bool DownArrowCanExecute()
         {
-            if (Item.Quantity >= 1)
+            if (InventoryItem.Amount >= 1)
             {
                 return true;
             }

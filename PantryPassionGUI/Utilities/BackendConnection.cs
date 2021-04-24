@@ -11,7 +11,7 @@ namespace PantryPassionGUI.Models
         private static readonly HttpClient Client = new HttpClient();
         private static string _baseUrl = "https://localhost:44328/item";
 
-        public static async Task<Items> CheckBarcode(string barcode)
+        public static async Task<InventoryItem> CheckBarcode(string barcode)
         {
             string url = _baseUrl += "/" + barcode;
 
@@ -35,7 +35,7 @@ namespace PantryPassionGUI.Models
                         PropertyNameCaseInsensitive = true,
                     };
 
-                    return JsonSerializer.Deserialize<Items>(content, options);
+                    return JsonSerializer.Deserialize<InventoryItem>(content, options);
                 }
             }
         }

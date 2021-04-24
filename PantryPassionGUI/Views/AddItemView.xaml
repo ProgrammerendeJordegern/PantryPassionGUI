@@ -5,13 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PantryPassionGUI.Views"
         xmlns:viewModels="clr-namespace:PantryPassionGUI.ViewModels"
+        xmlns:model="clr-namespace:PantryPassionGUI.Models"
         xmlns:view="clr-namespace:PantryPassionGUI.Views"
+        xmlns:System="clr-namespace:System;assembly=System.Runtime"
         mc:Ignorable="d"
         Title="Tilføj vare" Height="450" Width="650">
     <Window.DataContext>
         <viewModels:AddItemViewModel>
         </viewModels:AddItemViewModel>
     </Window.DataContext>
+    <Window.Resources>
+        <ObjectDataProvider x:Key="getUnitsFromEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:Item+UnitsEnum"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
     <StackPanel>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -43,10 +52,11 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Label Grid.Column="0" Margin="0,5">Navn:</Label>
-                <TextBox Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=Item.Name}"></TextBox>
+                <TextBox Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=InventoryItem.Item.Name}"></TextBox>
 
                 <Label Grid.Row="1" Grid.Column="0" Margin="0,5">Antal:</Label>
                 <Grid Grid.Row="1" Grid.Column="1">
@@ -58,26 +68,30 @@
                         <RowDefinition Height="13" />
                         <RowDefinition Height="13" />
                     </Grid.RowDefinitions>
-                    <TextBox Name="NUDTextBox"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" TextAlignment="Right" Text="{Binding Path=Item.Quantity}"/>
+                    <TextBox Name="NUDTextBox"  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" TextAlignment="Right" Text="{Binding Path=InventoryItem.Amount}"/>
                     <RepeatButton Name="NUDButtonUP"  Grid.Column="1" Grid.Row="0" FontSize="8" FontFamily="Marlett" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding Path=UpArrowCommand}">5</RepeatButton>
                     <RepeatButton Name="NUDButtonDown"  Grid.Column="1" Grid.Row="1" FontSize="8"  FontFamily="Marlett" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="13" VerticalAlignment="Bottom" Command="{Binding Path=DownArrowCommand}">6</RepeatButton>
                 </Grid>
 
                 <Label Grid.Row="2" Grid.Column="0" Margin="0,5">Holdbarhedsdato:</Label>
 
-                <DatePicker Grid.Row="2" Grid.Column="1" Text="{Binding Path=Item.Date}"></DatePicker>
+                <DatePicker Grid.Row="2" Grid.Column="1" Margin="0,5" SelectedDate="{Binding Path=InventoryItem.Item.Date}"></DatePicker>
 
+                <Label Grid.Row="3" Grid.Column="0" Margin="0,5">Størrelse:</Label>
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5" TextAlignment="Right" HorizontalAlignment="Left" MinWidth="140" Text="{Binding Path=InventoryItem.Item.Size}"></TextBox>
 
-                <Label Grid.Row="3" Grid.Column="0" Margin="0,5">Kategori:</Label>
-                <ComboBox Grid.Row="3" Grid.Column="1" x:Name="CategoryComboBox" MinWidth="200" Margin="0,5" SelectedIndex="0" SelectedItem="{Binding Path=Item.Category}">
+                <ComboBox Grid.Row="3" Grid.Column="1" x:Name="UnitSizeComboBox" ItemsSource="{Binding Source={StaticResource getUnitsFromEnum}}" MinWidth="55" Margin="0,5" HorizontalAlignment="Right" SelectedIndex="0" SelectedValue="{Binding Path=InventoryItem.Item.SizeUnit}"></ComboBox>
+
+                <Label Grid.Row="4" Grid.Column="0" Margin="0,5">Kategori:</Label>
+                <ComboBox Grid.Row="4" Grid.Column="1" x:Name="CategoryComboBox" MinWidth="200" Margin="0,5" SelectedIndex="0" SelectedValue="{Binding Path=InventoryItem.Category}">
                     <ComboBoxItem Tag="AllItems">Alle vare</ComboBoxItem>
                     <ComboBoxItem Tag="Fridge">Køleskab</ComboBoxItem>
                     <ComboBoxItem Tag="Freezer">Fryser</ComboBoxItem>
                     <ComboBoxItem Tag="Pantry">Spisekammer (øvrige vare)</ComboBoxItem>
                 </ComboBox>
 
-                <Label Grid.Row="4" Grid.Column="0" Margin="0,5">Stregkode:</Label>
-                <TextBox Grid.Row="4" Grid.Column="1" MinWidth="200" Margin="0,5" IsReadOnly="True" Text="{Binding Path=CameraViewModel.Barcode}"></TextBox>
+                <Label Grid.Row="5" Grid.Column="0" Margin="0,5">Stregkode:</Label>
+                <TextBox Grid.Row="5" Grid.Column="1" MinWidth="200" Margin="0,5" IsReadOnly="True" Text="{Binding Path=CameraViewModel.Barcode}"></TextBox>
             </Grid>
 
             <Button Grid.Row="3" HorizontalAlignment="Center">Tilføj vare</Button>
