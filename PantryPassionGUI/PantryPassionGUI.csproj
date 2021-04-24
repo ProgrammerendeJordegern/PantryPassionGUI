@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="barcodeSoundBeep.wav" />
     <None Remove="Images\pantrypassionlogoudentekst.jpg" />
   </ItemGroup>
 
