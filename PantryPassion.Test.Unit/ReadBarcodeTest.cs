@@ -22,18 +22,18 @@ namespace PantryPassion.Test.Unit
             _uut = new ReadBarcode();
         }
 
-        //[Test]
-        //public void ReadBarcode_GetBarcode_CorrectValue()
-        //{
-        //    //Bitmap myBitmap = new Bitmap(@"C:\Users\Kathrine\OneDrive - Aarhus Universitet\AU\4. Semester\PRJ4_Kode\PantryPassionGUI_V2\PantryPassion.Test.Unit\barcode.png");
-            
-        //    Bitmap myBitmap = new Bitmap("stream");
-        //    //Bitmap myBitmap = new Bitmap(Path.GetDirectoryName("barcode.png"));
+        [Test]
+        public void ReadBarcode_GetBarcode_CorrectValue()
+        {
+            Bitmap myBitmap = new Bitmap(Environment.CurrentDirectory + @"\barcode.png");
 
-        //    //Path.GetDirectoryName(openFD.FileName);
-        //    myBitmap.Save("myBitmap.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
-        //    Assert.That(_uut.GetBarcode(myBitmap), Is.EqualTo("705632085943"));
-        //}
+            //Bitmap myBitmap = new Bitmap("stream");
+            //Bitmap myBitmap = new Bitmap(Path.GetDirectoryName("barcode.png"));
+
+            //Path.GetDirectoryName(openFD.FileName);
+            myBitmap.Save("myBitmap.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+            Assert.That(_uut.GetBarcode(myBitmap), Is.EqualTo("705632085943"));
+        }
 
         [Test]
         public void ReadBarcode_Activate_Correct()
