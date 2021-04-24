@@ -62,6 +62,8 @@ namespace PantryPassionGUI.ViewModels
             Barcode = e.Barcode;
 
             BarcodeFoundEventViewModels(new EventArgs());
+
+            _soundPlayer.Play();
         }
 
         public int CameraListIndex
