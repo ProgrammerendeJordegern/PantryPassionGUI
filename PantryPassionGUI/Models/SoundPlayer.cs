@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Media;
+using System.Threading;
 
 namespace PantryPassionGUI.Models
 {
@@ -17,8 +18,12 @@ namespace PantryPassionGUI.Models
             if (Mute == false)
             {
                 //Console.Beep();
-                System.Media.SystemSounds.Beep.Play();
                 
+                System.Media.SystemSounds.Beep.Play();
+
+                //System.Media.SoundPlayer soundPlayer =
+                //    new System.Media.SoundPlayer(@"C:\Users\Simon Kjær\Desktop\barcodeSoundBeep.wav");
+                //soundPlayer.Play();
             }
         }
     }

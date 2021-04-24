@@ -87,8 +87,8 @@
         </Grid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <Button Grid.Row="4" Content="_Ok" Width="35" Margin="10,0" Command="{Binding Path=OkCommand}"></Button>
-            <Button Grid.Row="4" Grid.Column="1" Content="_Cancel" Width="45" Margin="10,0" Command="{Binding Path=CancelCommand}"></Button>
+            <Button Grid.Row="4" Content="_Ok" Width="35" Margin="10,0" Command="{Binding Path=OkCommand}" Click="OkExitOnClick" ></Button>
+            <Button Grid.Row="4" Grid.Column="1" Content="_Cancel" Width="45" Margin="10,0" Command="{Binding Path=CancelCommand}" Click="CancelExitOnClick"></Button>
         </StackPanel>
 
     </StackPanel>

@@ -114,7 +114,7 @@ namespace PantryPassionGUI.ViewModels
         {
             _backendConnection.SetQuantity(_item.Name, _item.Quantity);
             CameraViewModel.Camera.CameraOff();
-            Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
+            //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
 
         public ICommand CancelCommand
@@ -129,7 +129,7 @@ namespace PantryPassionGUI.ViewModels
         private void CancelHandler()
         {
             CameraViewModel.Camera.CameraOff();
-            Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
+            //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
     }
 }
