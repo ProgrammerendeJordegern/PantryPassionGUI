@@ -32,26 +32,7 @@ namespace PantryPassionGUI.ViewModels
             CameraOff,
         }
 
-        private static readonly object Padlock = new object();
-        private static CameraViewModel _instance = null;
-
-        //Thread Safety Singleton
-        public static CameraViewModel Instance
-        {
-            get
-            {
-                lock (Padlock)
-                {
-                    if (_instance == null)
-                    {
-                        _instance = new CameraViewModel();
-                    }
-                    return _instance;
-                }
-            }
-        }
-
-        private CameraViewModel()
+        public CameraViewModel()
         {
             Camera = CameraConnection.Instance;
             Camera.CameraOn();

@@ -25,7 +25,7 @@ namespace PantryPassionGUI.ViewModels
         {
             _backendConnection = new BackendConnection();
             _inventoryItem = new InventoryItem();
-            CameraViewModel = CameraViewModel.Instance;
+            CameraViewModel = new CameraViewModel();
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
         }
 

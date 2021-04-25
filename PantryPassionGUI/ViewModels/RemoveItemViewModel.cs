@@ -25,7 +25,7 @@ namespace PantryPassionGUI.ViewModels
 
         public RemoveItemViewModel()
         {
-            CameraViewModel = CameraViewModel.Instance;
+            CameraViewModel = new CameraViewModel();
             _backendConnection = new BackendConnection();
             _inventoryItem = new InventoryItem();
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
