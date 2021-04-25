@@ -17,7 +17,7 @@ namespace PantryPassionGUI.ViewModels
         public ScanEANViewModel(FindItemViewModel FIV2)
         {
             FIV1 = FIV2;
-            CameraViewModel = new CameraViewModel();
+            CameraViewModel = CameraViewModel.Instance;
             CameraViewModel.BarcodeFoundEventToViewModels += CloseScanWindow;
         }
 

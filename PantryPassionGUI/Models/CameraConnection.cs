@@ -25,7 +25,7 @@ namespace PantryPassionGUI.Models
 
         public event EventHandler<BarcodeFoundEventArgs> BarcodeFoundEvent;
 
-        private static readonly object padlock = new object();
+        private static readonly object Padlock = new object();
         private static CameraConnection _instance = null;
 
         //Thread Safety Singleton
@@ -33,7 +33,7 @@ namespace PantryPassionGUI.Models
         {
             get
             {
-                lock (padlock)
+                lock (Padlock)
                 {
                     if (_instance == null)
                     {

@@ -20,8 +20,11 @@ namespace PantryPassionGUI.ViewModels
         private ISoundPlayer _soundPlayer;
         private int _cameraListIndex;
         private string _barcode;
+        private CameraState _stateForCamera;
 
         public event EventHandler<EventArgs> BarcodeFoundEventToViewModels;
+
+        public ObservableCollection<string> CameraList { get; private set; }
 
         public enum CameraState
         {
@@ -29,11 +32,26 @@ namespace PantryPassionGUI.ViewModels
             CameraOff,
         }
 
-        private CameraState _stateForCamera;
+        private static readonly object Padlock = new object();
+        private static CameraViewModel _instance = null;
 
-        public ObservableCollection<string> CameraList { get; private set; }
+        //Thread Safety Singleton
+        public static CameraViewModel Instance
+        {
+            get
+            {
+                lock (Padlock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new CameraViewModel();
+                    }
+                    return _instance;
+                }
+            }
+        }
 
-        public CameraViewModel()
+        private CameraViewModel()
         {
             Camera = CameraConnection.Instance;
             Camera.CameraOn();
