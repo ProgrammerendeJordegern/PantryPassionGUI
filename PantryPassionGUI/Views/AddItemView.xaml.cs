@@ -14,5 +14,15 @@ namespace PantryPassionGUI.Views
         {
             InitializeComponent();
         }
+
+        private void OkExitOnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void CancelExitOnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
