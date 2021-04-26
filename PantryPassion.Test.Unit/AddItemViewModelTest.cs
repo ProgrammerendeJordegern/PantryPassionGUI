@@ -60,5 +60,35 @@ namespace PantryPassion.Test.Unit
             _uut.UpArrowCommand.Execute(_obj);
             Assert.That(_uut.DownArrowCommand.CanExecute(_obj), Is.True);
         }
+
+        [Test]
+        public void AddItemViewModel_OkCommand_CalledCamaraOff()
+        {
+            _uut.OkCommand.Execute(_obj);
+            _camera.Received(1).CameraOff();
+        }
+
+        [Test]
+        public void AddItemViewModel_OkCommand_CanNotExecute()
+        {
+            Assert.That(_uut.OkCommand.CanExecute(_obj), Is.False);
+        }
+
+        [Test]
+        public void AddItemViewModel_OkCommand_CanExecute()
+        {
+            _uut.InventoryItem.Item.Name = "Test";
+            _uut.InventoryItem.Amount = 1;
+            Assert.That(_uut.OkCommand.CanExecute(_obj), Is.True);
+        }
+
+        [Test]
+        public void AddItemViewModel_CancelCommand_CalledCamaraOff()
+        {
+            _uut.CancelCommand.Execute(_obj);
+            _camera.Received(1).CameraOff();
+        }
+
+
     }
 }
