@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows.Media.Imaging;
 
 namespace PantryPassionGUI.Models
 {
@@ -6,11 +8,15 @@ namespace PantryPassionGUI.Models
     {
         public string Barcode { get; set; }
     }
-   public interface ICamera
+
+    public interface ICamera
     {
         event EventHandler<BarcodeFoundEventArgs> BarcodeFoundEvent;
         void CameraOn();
-
         void CameraOff();
+        void SetCameraListIndex(int index);
+        int GetCameraListIndex();
+        BitmapImage CameraFeed { get; set; }
+        ObservableCollection<string> CamerasList { get; }
     }
 }
