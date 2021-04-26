@@ -34,13 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Include="MainWindow.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PantryPassionGUI\PantryPassionGUI.csproj" />
   </ItemGroup>
 
