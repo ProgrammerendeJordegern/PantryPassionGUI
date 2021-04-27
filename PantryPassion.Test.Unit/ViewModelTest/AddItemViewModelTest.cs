@@ -13,19 +13,15 @@ namespace PantryPassion.Test.Unit
     class AddItemViewModelTest
     {
         private AddItemViewModel _uut;
-        private CameraViewModel _cameraViewModel;
+        private ICameraViewModel _cameraViewModel;
         private BackendConnection _backendConnection;
-        private ICamera _camera;
-        private ISoundPlayer _soundPlayer;
         private object _obj;
 
         [SetUp]
         public void Setup()
         {
-            _camera = Substitute.For<ICamera>();
-            _soundPlayer = Substitute.For<ISoundPlayer>();
             _backendConnection = new BackendConnection();
-            _cameraViewModel = new CameraViewModel(_camera, _soundPlayer);
+            _cameraViewModel = Substitute.For<ICameraViewModel>();
             _uut = new AddItemViewModel(_cameraViewModel, _backendConnection);
             _obj = new object();
         }
@@ -65,7 +61,7 @@ namespace PantryPassion.Test.Unit
         public void AddItemViewModel_OkCommand_CalledCamaraOff()
         {
             _uut.OkCommand.Execute(_obj);
-            _camera.Received(1).CameraOff();
+            _cameraViewModel.Camera.Received(1).CameraOff();
         }
 
         [Test]
@@ -86,7 +82,21 @@ namespace PantryPassion.Test.Unit
         public void AddItemViewModel_CancelCommand_CalledCamaraOff()
         {
             _uut.CancelCommand.Execute(_obj);
-            _camera.Received(1).CameraOff();
+            _cameraViewModel.Camera.Received(1).CameraOff();
+        }
+
+        [Test]
+        public void AddItemViewModel_BarcodeFoundEventToViewModels_AddOneToAmount()
+        {
+            _cameraViewModel.BarcodeFoundEventToViewModels += Raise.EventWith(new EventArgs());
+            Assert.That(_uut.InventoryItem.Amount,Is.EqualTo(1));
+        }
+
+        [Test]
+        public void AddItemViewModel_InventoryItem_SetCorrect()
+        {
+            _uut.InventoryItem = new InventoryItem() {Amount = 10};
+            Assert.That(_uut.InventoryItem.Amount,Is.EqualTo(10));
         }
 
 

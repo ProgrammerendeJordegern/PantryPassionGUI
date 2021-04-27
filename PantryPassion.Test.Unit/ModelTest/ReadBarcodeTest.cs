@@ -27,13 +27,20 @@ namespace PantryPassion.Test.Unit
         public void ReadBarcode_GetBarcode_CorrectValue()
         {
             Bitmap myBitmap = new Bitmap(Environment.CurrentDirectory + @"\barcode.png");
-            //Bitmap myBitmap = new Bitmap("stream");
-            //Bitmap myBitmap = new Bitmap(Path.GetDirectoryName("barcode.png"));
-
-            //Path.GetDirectoryName(openFD.FileName);
             myBitmap.Save("myBitmap.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
             Assert.That(_uut.GetBarcode(myBitmap), Is.EqualTo("705632085943"));
         }
+
+        [Test]
+        public void ReadBarcode_GetBarcode_RetunsNull()
+        {
+            _uut.Deactivate();
+            Bitmap myBitmap = new Bitmap(Environment.CurrentDirectory + @"\barcode.png");
+            myBitmap.Save("myBitmap.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+            Assert.That(_uut.GetBarcode(myBitmap), Is.Null);
+        }
+
+
 
         [Test]
         public void ReadBarcode_Activate_Correct()

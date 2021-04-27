@@ -73,6 +73,12 @@ namespace PantryPassion.Test.Unit
             Assert.That(_uut.CameraButtonText, Is.EqualTo("Tænd kamera"));
         }
 
+        [Test]
+        public void CameraViewModel_CameraList_NotNull()
+        {
+            Assert.That(_uut.CameraList, Is.Not.Null);
+        }
+
 
     }
 }

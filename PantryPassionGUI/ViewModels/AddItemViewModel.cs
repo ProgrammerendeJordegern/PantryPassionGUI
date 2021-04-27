@@ -19,7 +19,7 @@ namespace PantryPassionGUI.ViewModels
         private ICommand _upArrowCommand;
         private ICommand _downArrowCommand;
         private InventoryItem _inventoryItem;
-        public CameraViewModel CameraViewModel { get; private set; }
+        public ICameraViewModel CameraViewModel { get; private set; }
 
         public AddItemViewModel()
         {
@@ -29,17 +29,17 @@ namespace PantryPassionGUI.ViewModels
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
         }
 
-        public AddItemViewModel(CameraViewModel cameraViewModel, BackendConnection backendConnection)
+        public AddItemViewModel(ICameraViewModel cameraViewModel, BackendConnection backendConnection)
         {
-            CameraViewModel = cameraViewModel;
             _backendConnection = backendConnection;
             _inventoryItem = new InventoryItem();
+            CameraViewModel = cameraViewModel;
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
         }
 
         private async void BarcodeAction(object sender, EventArgs e)
         { 
-            InventoryItem = await BackendConnection.CheckBarcode(CameraViewModel.Barcode);
+            //InventoryItem = await BackendConnection.CheckBarcode(CameraViewModel.Barcode);
             InventoryItem.Amount++;
         }
 

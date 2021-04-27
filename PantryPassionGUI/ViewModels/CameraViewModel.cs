@@ -15,7 +15,7 @@ using Prism.Commands;
 
 namespace PantryPassionGUI.ViewModels
 {
-    public class CameraViewModel : BindableBase
+    public class CameraViewModel : BindableBase , ICameraViewModel
     {
         private ICommand _turnOffCamera;
         public ICamera Camera { get; private set; }
