@@ -3,7 +3,7 @@ using NUnit.Framework;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.ViewModels;
 
-namespace PantryPassion.Test.Unit
+namespace PantryPassion.Test.Unit.ViewModelTest
 {
     public class CameraViewModelTest
     {

@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.ViewModels;
 
-namespace PantryPassion.Test.Unit
+namespace PantryPassion.Test.Unit.ViewModelTest
 {
     class AddItemViewModelTest
     {

@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using PantryPassionGUI.Models;
 
-namespace PantryPassion.Test.Unit
+namespace PantryPassion.Test.Unit.ModelTest
 {
     public class TimerClockTest
     {

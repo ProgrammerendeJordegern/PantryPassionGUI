@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Win32;
 using NUnit.Framework;
 using PantryPassionGUI.Models;
 
-namespace PantryPassion.Test.Unit
+namespace PantryPassion.Test.Unit.ModelTest
 {
     public class ReadBarcodeTest
     {

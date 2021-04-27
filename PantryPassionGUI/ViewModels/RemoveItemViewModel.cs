@@ -14,14 +14,14 @@ namespace PantryPassionGUI.ViewModels
 {
     public class RemoveItemViewModel : BindableBase
     {
-        public CameraViewModel CameraViewModel { get; private set; }
+        public ICameraViewModel CameraViewModel { get; private set; }
         private BackendConnection _backendConnection;
         private ICommand _cancelCommand;
         private ICommand _okCommand;
         private ICommand _upArrowCommand;
         private ICommand _downArrowCommand;
         private InventoryItem _inventoryItem;
-        private int _originalQuantity;
+        public int OriginalQuantity { get; private set; }
 
         public RemoveItemViewModel()
         {
@@ -29,13 +29,24 @@ namespace PantryPassionGUI.ViewModels
             _backendConnection = new BackendConnection();
             _inventoryItem = new InventoryItem();
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
-            _originalQuantity = 5;
+
+            //For testing
+            OriginalQuantity = 5;
+        }
+
+        public RemoveItemViewModel(ICameraViewModel cameraViewModel, BackendConnection backendConnection , int originalQuantity)
+        {
+            CameraViewModel = cameraViewModel;
+            _backendConnection = backendConnection;
+            _inventoryItem = new InventoryItem();
+            CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
+            OriginalQuantity = originalQuantity;
         }
 
         private async void BarcodeAction(object sender, EventArgs e)
         {
-            _inventoryItem = await BackendConnection.CheckBarcode(CameraViewModel.Barcode);
-            _originalQuantity = _inventoryItem.Amount;
+            //_inventoryItem = await BackendConnection.CheckBarcode(CameraViewModel.Barcode);
+            OriginalQuantity = _inventoryItem.Amount;
         }
 
         public InventoryItem InventoryItem
@@ -66,7 +77,7 @@ namespace PantryPassionGUI.ViewModels
 
         private bool UpArrowCanExecute()
         {
-            if (InventoryItem.Amount < _originalQuantity)
+            if (InventoryItem.Amount < OriginalQuantity)
             {
                 return true;
             }
