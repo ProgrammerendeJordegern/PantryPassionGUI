@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using PantryPassionGUI.Models;
+using PantryPassionGUI.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -53,10 +54,10 @@ namespace PantryPassionGUI.ViewModels
         private void AddItemToListHandler()
         {
             //Brug find funktion fra finditemview
-            FindItemUserControl findItemUserControl = new FindItemUserControl();
-            //findItemView.ShowDialog();
+            FindItemView findItemView = new FindItemView();
+            findItemView.ShowDialog();
 
-            
+
         }
 
         private InventoryItem _currentItem = null;
