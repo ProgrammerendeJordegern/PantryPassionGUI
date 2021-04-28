@@ -82,6 +82,15 @@ namespace PantryPassion.Test.Unit.ViewModelTest
         }
 
         [Test]
+        public void AddItemViewModel_AddInventoryItemCommand_SetNewItem()
+        {
+            _uut.AddInventoryItemCommand.Execute(_obj);
+            Assert.That(_uut.InventoryItem.Item.Name, Is.Null);
+            Assert.That(_uut.InventoryItem.Amount, Is.EqualTo(0));
+            Assert.That(_uut.InventoryItem.Item.Date.Date, Is.EqualTo(DateTime.Now.Date));
+        }
+
+        [Test]
         public void AddItemViewModel_BarcodeFoundEventToViewModels_AddOneToAmount()
         {
             _cameraViewModel.BarcodeFoundEventToViewModels += Raise.EventWith(new EventArgs());

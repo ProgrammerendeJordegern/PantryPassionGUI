@@ -94,7 +94,7 @@
                 <TextBox Grid.Row="5" Grid.Column="1" MinWidth="200" Margin="0,5" IsReadOnly="True" Text="{Binding Path=CameraViewModel.Barcode}"></TextBox>
             </Grid>
 
-            <Button Grid.Row="3" HorizontalAlignment="Center">Tilføj vare</Button>
+            <Button Grid.Row="3" HorizontalAlignment="Center" Command="{Binding Path=AddInventoryItemCommand}">Tilføj vare</Button>
 
             <view:CameraView Grid.Row="2" Grid.Column="1"></view:CameraView>
 
