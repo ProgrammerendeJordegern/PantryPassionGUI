@@ -146,7 +146,8 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
-                return _addInventoryItemCommand ??= new DelegateCommand(AddInventoryItemHandler);
+                return _addInventoryItemCommand ??= new DelegateCommand(AddInventoryItemHandler,DownArrowCanExecute)
+                    .ObservesProperty(() => InventoryItem.Amount); ;
             }
         }
 

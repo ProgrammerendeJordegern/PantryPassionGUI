@@ -95,7 +95,7 @@
             </Grid>
 
             <Button Grid.Row="3" HorizontalAlignment="Center" Command="{Binding Path=AddInventoryItemCommand}">Tilføj vare</Button>
-
+            
             <view:CameraView Grid.Row="2" Grid.Column="1"></view:CameraView>
 
         </Grid>
