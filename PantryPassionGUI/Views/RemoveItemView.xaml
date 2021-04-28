@@ -77,7 +77,7 @@
             
             <view:CameraView Grid.Row="2" Grid.Column="1"></view:CameraView>
 
-            <Button Grid.Row="3" HorizontalAlignment="Center">Fjern vare</Button>
+            <Button Grid.Row="3" HorizontalAlignment="Center" Command="{Binding Path=RemoveInventoryItemCommand}">Fjern vare</Button>
 
         </Grid>
 

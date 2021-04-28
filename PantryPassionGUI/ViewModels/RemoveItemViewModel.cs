@@ -18,6 +18,7 @@ namespace PantryPassionGUI.ViewModels
         private BackendConnection _backendConnection;
         private ICommand _cancelCommand;
         private ICommand _okCommand;
+        private ICommand _removeInventoryItemCommand;
         private ICommand _upArrowCommand;
         private ICommand _downArrowCommand;
         private InventoryItem _inventoryItem;
@@ -141,6 +142,20 @@ namespace PantryPassionGUI.ViewModels
         {
             CameraViewModel.Camera.CameraOff();
             //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
+        }
+
+        public ICommand RemoveInventoryItemCommand
+        {
+            get
+            {
+                return _removeInventoryItemCommand ??= new DelegateCommand(RemoveInventoryItemHandler);
+            }
+        }
+
+        private void RemoveInventoryItemHandler()
+        {
+            _backendConnection.SetQuantity(InventoryItem.Item.Name,InventoryItem.Amount);
+            InventoryItem = new InventoryItem();
         }
     }
 }

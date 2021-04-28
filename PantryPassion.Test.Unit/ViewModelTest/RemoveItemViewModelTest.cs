@@ -82,6 +82,13 @@ namespace PantryPassion.Test.Unit.ViewModelTest
             _cameraViewModel.Camera.Received(1).CameraOff();
         }
 
-        //Need test for removeItemCommand
+        [Test]
+        public void RemoveItemViewModel_RemoveInventoryItemCommand_SetNewInventoryItem()
+        {
+            _uut.RemoveInventoryItemCommand.Execute(_obj);
+            Assert.That(_uut.InventoryItem.Item.Name, Is.Null);
+            Assert.That(_uut.InventoryItem.Amount, Is.EqualTo(0));
+        }
+
     }
 }
