@@ -18,8 +18,10 @@ namespace PantryPassionGUI.ViewModels
     
     public class FindItemViewModel : BindableBase
     {
-        private FindItemWindow FindItemWindow;
+        private ICommand _okCommand;
+        private BackendConnection _backendConnection;
         public ObservableCollection<Item> Items { get; set; }
+        public CameraViewModel CameraViewModel { get; private set; }
 
         public FindItemViewModel()
         {
@@ -40,6 +42,10 @@ namespace PantryPassionGUI.ViewModels
             //ViewFilter.Filter = o => String.IsNullOrEmpty(Filter) || ((string)o).Contains(Filter);
             ViewFilter.Filter = UserFilter;
 
+            //Camera
+            CameraViewModel = new CameraViewModel();
+            //CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
+
         }
 
         private bool UserFilter(object item)
@@ -51,7 +57,6 @@ namespace PantryPassionGUI.ViewModels
             else return true;
         }
 
-       
 
         private ICollectionView ViewFilter;
         private string namefilter;
@@ -100,6 +105,7 @@ namespace PantryPassionGUI.ViewModels
             ScanEANWindow SEW1 = new ScanEANWindow(this);
             SEW1.ShowDialog();
         }
+
 
         //ICommand _okButtonCommand;
 
