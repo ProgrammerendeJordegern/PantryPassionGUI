@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PantryPassionGUI.Views;
 
 namespace PantryPassionGUI
 {
@@ -23,6 +24,11 @@ namespace PantryPassionGUI
         {
             InitializeComponent();
             //this.PreviewKeyDown += new KeyEventHandler(CloseOnEscape);
+        }
+
+        private void CloseOnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         //ikke den foretrukkede metode, men det andet virkede ikke :( 
