@@ -1,4 +1,5 @@
-﻿using AForge.Video.DirectShow;
+﻿using System;
+using AForge.Video.DirectShow;
 using NSubstitute;
 using NUnit.Framework;
 using PantryPassionGUI.Models;
@@ -80,6 +81,19 @@ namespace PantryPassion.Test.Unit.ViewModelTest
         {
             _uut.CancelCommand.Execute(_obj);
             _cameraViewModel.Camera.Received(1).CameraOff();
+        }
+
+        [Test]
+        public void AddItemViewModel_OriginalQuantity_SetTo5()
+        {
+            Assert.That(_uut.OriginalQuantity, Is.EqualTo(5));
+        }
+
+        [Test]
+        public void AddItemViewModel_BarcodeFoundEventToViewModels_AddOneToAmount()
+        {
+            _cameraViewModel.BarcodeFoundEventToViewModels += Raise.EventWith(new EventArgs());
+            Assert.That(_uut.OriginalQuantity, Is.EqualTo(0));
         }
 
         [Test]
