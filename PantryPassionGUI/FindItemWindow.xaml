@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PantryPassionGUI"
         xmlns:viewModels="clr-namespace:PantryPassionGUI.ViewModels"
-        mc:Ignorable="d"
-        Title="FindItem" Height="456" Width="524">
-    <Window.Resources>
+        mc:Ignorable="d">
+    <UserControl.Resources>
         <Style x:Key="RoundedCorner" TargetType="{x:Type Button}">
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
@@ -33,9 +32,9 @@
             <DataGrid.Columns>
 
                 <DataGridTextColumn Header="Name" Width="2*" Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                <DataGridTextColumn Header="EAN" Width="2*" Binding="{Binding Path=EAN}"></DataGridTextColumn>
+                <DataGridTextColumn Header="EAN" Width="2*" Binding="{Binding Path=Ean}"></DataGridTextColumn>
                 <DataGridTextColumn Header="LifespanDays" Width="2*" Binding="{Binding Path=AverageLifespanDays}"></DataGridTextColumn>
-                <DataGridTextColumn Header="ItemSize" Width="2*" Binding="{Binding Path=ItemSize}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ItemSize" Width="2*" Binding="{Binding Path=Size}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -43,7 +42,7 @@
         <TextBox Text="{Binding Path=EANFilter, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="150,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
         <TextBlock FontWeight="DemiBold" Text="Find by name:" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" Width="135" Height="16"/>
         <TextBlock FontWeight="DemiBold" Text="Find by EAN:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,18,0,0" Width="142" Height="16"/>
-        <Button IsDefault="True" IsCancel="True" Style="{StaticResource RoundedCorner}" Content="OK" HorizontalAlignment="Left" Margin="425,39,0,0" VerticalAlignment="Top" Width="89" Height="23" Click="Button_Click"/>
+        <Button IsDefault="True" IsCancel="True" Style="{StaticResource RoundedCorner}" Content="OK" HorizontalAlignment="Left" Margin="425,39,0,0" VerticalAlignment="Top" Width="89" Height="23"/>
         <Button Command="{Binding Path=ScanEANCommand}" IsDefault="True" IsCancel="True" Style="{StaticResource RoundedCorner}" Content="Scan EAN" HorizontalAlignment="Left" Margin="297,39,0,0" VerticalAlignment="Top" Width="89" Height="23" />
 
     </Grid>
