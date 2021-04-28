@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PantryPassionGUI"
-       
+        xmlns:view="clr-namespace:PantryPassionGUI"
         
         xmlns:viewModels="clr-namespace:PantryPassionGUI.ViewModels"
         mc:Ignorable="d"
@@ -31,7 +31,6 @@
         <viewModels:MainWindowViewModel></viewModels:MainWindowViewModel>
     </Window.DataContext>
     <Grid>
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
