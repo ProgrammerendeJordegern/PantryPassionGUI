@@ -54,7 +54,7 @@ namespace PantryPassionGUI.ViewModels
         private void AddItemToListHandler()
         {
             //Brug find funktion fra finditemview
-            FindItemWindow findItemView = new FindItemWindow();
+            FindItemUserControl findItemUserControl = new FindItemUserControl();
             //findItemView.ShowDialog();
 
             
