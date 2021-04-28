@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:PantryPassionGUI"
         xmlns:viewModels="clr-namespace:PantryPassionGUI.ViewModels"
         mc:Ignorable="d">
-
     <UserControl.Resources>
         <Style x:Key="RoundedCorner" TargetType="{x:Type Button}">
             <Setter Property="Foreground" Value="White"></Setter>
@@ -33,9 +32,9 @@
             <DataGrid.Columns>
 
                 <DataGridTextColumn Header="Name" Width="2*" Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                <DataGridTextColumn Header="EAN" Width="2*" Binding="{Binding Path=EAN}"></DataGridTextColumn>
+                <DataGridTextColumn Header="EAN" Width="2*" Binding="{Binding Path=Ean}"></DataGridTextColumn>
                 <DataGridTextColumn Header="LifespanDays" Width="2*" Binding="{Binding Path=AverageLifespanDays}"></DataGridTextColumn>
-                <DataGridTextColumn Header="ItemSize" Width="2*" Binding="{Binding Path=ItemSize}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ItemSize" Width="2*" Binding="{Binding Path=Size}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
