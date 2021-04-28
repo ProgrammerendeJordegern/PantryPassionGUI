@@ -68,6 +68,10 @@ namespace PantryPassionGUI.ViewModels
             CameraViewModel = new CameraViewModel();
             //CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
 
+            //Camera
+            CameraViewModel = new CameraViewModel();
+            //CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
+
         }
 
         private bool UserFilter(object item)
