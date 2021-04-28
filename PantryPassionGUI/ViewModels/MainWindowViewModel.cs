@@ -73,8 +73,8 @@ namespace PantryPassionGUI.ViewModels
 
         void FindItemExecute()
         {
-            FindItemWindow FIWindow = new FindItemWindow();
-            
+            FindItemView FIWindow = new FindItemView();
+            FIWindow.ShowDialog();
             //FIWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             //if (FIWindow.ShowDialog() == true)
             //{
