@@ -15,11 +15,22 @@ namespace PantryPassionGUI.Models
     {
         private int _amount;
         private string _category;
+        private Item _item;
 
         public int InventoryId { get; set; }
         public int InventoryType { get; set; }
 
-        public Item Item { get; set; }
+        public Item Item
+        {
+            get
+            {
+                return _item;
+            }
+            set
+            {
+                SetProperty(ref _item, value);
+            }
+        }
 
 
         //Skal måske bare fjernes igen da man ikke kan lave mellemrum!!
@@ -30,7 +41,7 @@ namespace PantryPassionGUI.Models
 
         public InventoryItem()
         {
-            Item = new Item();
+            _item = new Item();
         }
 
         public int Amount

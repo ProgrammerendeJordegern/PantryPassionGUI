@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -9,11 +10,11 @@ namespace PantryPassionGUI.Models
     public class BackendConnection
     {
         private static readonly HttpClient Client = new HttpClient();
-        private static string _baseUrl = "https://localhost:44328/item";
+        private static string _baseUrl = "https://localhost:44380";
 
-        public static async Task<InventoryItem> CheckBarcode(string barcode)
+        public static async Task<Item> CheckBarcode(string barcode)
         {
-            string url = _baseUrl += "/" + barcode;
+            string url = _baseUrl + "/item/fromEan?ean=" + barcode;
 
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
@@ -35,7 +36,7 @@ namespace PantryPassionGUI.Models
                         PropertyNameCaseInsensitive = true,
                     };
 
-                    return JsonSerializer.Deserialize<InventoryItem>(content, options);
+                    return JsonSerializer.Deserialize<Item>(content, options);
                 }
             }
         }

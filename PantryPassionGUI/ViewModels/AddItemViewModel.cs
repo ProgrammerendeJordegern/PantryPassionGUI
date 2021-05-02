@@ -4,10 +4,12 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
+using ConsoleAppClient.Utilities;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.ViewModels;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Services.Dialogs;
 
 namespace PantryPassionGUI.ViewModels
 {
@@ -39,8 +41,26 @@ namespace PantryPassionGUI.ViewModels
         }
 
         private async void BarcodeAction(object sender, EventArgs e)
-        { 
-            //InventoryItem = await BackendConnection.CheckBarcode(CameraViewModel.Barcode);
+        {
+            Item test = new Item();
+
+            try
+            {
+                test = await BackendConnection.CheckBarcode("12312");
+            }
+            catch (ApiException exception)
+            {
+                Debug.WriteLine(exception.StatusCode);
+                ItemNotFound();
+            }
+            
+
+            InventoryItem.Item = test;
+
+            //Debug.WriteLine(InventoryItem.Item.Name);
+
+            //InventoryItem.Item.Name = "test";
+
             InventoryItem.Amount++;
         }
 
@@ -100,7 +120,10 @@ namespace PantryPassionGUI.ViewModels
 
         public void ItemNotFound()
         {
-            Console.WriteLine("Error! Vare ikke fundet!");
+            Debug.WriteLine("Error! Vare ikke fundet!");
+            //DialogWindow win = new DialogWindow();
+            //win.ShowDialog();
+
         }
 
         public ICommand UpArrowCommand
