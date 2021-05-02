@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using ConsoleAppClient.Utilities;
+
 
 namespace PantryPassionGUI.Models
 {
@@ -41,9 +43,24 @@ namespace PantryPassionGUI.Models
             }
         }
 
-        public void SetNewItem(string name, string category, string barcode)
+        public async void SetNewItem(InventoryItem inventoryItem)
         {
+            string url = _baseUrl + "/inventoryItem/createWNewItem";
 
+            var json = JsonSerializer.Serialize(inventoryItem);
+
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                using (var response = await Client.PostAsync(url,httpContent))
+                {
+                    if (response.IsSuccessStatusCode == false)
+                    {
+                        throw new ApiException
+                        {
+                            StatusCode = (int)response.StatusCode,
+                        };
+                    }
+                }
         }
 
         public void GetItemQuantity(string name)

@@ -126,7 +126,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void UpdateListHandler()
         {
-            _backendConnection.SetNewItem("Test", "Test", "Test");
+            //_backendConnection.SetNewItem("Test", "Test", "Test");
             //Update to db
 
             Application.Current.Windows[Application.Current.Windows.Count - 2].Close();

@@ -46,7 +46,7 @@ namespace PantryPassionGUI.ViewModels
 
             try
             {
-                test = await BackendConnection.CheckBarcode("12312");
+                test = await BackendConnection.CheckBarcode("123123");
             }
             catch (ApiException exception)
             {
@@ -87,7 +87,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void OkHandler()
         {
-            _backendConnection.SetNewItem("Test", "Test", "Test");
+            _backendConnection.SetNewItem(InventoryItem);
             CameraViewModel.Camera.CameraOff();
             //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
@@ -176,7 +176,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void AddInventoryItemHandler()
         {
-            //_backendConnection.SetNewItem("test","test","test");
+            _backendConnection.SetNewItem(InventoryItem);
             InventoryItem = new InventoryItem();
         }
     }
