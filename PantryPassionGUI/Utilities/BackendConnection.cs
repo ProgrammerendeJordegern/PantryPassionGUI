@@ -47,20 +47,30 @@ namespace PantryPassionGUI.Models
         {
             string url = _baseUrl + "/inventoryItem/createWNewItem";
 
-            var json = JsonSerializer.Serialize(inventoryItem);
-
-            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-                using (var response = await Client.PostAsync(url,httpContent))
+            using (var request = new HttpRequestMessage(HttpMethod.Post, url))
+            {
+                var options = new JsonSerializerOptions
                 {
-                    if (response.IsSuccessStatusCode == false)
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                };
+                var json = JsonSerializer.Serialize(inventoryItem, options);
+                using (var stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
+                {
+                    request.Content = stringContent;
+                    using (var response = await Client
+                        .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
+                        .ConfigureAwait(false))
                     {
-                        throw new ApiException
+                        if (response.IsSuccessStatusCode == false)
                         {
-                            StatusCode = (int)response.StatusCode,
-                        };
+                            throw new ApiException
+                            {
+                                StatusCode = (int)response.StatusCode,
+                            };
+                        }
                     }
                 }
+            }
         }
 
         public void GetItemQuantity(string name)
