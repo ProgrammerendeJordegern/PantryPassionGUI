@@ -45,7 +45,8 @@ namespace PantryPassionGUI.Models
 
         public async void SetNewItem(InventoryItem inventoryItem)
         {
-            string url = _baseUrl + "/inventoryItem/createWNewItem";
+            int type = inventoryItem.InventoryType;
+            string url = _baseUrl + "/inventoryItem/createWNewItem?userId=1&type=" + type;
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, url))
             {
