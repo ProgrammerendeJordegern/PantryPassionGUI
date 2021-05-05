@@ -16,8 +16,10 @@ namespace PantryPassionGUI.ViewModels
     public class ShoppingListViewModel : BindableBase
     {
         public ObservableCollection<InventoryItem> ItemsList { get; set; }
-
+        public FindItemViewModel FindItemViewModel { get; private set; }
         private BackendConnection _backendConnection;
+        public SharedOberserverableCollectionOfInventoryItems SharedOberserverableCollection { get; private set; }
+
         private ICommand _autoGenerateListCommand;
         private ICommand _addItemToListCommand;
         private ICommand _clearListCommand;
@@ -28,6 +30,9 @@ namespace PantryPassionGUI.ViewModels
         public ShoppingListViewModel()
         {
             _backendConnection = new BackendConnection();
+            ItemsList = new ObservableCollection<InventoryItem>();
+            FindItemViewModel = new FindItemViewModel();
+            SharedOberserverableCollection = SharedOberserverableCollectionOfInventoryItems.Instance();
         }
 
         public ICommand AutoGenerateListCommand
@@ -56,8 +61,6 @@ namespace PantryPassionGUI.ViewModels
             //Brug find funktion fra finditemview
             FindItemView findItemView = new FindItemView();
             findItemView.ShowDialog();
-
-
         }
 
         private InventoryItem _currentItem = null;
