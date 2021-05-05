@@ -1,11 +1,10 @@
-﻿using System.Drawing;
-using System.Timers;
+﻿using System.Timers;
 using AForge.Video;
 using NSubstitute;
 using NUnit.Framework;
 using PantryPassionGUI.Models;
 
-namespace PantryPassion.Test.Unit
+namespace PantryPassion.Test.Unit.ModelTest
 {
     public class CameraConnectionTest
     {

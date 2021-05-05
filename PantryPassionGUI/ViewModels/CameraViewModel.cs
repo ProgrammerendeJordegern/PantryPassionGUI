@@ -3,25 +3,31 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using PantryPassionGUI.Models;
 using Prism.Mvvm;
 using Prism.Commands;
 
 namespace PantryPassionGUI.ViewModels
 {
-    public class CameraViewModel : BindableBase
+    public class CameraViewModel : BindableBase , ICameraViewModel
     {
         private ICommand _turnOffCamera;
-        public CameraConnection Camera { get; private set; }
+        public ICamera Camera { get; private set; }
         private string _cameraButtonText;
         private ISoundPlayer _soundPlayer;
         private int _cameraListIndex;
         private string _barcode;
+        private CameraState _stateForCamera;
 
         public event EventHandler<EventArgs> BarcodeFoundEventToViewModels;
+
+        public ObservableCollection<string> CameraList { get; private set; }
 
         public enum CameraState
         {
@@ -29,9 +35,16 @@ namespace PantryPassionGUI.ViewModels
             CameraOff,
         }
 
-        private CameraState _stateForCamera;
-
-        public ObservableCollection<string> CameraList { get; private set; }
+        public CameraViewModel(ICamera camera, ISoundPlayer soundPlayer)
+        {
+            Camera = camera;
+            _soundPlayer = soundPlayer;
+            _stateForCamera = CameraState.CameraOn;
+            CameraList = new ObservableCollection<string>();
+            Camera.BarcodeFoundEvent += FoundBarcode;
+            _cameraButtonText = "Sluk kamera";
+            Camera.CameraFeed = new BitmapImage();
+        }
 
         public CameraViewModel()
         {
@@ -62,6 +75,7 @@ namespace PantryPassionGUI.ViewModels
             Barcode = e.Barcode;
 
             BarcodeFoundEventViewModels(new EventArgs());
+
             _soundPlayer.Play();
         }
 
@@ -104,7 +118,7 @@ namespace PantryPassionGUI.ViewModels
                     _stateForCamera = CameraState.CameraOff;
                     CameraButtonText = "Tænd kamera";
                     Camera.CameraOff();
-                    Application.Current.Dispatcher.BeginInvoke(new Action(() => { Camera.CameraFeed = null; }));
+                    Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() => { Camera.CameraFeed = null; }));
                     break;
                 case CameraState.CameraOff:
                     _stateForCamera = CameraState.CameraOn;

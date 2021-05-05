@@ -23,11 +23,11 @@ namespace PantryPassionGUI.ViewModels
 
         public FindItemViewModel()
         {
-            Item i1 = new Item("Nutella", "42069", 100, "500g");
-            Item i2 = new Item("Kyllingebryst", "1337", 10, "1000g");
-            Item i3 = new Item("Støvsuger", "666", 3, "69kg");
-            Item i4 = new Item("Blomkål", "5705830008275", 9999, "5kg");
-            Item i5 = new Item("Glock 9mm", "4206666", 1, "1kg");
+            Item i1 = new Item("Nutella", "42069", 100, 500);
+            Item i2 = new Item("Kyllingebryst", "1337", 10, 1000);
+            Item i3 = new Item("Støvsuger", "666", 3, 69);
+            Item i4 = new Item("Blomkål", "5705830008275", 9999, 4);
+            Item i5 = new Item("Glock 9mm", "MLG42066669", 1, 1);
 
             Items = new ObservableCollection<Item>();
             Items.Add(i1);
@@ -45,7 +45,7 @@ namespace PantryPassionGUI.ViewModels
         private bool UserFilter(object item)
         {
             if (!(String.IsNullOrEmpty(EANFilter)))
-                return ((item as Item).EAN.IndexOf(EANFilter, StringComparison.OrdinalIgnoreCase) >= 0);
+                return ((item as Item).Ean.IndexOf(EANFilter, StringComparison.OrdinalIgnoreCase) >= 0);
             else if (!(String.IsNullOrEmpty(NameFilter)))
                 return ((item as Item).Name.IndexOf(NameFilter, StringComparison.OrdinalIgnoreCase) >= 0);
             else return true;

@@ -18,11 +18,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="barcodeSoundBeep.wav" />
     <None Remove="Images\pantrypassionlogoudentekst.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Content Include="barcodeSoundBeep.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

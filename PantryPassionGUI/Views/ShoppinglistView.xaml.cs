@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,23 +15,13 @@ using System.Windows.Shapes;
 namespace PantryPassionGUI.Views
 {
     /// <summary>
-    /// Interaction logic for RemoveItemView.xaml
+    /// Interaction logic for ShoppinglistView.xaml
     /// </summary>
-    public partial class RemoveItemView : Window
+    public partial class ShoppinglistView : Window
     {
-        public RemoveItemView()
+        public ShoppinglistView()
         {
             InitializeComponent();
-        }
-
-        private void OkExitOnClick(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void CancelExitOnClick(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

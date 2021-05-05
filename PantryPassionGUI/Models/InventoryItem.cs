@@ -2,52 +2,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Prism.Mvvm;
 
 namespace PantryPassionGUI.Models
 {
-    public class Items : BindableBase, INotifyDataErrorInfo
+    public class InventoryItem : BindableBase, INotifyDataErrorInfo
     {
-        private string _name;
-        private int _quantity;
-        private string _date;
+        private int _amount;
         private string _category;
+        private Item _item;
 
-        public Items()
-        {
-            _date = DateTime.Now.ToLongDateString();
-        }
+        public int InventoryId { get; set; }
+        public int InventoryType { get; set; }
 
-        public string Name
+        public Item Item
         {
             get
             {
-                return _name;
+                return _item;
             }
             set
             {
-                if (String.IsNullOrEmpty(value))
-                {
-                    List<string> errors = new List<string>
-                    {
-                        "Navn skal udfyldes."
-                    };
-                    SetErrors("Name", errors);
-                }
-                else
-                {
-                    ClearErrors("Name");
-                }
-                SetProperty(ref _name, value);
+                SetProperty(ref _item, value);
             }
         }
 
-        public int Quantity
+
+        //Skal måske bare fjernes igen da man ikke kan lave mellemrum!!
+        public enum CategoryEnum
+        {
+            Allevare
+        }
+
+        public InventoryItem()
+        {
+            _item = new Item();
+        }
+
+        public int Amount
         {
             get
             {
-                return _quantity;
+                return _amount;
             }
             set
             {
@@ -63,21 +64,8 @@ namespace PantryPassionGUI.Models
                 {
                     ClearErrors("Quantity");
                 }
-                SetProperty(ref _quantity, value);
-               
-            }
-        }
+                SetProperty(ref _amount, value);
 
-        public string Date
-        {
-            get
-            {
-                return _date;
-            }
-            set
-            {
-
-                SetProperty(ref _date, value);
             }
         }
 
@@ -89,11 +77,30 @@ namespace PantryPassionGUI.Models
             }
             set
             {
+                SetInventoryType(value);
                 SetProperty(ref _category, value);
-                Debug.WriteLine(Category);
             }
         }
 
+        private void SetInventoryType(string category)
+        {
+            switch (category)
+            {
+                case "System.Windows.Controls.ComboBoxItem: Alle vare":
+                    InventoryType = 0;
+                    break;
+                case "System.Windows.Controls.ComboBoxItem: Køleskab":
+                    InventoryType = 1;
+                    break;
+                case "System.Windows.Controls.ComboBoxItem: Fryser":
+                    InventoryType = 2;
+                    break;
+                case "System.Windows.Controls.ComboBoxItem: Spisekammer (øvrige vare)":
+                    InventoryType = 3;
+                    break;
+                
+            }
+        }
 
         #region INotifyDataErrorInfo implementation
         public bool HasErrors
