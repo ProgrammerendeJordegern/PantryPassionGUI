@@ -143,11 +143,53 @@ namespace PantryPassionGUI.ViewModels
 
         private void OkHandler()
         {
+            _backendConnection.SetNewItem("Test", "Test", "Test");
+            
+            //_shoppingList.ItemsList.Add(AddNewItem
+            //ChosenItems.Add(Items.ElementAt(CurrentIndex));
+            _sharedOberserverableCollection.SharedInventoryItems.Add(Items.ElementAt(CurrentIndex));
+
+            CameraViewModel.Camera.CameraOff();
+
+        //Ok button
+        public ICommand OkCommand
+        {
+            get
+            {
+                return _okCommand ??= new DelegateCommand(OkHandler);
+            }
+        }
+
+        private void OkHandler()
+        {
             //_backendConnection.SetNewItem("Test", "Test", "Test");
             
             _sharedOberserverableCollection.SharedInventoryItems.Add(Items.ElementAt(CurrentIndex));
 
             CameraViewModel.Camera.CameraOff();
+        }
+
+        private InventoryItem _currentItem = null;
+        public InventoryItem CurrentItem
+        {
+            get
+            {
+                return _currentItem;
+            }
+            set
+            {
+                SetProperty(ref _currentItem, value);
+            }
+        }
+
+        private int _currentIndex = -1;
+        public int CurrentIndex
+        {
+            get { return _currentIndex; }
+            set
+            {
+                SetProperty(ref _currentIndex, value);
+            }
         }
 
         private InventoryItem _currentItem = null;
