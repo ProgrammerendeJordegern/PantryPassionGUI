@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,11 @@ namespace PantryPassionGUI.ViewModels
     {
         private ICommand _okCommand;
         private BackendConnection _backendConnection;
-        public ObservableCollection<Item> Items { get; set; }
+        private ShoppingListViewModel _shoppingList;
+        private SharedOberserverableCollectionOfInventoryItems _sharedOberserverableCollection;
+
+        public ObservableCollection<InventoryItem> Items { get; set; }
+        public ObservableCollection<InventoryItem> ChosenItems { get; set; }
         public CameraViewModel CameraViewModel { get; private set; }
 
         public FindItemViewModel()
@@ -31,16 +36,32 @@ namespace PantryPassionGUI.ViewModels
             Item i4 = new Item("Blomkål", "5705830008275", 9999, 4);
             Item i5 = new Item("Glock 9mm", "MLG42066669", 1, 1);
 
-            Items = new ObservableCollection<Item>();
-            Items.Add(i1);
-            Items.Add(i2);
-            Items.Add(i3);
-            Items.Add(i4);
-            Items.Add(i5); 
+            InventoryItem inventoryItem1 = new InventoryItem();
+            InventoryItem inventoryItem2 = new InventoryItem();
+            InventoryItem inventoryItem3 = new InventoryItem();
+            InventoryItem inventoryItem4 = new InventoryItem();
+            InventoryItem inventoryItem5 = new InventoryItem();
+
+            _sharedOberserverableCollection = SharedOberserverableCollectionOfInventoryItems.Instance();
+
+
+            inventoryItem1.Item = i1;
+            inventoryItem2.Item = i2;
+            inventoryItem3.Item = i3;
+            inventoryItem4.Item = i4;
+            inventoryItem5.Item = i5;
+
+            Items = new ObservableCollection<InventoryItem>();
+            Items.Add(inventoryItem1);
+            Items.Add(inventoryItem2);
+            Items.Add(inventoryItem3);
+            Items.Add(inventoryItem4);
+            Items.Add(inventoryItem5); 
             
             ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(Items);
             //ViewFilter.Filter = o => String.IsNullOrEmpty(Filter) || ((string)o).Contains(Filter);
             ViewFilter.Filter = UserFilter;
+            _backendConnection = new BackendConnection();
 
             //Camera
             CameraViewModel = new CameraViewModel();
@@ -106,6 +127,50 @@ namespace PantryPassionGUI.ViewModels
             SEW1.ShowDialog();
         }
 
+        //Ok button
+        public ICommand OkCommand
+        {
+            get
+            {
+                return _okCommand ??= new DelegateCommand(OkHandler);
+            }
+        }
+
+        private void OkHandler()
+        {
+            _backendConnection.SetNewItem("Test", "Test", "Test");
+            
+            //_shoppingList.ItemsList.Add(AddNewItem
+            //ChosenItems.Add(Items.ElementAt(CurrentIndex));
+            _sharedOberserverableCollection.SharedInventoryItems.Add(Items.ElementAt(CurrentIndex));
+
+            CameraViewModel.Camera.CameraOff();
+
+            Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
+        }
+
+        private InventoryItem _currentItem = null;
+        public InventoryItem CurrentItem
+        {
+            get
+            {
+                return _currentItem;
+            }
+            set
+            {
+                SetProperty(ref _currentItem, value);
+            }
+        }
+
+        private int _currentIndex = -1;
+        public int CurrentIndex
+        {
+            get { return _currentIndex; }
+            set
+            {
+                SetProperty(ref _currentIndex, value);
+            }
+        }
 
         //ICommand _okButtonCommand;
 
@@ -136,11 +201,4 @@ namespace PantryPassionGUI.ViewModels
         //    }
         //}
     }
-
-
-
-
-
-
-
 }
