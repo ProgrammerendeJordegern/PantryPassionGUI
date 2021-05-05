@@ -26,8 +26,8 @@
             <Label Grid.Row="0" Grid.Column="0" Content="Indkøbsliste: "></Label>
             <DataGrid Grid.Row="1"
                   IsSynchronizedWithCurrentItem="True"
-                  ItemsSource="{Binding Path=ItemsList}"
-                  SelectedItem="{Binding Path=CurrentItem}"
+                  ItemsSource="{Binding Path=SharedOberserverableCollection.SharedInventoryItems}"
+                  SelectedItem="{Binding Path= CurrentItem}"
                   SelectedIndex="{Binding Path=CurrentIndex}" 
                   AutoGenerateColumns="False"
                   Margin="10,0"
@@ -37,8 +37,8 @@
                     <!--<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=}"></MouseBinding>-->
                 </DataGrid.InputBindings>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Vare" IsReadOnly="True" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Antal" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Vare" IsReadOnly="True" Binding="{Binding Path=Item.Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Antal" IsReadOnly="True" Binding="{Binding Path=Item.Size}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
