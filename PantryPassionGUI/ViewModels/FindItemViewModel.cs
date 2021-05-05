@@ -40,8 +40,6 @@ namespace PantryPassionGUI.ViewModels
             //ViewFilter.Filter = o => String.IsNullOrEmpty(Filter) || ((string)o).Contains(Filter);
             ViewFilter.Filter = UserFilter;
 
-
-
         }
 
         private bool UserFilter(object item)
