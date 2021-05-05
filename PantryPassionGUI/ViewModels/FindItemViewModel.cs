@@ -26,8 +26,8 @@ namespace PantryPassionGUI.ViewModels
             Item i1 = new Item("Nutella", "42069", 100, "500g");
             Item i2 = new Item("Kyllingebryst", "1337", 10, "1000g");
             Item i3 = new Item("Støvsuger", "666", 3, "69kg");
-            Item i4 = new Item("Blomkål", "5705830008275", 9999, "~kg");
-            Item i5 = new Item("Glock 9mm", "MLG42066669", 1, "1kg");
+            Item i4 = new Item("Blomkål", "5705830008275", 9999, "5kg");
+            Item i5 = new Item("Glock 9mm", "4206666", 1, "1kg");
 
             Items = new ObservableCollection<Item>();
             Items.Add(i1);
@@ -39,8 +39,6 @@ namespace PantryPassionGUI.ViewModels
             ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(Items);
             //ViewFilter.Filter = o => String.IsNullOrEmpty(Filter) || ((string)o).Contains(Filter);
             ViewFilter.Filter = UserFilter;
-
-
 
         }
 
