@@ -1,23 +1,42 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using ConsoleAppClient.Utilities;
+using System.Windows.Automation;
+using PantryPassionGUI.Models;
 
-
-namespace PantryPassionGUI.Models
+namespace PantryPassionGUI.Utilities
 {
     public class BackendConnection
     {
         private static readonly HttpClient Client = new HttpClient();
         private static string _baseUrl = "https://localhost:44380";
 
+        class CreateExistingItem
+        {
+            public int ItemId { get; set; }
+            public int Amount { get; set; }
+        }
+
         public static async Task<Item> CheckBarcode(string barcode)
         {
             string url = _baseUrl + "/item/fromEan?ean=" + barcode;
 
+            return await GetItemInformation<Item>(url);
+        }
+
+        //Virker ikke helt på backend delen!!!!
+        public static async Task<Item> GetItemByName(string name)
+        {
+            string url = _baseUrl + "/item/fromName?name=" + name;
+
+            return await GetItemInformation<Item>(url);
+        }
+
+        public static async Task<T> GetItemInformation<T>(string url)
+        {
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
                 using (var response = await Client.SendAsync(request))
@@ -29,7 +48,6 @@ namespace PantryPassionGUI.Models
                         throw new ApiException
                         {
                             StatusCode = (int)response.StatusCode,
-                            Content = content
                         };
                     }
 
@@ -38,15 +56,32 @@ namespace PantryPassionGUI.Models
                         PropertyNameCaseInsensitive = true,
                     };
 
-                    return JsonSerializer.Deserialize<Item>(content, options);
+                    return JsonSerializer.Deserialize<T>(content, options);
                 }
             }
         }
 
-        public async void SetNewItem(InventoryItem inventoryItem)
+        public static async Task<int> SetNewItem(InventoryItem inventoryItem, bool itemExistsInDatabase)
         {
             int type = inventoryItem.InventoryType;
-            string url = _baseUrl + "/inventoryItem/createWNewItem?userId=1&type=" + type;
+            string url = "";
+            object informationToSend = new object();
+
+            if (itemExistsInDatabase)
+            {
+                url = _baseUrl + "/inventoryitem/createwexistingitem?userId=1&type=" + type;
+                CreateExistingItem data = new CreateExistingItem();
+
+                data.ItemId = inventoryItem.Item.ItemId;
+                data.Amount = inventoryItem.Amount;
+                informationToSend = data;
+            }
+            else
+            {
+                url = _baseUrl + "/inventoryItem/createWNewItem?userId=1&type=" + type;
+                informationToSend = inventoryItem;
+
+            }
 
             using (var request = new HttpRequestMessage(HttpMethod.Post, url))
             {
@@ -54,7 +89,10 @@ namespace PantryPassionGUI.Models
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 };
-                var json = JsonSerializer.Serialize(inventoryItem, options);
+
+                
+
+                var json = JsonSerializer.Serialize(informationToSend, options);
                 using (var stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
                 {
                     request.Content = stringContent;
@@ -69,6 +107,8 @@ namespace PantryPassionGUI.Models
                                 StatusCode = (int)response.StatusCode,
                             };
                         }
+
+                        return (int) response.StatusCode;
                     }
                 }
             }

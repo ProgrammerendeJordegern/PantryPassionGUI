@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
-using ConsoleAppClient.Utilities;
 using PantryPassionGUI.Models;
+
+
+using PantryPassionGUI.Models;
+using PantryPassionGUI.Utilities;
 using PantryPassionGUI.ViewModels;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -22,7 +26,9 @@ namespace PantryPassionGUI.ViewModels
         private ICommand _upArrowCommand;
         private ICommand _downArrowCommand;
         private InventoryItem _inventoryItem;
+        private bool _itemExistsInDatabase = true;
         public ICameraViewModel CameraViewModel { get; private set; }
+
 
         public AddItemViewModel()
         {
@@ -42,24 +48,21 @@ namespace PantryPassionGUI.ViewModels
 
         private async void BarcodeAction(object sender, EventArgs e)
         {
-            Item test = new Item();
+            InventoryItem.Item.Ean = CameraViewModel.Barcode;
 
             try
             {
-                test = await BackendConnection.CheckBarcode("123123");
+                InventoryItem.Item = await BackendConnection.CheckBarcode(InventoryItem.Item.Ean);
             }
             catch (ApiException exception)
             {
-                Debug.WriteLine(exception.StatusCode);
-                ItemNotFound();
+                ItemNotFound(exception.StatusCode);
+                _itemExistsInDatabase = false;
             }
-            
-
-            InventoryItem.Item = test;
-
-            //Debug.WriteLine(InventoryItem.Item.Name);
-
-            //InventoryItem.Item.Name = "test";
+            catch (HttpRequestException exception)
+            {
+                MessageBox.Show($"{exception.Source}", "Error!");
+            }
 
             InventoryItem.Amount++;
         }
@@ -85,9 +88,17 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private void OkHandler()
+        private async void OkHandler()
         {
-            _backendConnection.SetNewItem(InventoryItem);
+            try
+            {
+                int StatusCode = await BackendConnection.SetNewItem(InventoryItem, _itemExistsInDatabase);
+            }
+            catch (ApiException e)
+            {
+                MessageBox.Show($"Fejl {e.StatusCode}", "Error!");
+            }
+
             CameraViewModel.Camera.CameraOff();
             //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
@@ -118,12 +129,9 @@ namespace PantryPassionGUI.ViewModels
             //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
 
-        public void ItemNotFound()
+        public void ItemNotFound(int StatusCode)
         {
-            Debug.WriteLine("Error! Vare ikke fundet!");
-            //DialogWindow win = new DialogWindow();
-            //win.ShowDialog();
-
+            MessageBox.Show($"Fejl {StatusCode}\nVare belv ikke fundet i systemet!","Error!");
         }
 
         public ICommand UpArrowCommand
@@ -174,9 +182,21 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private void AddInventoryItemHandler()
+        private async void AddInventoryItemHandler()
         {
-            _backendConnection.SetNewItem(InventoryItem);
+            try
+            {
+                int StatusCode = await BackendConnection.SetNewItem(InventoryItem, _itemExistsInDatabase);
+            }
+            catch (ApiException e)
+            {
+                MessageBox.Show($"Fejl {e.StatusCode}", "Error!");
+            }
+            catch (HttpRequestException e)
+            {
+                MessageBox.Show($"{e.Message}", "Error!");
+            }
+           
             InventoryItem = new InventoryItem();
         }
     }

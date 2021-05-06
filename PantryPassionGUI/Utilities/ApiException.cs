@@ -1,11 +1,9 @@
 ﻿using System;
 
-namespace ConsoleAppClient.Utilities
+namespace PantryPassionGUI.Utilities
 {
     public class ApiException : Exception
     {
         public int StatusCode { get; set; }
-
-        public string Content { get; set; }
     }
 }

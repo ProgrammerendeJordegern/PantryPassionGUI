@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using PantryPassionGUI.Models;
+using PantryPassionGUI.Utilities;
 using Prism.Commands;
 using Prism.Mvvm;
 

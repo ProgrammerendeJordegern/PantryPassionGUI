@@ -2,6 +2,7 @@
 using NSubstitute;
 using NUnit.Framework;
 using PantryPassionGUI.Models;
+using PantryPassionGUI.Utilities;
 using PantryPassionGUI.ViewModels;
 
 namespace PantryPassion.Test.Unit.ViewModelTest

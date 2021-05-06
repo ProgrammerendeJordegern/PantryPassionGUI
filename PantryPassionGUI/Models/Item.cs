@@ -16,12 +16,14 @@ namespace PantryPassionGUI.Models
         private DateTime _date;
         private int _size;
         private string _sizeUnit;
+        private string _ean;
 
         public enum UnitsEnum
         {
             Gram,
             kg,
-            Liter
+            Liter,
+            ml
         }
 
         public Item(string name, string ean = "", int averageLifespanDays = 0, int itemSize = 0)
@@ -38,7 +40,18 @@ namespace PantryPassionGUI.Models
         }
 
         public int ItemId { get; set; }
-        public string Ean { get; set; }
+
+        public string Ean
+        {
+            get
+            {
+                return _ean;
+            }
+            set
+            {
+                SetProperty(ref _ean, value);
+            }
+        }
 
         public string Name
         {
