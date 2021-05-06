@@ -80,17 +80,19 @@ namespace PantryPassionGUI.Utilities
             {
                 url = _baseUrl + "/inventoryItem/createWNewItem?userId=1&type=" + type;
                 informationToSend = inventoryItem;
-
             }
 
+            return await SetItemInformation(url, informationToSend);
+        }
+
+        private static async Task<int> SetItemInformation(string url, object informationToSend)
+        {
             using (var request = new HttpRequestMessage(HttpMethod.Post, url))
             {
                 var options = new JsonSerializerOptions
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 };
-
-                
 
                 var json = JsonSerializer.Serialize(informationToSend, options);
                 using (var stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
@@ -108,7 +110,7 @@ namespace PantryPassionGUI.Utilities
                             };
                         }
 
-                        return (int) response.StatusCode;
+                        return (int)response.StatusCode;
                     }
                 }
             }
@@ -119,10 +121,18 @@ namespace PantryPassionGUI.Utilities
 
         }
 
-
-        public void SetQuantity(string name, int quantity)
+        //virker ikke endnu!!!!!!!!!!!!!!!!!!!
+        public static async Task<int> SetQuantity(InventoryItem inventoryItem)
         {
+            string url = _baseUrl + "/inventoryItem/edit";
 
+            CreateExistingItem data = new CreateExistingItem();
+
+            data.ItemId = inventoryItem.Item.ItemId;
+            data.Amount = inventoryItem.Amount;
+            object informationToSend = data;
+
+            return await SetItemInformation(url, informationToSend);
         }
     }
 }

@@ -6,9 +6,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
 using PantryPassionGUI.Models;
-
-
-using PantryPassionGUI.Models;
 using PantryPassionGUI.Utilities;
 using PantryPassionGUI.ViewModels;
 using Prism.Commands;
@@ -61,7 +58,7 @@ namespace PantryPassionGUI.ViewModels
             }
             catch (HttpRequestException exception)
             {
-                MessageBox.Show($"{exception.Source}", "Error!");
+                MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
             }
 
             InventoryItem.Amount++;
@@ -94,9 +91,13 @@ namespace PantryPassionGUI.ViewModels
             {
                 int StatusCode = await BackendConnection.SetNewItem(InventoryItem, _itemExistsInDatabase);
             }
-            catch (ApiException e)
+            catch (ApiException exception)
             {
-                MessageBox.Show($"Fejl {e.StatusCode}", "Error!");
+                MessageBox.Show($"Fejl {exception.StatusCode}", "Error!");
+            }
+            catch (HttpRequestException exception)
+            {
+                MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
             }
 
             CameraViewModel.Camera.CameraOff();
@@ -192,11 +193,11 @@ namespace PantryPassionGUI.ViewModels
             {
                 MessageBox.Show($"Fejl {e.StatusCode}", "Error!");
             }
-            catch (HttpRequestException e)
+            catch (HttpRequestException exception)
             {
-                MessageBox.Show($"{e.Message}", "Error!");
+                MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
             }
-           
+
             InventoryItem = new InventoryItem();
         }
     }

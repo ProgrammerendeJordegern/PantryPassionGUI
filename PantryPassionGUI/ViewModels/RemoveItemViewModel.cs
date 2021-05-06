@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -47,7 +48,20 @@ namespace PantryPassionGUI.ViewModels
 
         private async void BarcodeAction(object sender, EventArgs e)
         {
-            //_inventoryItem = await BackendConnection.CheckBarcode(CameraViewModel.Barcode);
+            InventoryItem.Item.Ean = CameraViewModel.Barcode;
+
+            try
+            {
+                InventoryItem.Item = await BackendConnection.CheckBarcode(InventoryItem.Item.Ean);
+            }
+            catch (ApiException exception)
+            {
+                MessageBox.Show($" {exception.StatusCode}", "Error!");
+            }
+            catch (HttpRequestException exception)
+            {
+                MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
+            }
             OriginalQuantity = _inventoryItem.Amount;
         }
 
@@ -123,9 +137,9 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private void OkHandler()
+        private async void OkHandler()
         {
-            _backendConnection.SetQuantity(_inventoryItem.Item.Name, _inventoryItem.Amount);
+            int statusCode = await BackendConnection.SetQuantity(InventoryItem);
             CameraViewModel.Camera.CameraOff();
             //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
@@ -153,9 +167,9 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private void RemoveInventoryItemHandler()
+        private async void RemoveInventoryItemHandler()
         {
-            _backendConnection.SetQuantity(InventoryItem.Item.Name,InventoryItem.Amount);
+            int statusCode = await BackendConnection.SetQuantity(InventoryItem);
             InventoryItem = new InventoryItem();
         }
     }
