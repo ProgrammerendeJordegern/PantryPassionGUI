@@ -52,7 +52,7 @@ namespace PantryPassionGUI.ViewModels
 
             try
             {
-                InventoryItem.Item = await BackendConnection.CheckBarcode(InventoryItem.Item.Ean);
+                InventoryItem.Item = await _backendConnection.CheckBarcode(InventoryItem.Item.Ean);
             }
             catch (ApiException exception)
             {
@@ -139,7 +139,7 @@ namespace PantryPassionGUI.ViewModels
 
         private async void OkHandler()
         {
-            int statusCode = await BackendConnection.SetQuantity(InventoryItem);
+            int statusCode = await _backendConnection.SetQuantity(InventoryItem);
             CameraViewModel.Camera.CameraOff();
             //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
@@ -169,7 +169,7 @@ namespace PantryPassionGUI.ViewModels
 
         private async void RemoveInventoryItemHandler()
         {
-            int statusCode = await BackendConnection.SetQuantity(InventoryItem);
+            int statusCode = await _backendConnection.SetQuantity(InventoryItem);
             InventoryItem = new InventoryItem();
         }
     }

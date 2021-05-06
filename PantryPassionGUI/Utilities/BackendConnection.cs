@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
@@ -11,8 +12,15 @@ namespace PantryPassionGUI.Utilities
 {
     public class BackendConnection
     {
-        private static readonly HttpClient Client = new HttpClient();
+        private readonly HttpClient _client;
         private static string _baseUrl = "https://localhost:44380";
+        private string _accessToken = "test";
+
+        public BackendConnection()
+        {
+            _client = new HttpClient();
+            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+        }
 
         class CreateExistingItem
         {
@@ -20,26 +28,32 @@ namespace PantryPassionGUI.Utilities
             public int Amount { get; set; }
         }
 
-        public static async Task<Item> CheckBarcode(string barcode)
+        public async Task<Item> CheckBarcode(string barcode)
         {
             string url = _baseUrl + "/item/fromEan?ean=" + barcode;
 
             return await GetItemInformation<Item>(url);
         }
 
-        //Virker ikke helt på backend delen!!!!
-        public static async Task<Item> GetItemByName(string name)
+        public async Task<Item> GetItemByName(string name)
         {
-            string url = _baseUrl + "/item/fromName?name=" + name;
+            string url = _baseUrl + "/item/FromName?name=" + name;
 
             return await GetItemInformation<Item>(url);
         }
 
-        public static async Task<T> GetItemInformation<T>(string url)
+        public async Task<Item> GetItemById(int id)
+        {
+            string url = _baseUrl + "/item/FromId?id=" + id;
+
+            return await GetItemInformation<Item>(url);
+        }
+
+        public async Task<T> GetItemInformation<T>(string url)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
-                using (var response = await Client.SendAsync(request))
+                using (var response = await _client.SendAsync(request))
                 {
                     var content = await response.Content.ReadAsStringAsync();
 
@@ -61,7 +75,7 @@ namespace PantryPassionGUI.Utilities
             }
         }
 
-        public static async Task<int> SetNewItem(InventoryItem inventoryItem, bool itemExistsInDatabase)
+        public async Task<int> SetNewItem(InventoryItem inventoryItem, bool itemExistsInDatabase)
         {
             int type = inventoryItem.InventoryType;
             string url = "";
@@ -85,7 +99,7 @@ namespace PantryPassionGUI.Utilities
             return await SetItemInformation(url, informationToSend);
         }
 
-        private static async Task<int> SetItemInformation(string url, object informationToSend)
+        private async Task<int> SetItemInformation(string url, object informationToSend)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Post, url))
             {
@@ -98,7 +112,7 @@ namespace PantryPassionGUI.Utilities
                 using (var stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
                 {
                     request.Content = stringContent;
-                    using (var response = await Client
+                    using (var response = await _client
                         .SendAsync(request, HttpCompletionOption.ResponseHeadersRead)
                         .ConfigureAwait(false))
                     {
@@ -122,7 +136,7 @@ namespace PantryPassionGUI.Utilities
         }
 
         //virker ikke endnu!!!!!!!!!!!!!!!!!!!
-        public static async Task<int> SetQuantity(InventoryItem inventoryItem)
+        public async Task<int> SetQuantity(InventoryItem inventoryItem)
         {
             string url = _baseUrl + "/inventoryItem/edit";
 

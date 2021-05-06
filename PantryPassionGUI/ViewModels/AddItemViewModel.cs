@@ -48,8 +48,8 @@ namespace PantryPassionGUI.ViewModels
             InventoryItem.Item.Ean = CameraViewModel.Barcode;
 
             try
-            {
-                InventoryItem.Item = await BackendConnection.CheckBarcode(InventoryItem.Item.Ean);
+            { 
+                InventoryItem.Item = await _backendConnection.CheckBarcode(InventoryItem.Item.Ean);
             }
             catch (ApiException exception)
             {
@@ -85,20 +85,9 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private async void OkHandler()
+        private void OkHandler()
         {
-            try
-            {
-                int StatusCode = await BackendConnection.SetNewItem(InventoryItem, _itemExistsInDatabase);
-            }
-            catch (ApiException exception)
-            {
-                MessageBox.Show($"Fejl {exception.StatusCode}", "Error!");
-            }
-            catch (HttpRequestException exception)
-            {
-                MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
-            }
+            AddItemToDatabase();
 
             CameraViewModel.Camera.CameraOff();
             //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
@@ -130,9 +119,9 @@ namespace PantryPassionGUI.ViewModels
             //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
 
-        public void ItemNotFound(int StatusCode)
+        private void ItemNotFound(int statusCode)
         {
-            MessageBox.Show($"Fejl {StatusCode}\nVare belv ikke fundet i systemet!","Error!");
+            MessageBox.Show($"Fejl {statusCode}\nVare belv ikke fundet i systemet!\n Indtast venlist selv vares informationer","Error!");
         }
 
         public ICommand UpArrowCommand
@@ -183,11 +172,18 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private async void AddInventoryItemHandler()
+        private  void AddInventoryItemHandler()
+        {
+            AddItemToDatabase();
+
+            InventoryItem = new InventoryItem();
+        }
+
+        private async void AddItemToDatabase()
         {
             try
             {
-                int StatusCode = await BackendConnection.SetNewItem(InventoryItem, _itemExistsInDatabase);
+                int StatusCode = await _backendConnection.SetNewItem(InventoryItem, _itemExistsInDatabase);
             }
             catch (ApiException e)
             {
@@ -197,8 +193,6 @@ namespace PantryPassionGUI.ViewModels
             {
                 MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
             }
-
-            InventoryItem = new InventoryItem();
         }
     }
 }
