@@ -33,6 +33,7 @@ namespace PantryPassionGUI.ViewModels
             ItemsList = new ObservableCollection<InventoryItem>();
             FindItemViewModel = new FindItemViewModel();
             SharedOberserverableCollection = SharedOberserverableCollectionOfInventoryItems.Instance();
+            ItemsList = SharedOberserverableCollection.SharedInventoryItems;
         }
 
         public ICommand AutoGenerateListCommand
@@ -97,7 +98,8 @@ namespace PantryPassionGUI.ViewModels
         private void ClearListHandler()
         {
             //Clear list in view
-            ItemsList.Clear();
+
+            SharedOberserverableCollection.SharedInventoryItems.Clear();
 
             //Clear list in db
 
@@ -132,8 +134,7 @@ namespace PantryPassionGUI.ViewModels
         {
             //_backendConnection.SendInformationToBackendServer("Test", "Test", "Test");
             //Update to db
-
-            Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
+            
         }
 
         public ICommand CancelCommand
@@ -146,7 +147,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void CancelHandler()
         {
-            Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
+            SharedOberserverableCollection.SharedInventoryItems = ItemsList;
         }
     }
 }
