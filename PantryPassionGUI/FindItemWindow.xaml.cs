@@ -26,9 +26,9 @@ namespace PantryPassionGUI
             //this.PreviewKeyDown += new KeyEventHandler(CloseOnEscape);
         }
 
-        private void CloseOnClick(object sender, RoutedEventArgs e)
+        private void CloseWindowOK(object sender, RoutedEventArgs e)
         {
-            
+            Window.GetWindow(this).Close();
         }
 
         //ikke den foretrukkede metode, men det andet virkede ikke :( 

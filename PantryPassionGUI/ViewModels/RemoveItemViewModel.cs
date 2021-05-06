@@ -141,7 +141,6 @@ namespace PantryPassionGUI.ViewModels
         {
             int statusCode = await _backendConnection.SetQuantity(InventoryItem);
             CameraViewModel.Camera.CameraOff();
-            //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
 
         public ICommand CancelCommand
@@ -156,7 +155,6 @@ namespace PantryPassionGUI.ViewModels
         private void CancelHandler()
         {
             CameraViewModel.Camera.CameraOff();
-            //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
 
         public ICommand RemoveInventoryItemCommand
