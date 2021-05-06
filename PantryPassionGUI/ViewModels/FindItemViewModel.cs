@@ -145,8 +145,6 @@ namespace PantryPassionGUI.ViewModels
         {
             _backendConnection.SetNewItem("Test", "Test", "Test");
             
-            //_shoppingList.ItemsList.Add(AddNewItem
-            //ChosenItems.Add(Items.ElementAt(CurrentIndex));
             _sharedOberserverableCollection.SharedInventoryItems.Add(Items.ElementAt(CurrentIndex));
 
             CameraViewModel.Camera.CameraOff();
