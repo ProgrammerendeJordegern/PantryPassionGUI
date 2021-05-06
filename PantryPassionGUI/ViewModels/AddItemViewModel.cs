@@ -60,7 +60,6 @@ namespace PantryPassionGUI.ViewModels
         {
             _backendConnection.SetNewItem("Test", "Test", "Test");
             CameraViewModel.Camera.CameraOff();
-            //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
 
         private bool OkCommandCanExecute()
@@ -87,7 +86,6 @@ namespace PantryPassionGUI.ViewModels
         private void CancelHandler()
         {
             CameraViewModel.Camera.CameraOff();
-            //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
 
         public void ItemNotFound()

@@ -58,8 +58,8 @@
         </Grid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,30">
-            <Button Grid.Row="4" Content="Opdater indkøbsliste" MinWidth="35" Margin="10,0" Command="{Binding Path=UpdateListCommand}"></Button>
-            <Button Grid.Row="4" Grid.Column="1" Content="_Cancel" Width="45" Margin="10,0" Command="{Binding Path=CancelCommand}"></Button>
+            <Button Grid.Row="4" Content="Opdater indkøbsliste" MinWidth="35" Margin="10,0" Command="{Binding Path=UpdateListCommand}" Click="CloseWindowOnOK"></Button>
+            <Button Grid.Row="4" Grid.Column="1" Content="_Cancel" Width="45" Margin="10,0" Command="{Binding Path=CancelCommand}" Click="CloseWindowOnCancel"></Button>
         </StackPanel>
     </StackPanel>
 </Window>
