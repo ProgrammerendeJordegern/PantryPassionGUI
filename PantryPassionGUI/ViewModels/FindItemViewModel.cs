@@ -21,7 +21,7 @@ namespace PantryPassionGUI.ViewModels
     {
         private ICommand _okCommand;
         private BackendConnection _backendConnection;
-        private ShoppingListViewModel _shoppingList;
+        //private ShoppingListViewModel _shoppingList;
         private SharedOberserverableCollectionOfInventoryItems _sharedOberserverableCollection;
 
         public ObservableCollection<InventoryItem> Items { get; set; }
@@ -140,13 +140,9 @@ namespace PantryPassionGUI.ViewModels
         {
             _backendConnection.SetNewItem("Test", "Test", "Test");
             
-            //_shoppingList.ItemsList.Add(AddNewItem
-            //ChosenItems.Add(Items.ElementAt(CurrentIndex));
             _sharedOberserverableCollection.SharedInventoryItems.Add(Items.ElementAt(CurrentIndex));
 
             CameraViewModel.Camera.CameraOff();
-
-            Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
 
         private InventoryItem _currentItem = null;
