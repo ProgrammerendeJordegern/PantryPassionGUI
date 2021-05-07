@@ -59,7 +59,7 @@ namespace PantryPassionGUI.ViewModels
         {
             _backendConnection.SetNewItem("Test", "Test", "Test");
             CameraViewModel.Camera.CameraOff();
-            Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
+            Application.Current.Windows[Application.Current.Windows.Count - 1].Close();
         }
 
         private bool OkCommandCanExecute()
@@ -86,7 +86,7 @@ namespace PantryPassionGUI.ViewModels
         private void CancelHandler()
         {
             CameraViewModel.Camera.CameraOff();
-            Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
+            Application.Current.Windows[Application.Current.Windows.Count - 1].Close();
         }
 
         public void ItemNotFound()
@@ -111,7 +111,7 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
-                return _okCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
+                return _downArrowCommand ??= new DelegateCommand(DownArrowHandler, DownArrowCanExecute)
                     .ObservesProperty(() => Item.Quantity);
             }
         }
