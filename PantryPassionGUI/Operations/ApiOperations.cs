@@ -89,7 +89,7 @@ namespace PantryPassionGUI.Operations
  */
         public User RegisterUser(string username, string password, string fullname)
         {
-            string endpoint = this.baseUrl + "/accounts/users";
+            string endpoint = this.baseUrl + "/accounts/Register";
             string method = "POST";
             string json = JsonConvert.SerializeObject(new
             {
