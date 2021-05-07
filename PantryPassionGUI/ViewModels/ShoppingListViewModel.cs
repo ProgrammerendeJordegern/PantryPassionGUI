@@ -15,9 +15,11 @@ namespace PantryPassionGUI.ViewModels
 {
     public class ShoppingListViewModel : BindableBase
     {
+        private BackendConnection _backendConnection;
+        private InventoryItem _currentItem = null;
+
         public ObservableCollection<InventoryItem> ItemsList { get; set; }
         public FindItemViewModel FindItemViewModel { get; private set; }
-        private BackendConnection _backendConnection;
         public SharedOberserverableCollectionOfInventoryItems SharedOberserverableCollection { get; private set; }
 
         private ICommand _autoGenerateListCommand;
@@ -25,7 +27,6 @@ namespace PantryPassionGUI.ViewModels
         private ICommand _clearListCommand;
         private ICommand _addItemsOnListToOwnedItemsCommand;
         private ICommand _updateListCommand;
-        private ICommand _cancelCommand;
 
         public ShoppingListViewModel()
         {
@@ -33,7 +34,6 @@ namespace PantryPassionGUI.ViewModels
             ItemsList = new ObservableCollection<InventoryItem>();
             FindItemViewModel = new FindItemViewModel();
             SharedOberserverableCollection = SharedOberserverableCollectionOfInventoryItems.Instance();
-            ItemsList = SharedOberserverableCollection.SharedInventoryItems;
         }
 
         public ICommand AutoGenerateListCommand
@@ -64,7 +64,6 @@ namespace PantryPassionGUI.ViewModels
             findItemView.ShowDialog();
         }
 
-        private InventoryItem _currentItem = null;
         public InventoryItem CurrentItem
         {
             get
@@ -134,20 +133,6 @@ namespace PantryPassionGUI.ViewModels
         {
             //_backendConnection.SetNewItem("Test", "Test", "Test");
             //Update to db
-            
-        }
-
-        public ICommand CancelCommand
-        {
-            get
-            {
-                return _cancelCommand ??= new DelegateCommand(CancelHandler);
-            }
-        }
-
-        private void CancelHandler()
-        {
-            SharedOberserverableCollection.SharedInventoryItems = ItemsList;
         }
     }
 }
