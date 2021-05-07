@@ -13,7 +13,7 @@ namespace PantryPassionGUI.Utilities
     public class BackendConnection
     {
         private readonly HttpClient _client;
-        private static string _baseUrl = "https://localhost:44380";
+        private static string _baseUrl = "https://localhost:44380/api";
         private string _accessToken = "test";
 
         public BackendConnection()
@@ -30,21 +30,21 @@ namespace PantryPassionGUI.Utilities
 
         public async Task<Item> CheckBarcode(string barcode)
         {
-            string url = _baseUrl + "/item/fromEan?ean=" + barcode;
+            string url = _baseUrl + "/item/byEan/" + barcode;
 
             return await GetItemInformation<Item>(url);
         }
 
         public async Task<Item> GetItemByName(string name)
         {
-            string url = _baseUrl + "/item/FromName?name=" + name;
+            string url = _baseUrl + "/item/byName/" + name;
 
             return await GetItemInformation<Item>(url);
         }
 
         public async Task<Item> GetItemById(int id)
         {
-            string url = _baseUrl + "/item/FromId?id=" + id;
+            string url = _baseUrl + "/item/byId/" + id;
 
             return await GetItemInformation<Item>(url);
         }
@@ -83,7 +83,7 @@ namespace PantryPassionGUI.Utilities
 
             if (itemExistsInDatabase)
             {
-                url = _baseUrl + "/inventoryitem/createwexistingitem?userId=1&type=" + type;
+                url = _baseUrl + "/InventoryItem/existingItem/1/" + type;
                 CreateExistingItem data = new CreateExistingItem();
 
                 data.ItemId = inventoryItem.Item.ItemId;
@@ -92,7 +92,7 @@ namespace PantryPassionGUI.Utilities
             }
             else
             {
-                url = _baseUrl + "/inventoryItem/createWNewItem?userId=1&type=" + type;
+                url = _baseUrl + "/InventoryItem/newItem/1/" + type;
                 informationToSend = inventoryItem;
             }
 
