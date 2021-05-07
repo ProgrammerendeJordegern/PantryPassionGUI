@@ -34,7 +34,6 @@ namespace PantryPassionGUI.ViewModels
             ItemsList = new ObservableCollection<InventoryItem>();
             FindItemViewModel = new FindItemViewModel();
             SharedOberserverableCollection = SharedOberserverableCollectionOfInventoryItems.Instance();
-            ItemsList = SharedOberserverableCollection.SharedInventoryItems;
         }
 
         public ICommand AutoGenerateListCommand
