@@ -9,6 +9,7 @@ using PantryPassionGUI.Models;
 using Newtonsoft.Json;
 
 using System.Security.Cryptography;
+using System.Windows;
 
 namespace PantryPassionGUI.Operations
 {
@@ -29,7 +30,7 @@ namespace PantryPassionGUI.Operations
  */
         public User AuthenticateUser(string username, string password)
         {
-            string endpoint = this.baseUrl + "/users/login";
+            string endpoint = this.baseUrl + "/accounts/login";
             string method = "POST";
             string json = JsonConvert.SerializeObject(new
             {
@@ -88,7 +89,7 @@ namespace PantryPassionGUI.Operations
  */
         public User RegisterUser(string username, string password, string fullname)
         {
-            string endpoint = this.baseUrl + "/users";
+            string endpoint = this.baseUrl + "/accounts/users";
             string method = "POST";
             string json = JsonConvert.SerializeObject(new
             {
@@ -114,6 +115,26 @@ namespace PantryPassionGUI.Operations
 
         public void Logout()
         {
+            
+
+            string endpoint = this.baseUrl + "/accounts/logout";
+            string method = "POST";
+            string json = JsonConvert.SerializeObject(new
+            {
+                JWTToken = Globals.LoggedInUser.access_token
+            });
+
+            WebClient wc = new WebClient();
+            wc.Headers["Content-Type"] = "application/json";
+            try
+            {
+                string response = wc.UploadString(endpoint, method, json);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error Logging Out");
+            }
+
             Globals.LoggedInUser.access_token = null;
             Globals.LoggedInUser = null;
         }
