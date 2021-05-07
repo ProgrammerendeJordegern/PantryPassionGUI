@@ -13,7 +13,7 @@ using Prism.Commands;
 
 namespace PantryPassionGUI.ViewModels
 {
-    class MainWindowViewModel
+    public class MainWindowViewModel
     {
         private ICommand _addItemCommand;
         private ICommand _removeItemCommand;
