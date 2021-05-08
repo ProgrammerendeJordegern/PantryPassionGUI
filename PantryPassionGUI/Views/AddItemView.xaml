@@ -56,7 +56,11 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Column="0" Margin="0,5">Navn:</Label>
-                <TextBox Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=InventoryItem.Item.Name}"></TextBox>
+                <TextBox Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=InventoryItem.Item.Name}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding Path=FindItemByNameCommand}" Key="Enter"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
 
                 <Label Grid.Row="1" Grid.Column="0" Margin="0,5">Antal:</Label>
                 <Grid Grid.Row="1" Grid.Column="1">

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using AForge.Video.DirectShow;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.Utilities;
 using Prism.Commands;
@@ -23,8 +25,12 @@ namespace PantryPassionGUI.ViewModels
         private ICommand _removeInventoryItemCommand;
         private ICommand _upArrowCommand;
         private ICommand _downArrowCommand;
+        private ICommand _findItemByNamCommand;
+        private int _currentIndex;
         private InventoryItem _inventoryItem;
         public int OriginalQuantity { get; private set; }
+
+        private ObservableCollection<InventoryItem> _inventoryItemsList;
 
         public RemoveItemViewModel()
         {
@@ -32,6 +38,8 @@ namespace PantryPassionGUI.ViewModels
             _backendConnection = new BackendConnection();
             _inventoryItem = new InventoryItem();
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
+
+            _inventoryItemsList = new ObservableCollection<InventoryItem>();
 
             //For testing
             OriginalQuantity = 5;
@@ -56,13 +64,40 @@ namespace PantryPassionGUI.ViewModels
             }
             catch (ApiException exception)
             {
-                MessageBox.Show($" {exception.StatusCode}", "Error!");
+                ItemNotFound(exception.StatusCode);
             }
             catch (HttpRequestException exception)
             {
                 MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
             }
-            OriginalQuantity = _inventoryItem.Amount;
+
+            GetInventoryItemsList();
+        }
+
+        public ObservableCollection<InventoryItem> InventoryItemsList
+        {
+            get
+            {
+                return _inventoryItemsList;
+            }
+            set
+            {
+                SetProperty(ref _inventoryItemsList, value);
+            }
+        }
+
+        public int CurrentIndex
+        {
+            get
+            {
+                return _currentIndex;
+            }
+            set
+            {
+                OriginalQuantity = InventoryItemsList.ElementAt(value).Amount;
+                InventoryItem.Amount = InventoryItemsList.ElementAt(value).Amount;
+                SetProperty(ref _currentIndex, value);
+            }
         }
 
         public InventoryItem InventoryItem
@@ -133,13 +168,15 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
-                return _okCommand ??= new DelegateCommand(OkHandler);
+                return _okCommand ??= new DelegateCommand(OkHandler,RemoveAndOkCanExecute)
+                    .ObservesProperty(() => InventoryItem.Item.Ean);
             }
         }
 
-        private async void OkHandler()
+        private void OkHandler()
         {
-            int statusCode = await _backendConnection.SetQuantity(InventoryItem);
+            UpdateInventoryItemAmount();
+
             CameraViewModel.Camera.CameraOff();
             //Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
         }
@@ -163,14 +200,88 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
-                return _removeInventoryItemCommand ??= new DelegateCommand(RemoveInventoryItemHandler);
+                return _removeInventoryItemCommand ??= new DelegateCommand(RemoveInventoryItemHandler,RemoveAndOkCanExecute)
+                    .ObservesProperty(() => InventoryItem.Item.Ean);
             }
         }
 
-        private async void RemoveInventoryItemHandler()
+        private void RemoveInventoryItemHandler()
         {
-            int statusCode = await _backendConnection.SetQuantity(InventoryItem);
+            UpdateInventoryItemAmount();
+
             InventoryItem = new InventoryItem();
+            InventoryItemsList.Clear();
+        }
+
+        private bool RemoveAndOkCanExecute()
+        {
+            if (String.IsNullOrEmpty(InventoryItem.Item.Ean) == false)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public ICommand FindItemByNameCommand
+        {
+            get
+            {
+                return _findItemByNamCommand ??= new DelegateCommand(FindItemByNameHandler);
+            }
+        }
+
+        private async void FindItemByNameHandler()
+        {
+            try
+            {
+                InventoryItem.Item = await _backendConnection.GetItemByName(InventoryItem.Item.Name);
+            }
+            catch (ApiException exception)
+            {
+                ItemNotFound(exception.StatusCode);
+            }
+            catch (HttpRequestException exception)
+            {
+                MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
+            }
+
+            GetInventoryItemsList();
+        }
+
+        private void ItemNotFound(int statusCode)
+        {
+            MessageBox.Show($"Fejl {statusCode}\nVare belv ikke fundet i systemet!\nIndtast venlist selv vares informationer", "Error!");
+        }
+
+        private async void GetInventoryItemsList()
+        {
+            if (InventoryItem.Item.ItemId != 0)
+            {
+                InventoryItemsList = await _backendConnection.GetListOfInventoryItems(InventoryItem.Item.ItemId);
+                OriginalQuantity = InventoryItemsList.ElementAt(0).Amount;
+                InventoryItem.Amount = InventoryItemsList.ElementAt(0).Amount;
+            }
+        }
+
+        private async void UpdateInventoryItemAmount()
+        {
+            InventoryItemsList.ElementAt(CurrentIndex).Amount = InventoryItem.Amount;
+
+            try
+            {
+                int statusCode = await _backendConnection.SetQuantity(InventoryItemsList.ElementAt(CurrentIndex));
+            }
+            catch (ApiException exception)
+            {
+                MessageBox.Show($"Fejl {exception.StatusCode}", "Error!");
+            }
+            catch (HttpRequestException exception)
+            {
+                MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
+            }
         }
     }
 }

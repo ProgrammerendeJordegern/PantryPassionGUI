@@ -16,9 +16,33 @@ namespace PantryPassionGUI.Models
         private int _amount;
         private string _category;
         private Item _item;
+        private int _inventoryType;
 
         public int InventoryId { get; set; }
-        public int InventoryType { get; set; }
+
+        public int InventoryType
+        {
+            get
+            {
+                return _inventoryType;
+            }
+            set
+            {
+                SetInventoryCategory(value);
+                SetProperty(ref _inventoryType, value);
+            }
+        }
+            
+        public DateTime DateAdded { get; set; }
+
+        public string DateAddedStringFormat
+        {
+            get
+            {
+                return DateAdded.ToString("d"); 
+
+            }
+        }
 
         public Item Item
         {
@@ -82,23 +106,41 @@ namespace PantryPassionGUI.Models
             }
         }
 
+        private void SetInventoryCategory(int inventoryType)
+        {
+            switch (inventoryType)
+            {
+                case 1:
+                    Category = "Alle vare";
+                    break;
+                case 2:
+                    Category = "Køleskab";
+                    break;
+                case 3:
+                    Category = "Fryser";
+                    break;
+                case 4:
+                    Category = "Spisekammer (øvrige vare)";
+                    break;
+            }
+        }
+
         private void SetInventoryType(string category)
         {
             switch (category)
             {
                 case "System.Windows.Controls.ComboBoxItem: Alle vare":
-                    InventoryType = 0;
-                    break;
-                case "System.Windows.Controls.ComboBoxItem: Køleskab":
                     InventoryType = 1;
                     break;
-                case "System.Windows.Controls.ComboBoxItem: Fryser":
+                case "System.Windows.Controls.ComboBoxItem: Køleskab":
                     InventoryType = 2;
                     break;
-                case "System.Windows.Controls.ComboBoxItem: Spisekammer (øvrige vare)":
+                case "System.Windows.Controls.ComboBoxItem: Fryser":
                     InventoryType = 3;
                     break;
-                
+                case "System.Windows.Controls.ComboBoxItem: Spisekammer (øvrige vare)":
+                    InventoryType = 4;
+                    break;
             }
         }
 
