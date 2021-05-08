@@ -22,6 +22,7 @@ namespace PantryPassionGUI.ViewModels
         private ICommand _addInventoryItemCommand;
         private ICommand _upArrowCommand;
         private ICommand _downArrowCommand;
+        private ICommand _findItemByNamCommand;
         private InventoryItem _inventoryItem;
         private bool _itemExistsInDatabase = true;
         public ICameraViewModel CameraViewModel { get; private set; }
@@ -121,7 +122,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void ItemNotFound(int statusCode)
         {
-            MessageBox.Show($"Fejl {statusCode}\nVare belv ikke fundet i systemet!\n Indtast venlist selv vares informationer","Error!");
+            MessageBox.Show($"Fejl {statusCode}\nVare belv ikke fundet i systemet!\nIndtast venlist selv vares informationer","Error!");
         }
 
         public ICommand UpArrowCommand
@@ -188,6 +189,30 @@ namespace PantryPassionGUI.ViewModels
             catch (ApiException e)
             {
                 MessageBox.Show($"Fejl {e.StatusCode}", "Error!");
+            }
+            catch (HttpRequestException exception)
+            {
+                MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
+            }
+        }
+
+        public ICommand FindItemByNameCommand
+        {
+            get
+            {
+                return _findItemByNamCommand ??= new DelegateCommand(FindItemByNameHandler);
+            }
+        }
+
+        private async void FindItemByNameHandler()
+        {
+            try
+            {
+                InventoryItem.Item = await _backendConnection.GetItemByName(InventoryItem.Item.Name);
+            }
+            catch (ApiException exception)
+            {
+                ItemNotFound(exception.StatusCode);
             }
             catch (HttpRequestException exception)
             {

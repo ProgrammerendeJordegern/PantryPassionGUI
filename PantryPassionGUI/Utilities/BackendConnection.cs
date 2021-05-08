@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
@@ -32,24 +34,38 @@ namespace PantryPassionGUI.Utilities
         {
             string url = _baseUrl + "/item/byEan/" + barcode;
 
-            return await GetItemInformation<Item>(url);
+            return await GetInformationFromBackendServer<Item>(url);
         }
 
         public async Task<Item> GetItemByName(string name)
         {
-            string url = _baseUrl + "/item/byName/" + name;
+            string url = _baseUrl + "/item/byName?name=" + name;
 
-            return await GetItemInformation<Item>(url);
+            return await GetInformationFromBackendServer<Item>(url);
         }
 
         public async Task<Item> GetItemById(int id)
         {
             string url = _baseUrl + "/item/byId/" + id;
 
-            return await GetItemInformation<Item>(url);
+            return await GetInformationFromBackendServer<Item>(url);
         }
 
-        public async Task<T> GetItemInformation<T>(string url)
+        public async Task<ObservableCollection<InventoryItem>> GetListOfInventoryItems(int itemId)
+        {
+
+            string url = _baseUrl + "/InventoryItem/" + itemId;
+            return await GetInformationFromBackendServer<ObservableCollection<InventoryItem>>(url);
+        }
+
+        public async Task<ObservableCollection<Item>> GetListOfItems(int userId)
+        {
+            string url = _baseUrl + "/Item";
+
+            return await GetInformationFromBackendServer<ObservableCollection<Item>>(url);
+        }
+
+        public async Task<T> GetInformationFromBackendServer<T>(string url)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
@@ -96,12 +112,12 @@ namespace PantryPassionGUI.Utilities
                 informationToSend = inventoryItem;
             }
 
-            return await SetItemInformation(url, informationToSend);
+            return await SendInformationToBackendServer(HttpMethod.Post, url, informationToSend);
         }
 
-        private async Task<int> SetItemInformation(string url, object informationToSend)
+        private async Task<int> SendInformationToBackendServer(HttpMethod httpMethodType,string url, object informationToSend)
         {
-            using (var request = new HttpRequestMessage(HttpMethod.Post, url))
+            using (var request = new HttpRequestMessage(httpMethodType, url))
             {
                 var options = new JsonSerializerOptions
                 {
@@ -130,23 +146,19 @@ namespace PantryPassionGUI.Utilities
             }
         }
 
-        public void GetItemQuantity(string name)
-        {
-
-        }
-
-        //virker ikke endnu!!!!!!!!!!!!!!!!!!!
+        //virker ikke hvis Amount er 0!!!! Backend delen kan ikke håntere det!!!
         public async Task<int> SetQuantity(InventoryItem inventoryItem)
         {
-            string url = _baseUrl + "/inventoryItem/edit";
+            string url = _baseUrl + "/InventoryItem";
 
-            CreateExistingItem data = new CreateExistingItem();
+            if (inventoryItem.Amount == 0)
+            {
+                url = url + "/" + inventoryItem.InventoryId;
 
-            data.ItemId = inventoryItem.Item.ItemId;
-            data.Amount = inventoryItem.Amount;
-            object informationToSend = data;
+                return await SendInformationToBackendServer(HttpMethod.Delete, url, new object());
+            }
 
-            return await SetItemInformation(url, informationToSend);
+            return await SendInformationToBackendServer(HttpMethod.Put, url, inventoryItem);
         }
     }
 }

@@ -44,10 +44,15 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Label Grid.Column="0" Margin="0,5">Navn:</Label>
-                <TextBox Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=InventoryItem.Item.Name}"></TextBox>
+                <TextBox Grid.Column="1" MinWidth="200" Margin="0,5" Text="{Binding Path=InventoryItem.Item.Name}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding Path=FindItemByNameCommand}" Key="Enter"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
 
                 <Label Grid.Row="1" Grid.Column="0" Margin="0,5">Antal:</Label>
                 <Grid Grid.Row="1" Grid.Column="1">
@@ -68,13 +73,18 @@
                 <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5" IsReadOnly="True" TextAlignment="Right" HorizontalAlignment="Left" MinWidth="140" Text="{Binding Path=InventoryItem.Item.Size}"></TextBox>
                 <TextBox Grid.Row="3" Grid.Column="1" MinWidth="55" Margin="0,5" IsReadOnly="True" HorizontalAlignment="Right" Text="{Binding Path=InventoryItem.Item.SizeUnit}"></TextBox>
 
-                <Label Grid.Row="4" Grid.Column="0" Margin="0,5">Kategori:</Label>
-                <TextBox Grid.Row="4" Grid.Column="1" x:Name="CategoryComboBox" IsReadOnly="True" MinWidth="200" Margin="0,5" Text="{Binding Path=InventoryItem.Category}"></TextBox>
-
                 <Label Grid.Row="5" Grid.Column="0" Margin="0,5">Stregkode:</Label>
-                <TextBox Grid.Row="5" Grid.Column="1" MinWidth="200" Margin="0,5" IsReadOnly="True" Text="{Binding Path=CameraViewModel.Barcode}"></TextBox>
+                <TextBox Grid.Row="5" Grid.Column="1" MinWidth="200" Margin="0,5" IsReadOnly="True" Text="{Binding Path=InventoryItem.Item.Ean}"></TextBox>
+
+                <DataGrid Grid.Row="6" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False" MinHeight="75" VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=InventoryItemsList}" HorizontalAlignment="Center" VerticalAlignment="Top" SelectedIndex="{Binding Path=CurrentIndex}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Dato tilføjet" MinWidth="75" Binding="{Binding Path=DateAddedStringFormat}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Kategori" MinWidth="75" Binding="{Binding Path=Category}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Antal" MinWidth="75" Binding="{Binding Path=Amount}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
-            
+
             <view:CameraView Grid.Row="2" Grid.Column="1"></view:CameraView>
 
             <Button Grid.Row="3" HorizontalAlignment="Center" Command="{Binding Path=RemoveInventoryItemCommand}">Fjern vare</Button>
