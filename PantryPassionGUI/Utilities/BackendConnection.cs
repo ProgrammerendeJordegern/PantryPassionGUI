@@ -153,7 +153,7 @@ namespace PantryPassionGUI.Utilities
 
             if (inventoryItem.Amount == 0)
             {
-                url = url + "/" + inventoryItem.InventoryId;
+                url = url + "/" + inventoryItem.Item.ItemId + "/" + inventoryItem.DateAdded.ToString("s");
 
                 return await SendInformationToBackendServer(HttpMethod.Delete, url, new object());
             }
