@@ -114,7 +114,7 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        ICommand _scanEANCommand;
+        private ICommand _scanEANCommand;
 
         public ICommand ScanEANCommand
         {
