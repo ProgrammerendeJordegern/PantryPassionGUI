@@ -23,7 +23,8 @@ namespace PantryPassionGUI
     {
         public MainWindow()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
     }
 }

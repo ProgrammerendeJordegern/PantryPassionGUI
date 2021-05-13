@@ -56,7 +56,7 @@ namespace PantryPassionGUI.Views
             }
 
             Globals.LoggedInUser = user;
-            MessageBox.Show("Login successful");
+           // MessageBox.Show("Login successful");
             ShowMainMenu();
             //NavigationService.Navigate(new DetailsPage());
 
@@ -82,6 +82,7 @@ namespace PantryPassionGUI.Views
             MainWindow MW = new MainWindow();
             Hide();
             MW.ShowDialog();
+            // Koden herunder bliver først kørt når brugeren trykker kryds på applikationen
             ApiOperations op = new ApiOperations();
             op.Logout();
             Show();
