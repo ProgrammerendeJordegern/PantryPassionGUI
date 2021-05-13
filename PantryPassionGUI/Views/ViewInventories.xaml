@@ -17,8 +17,16 @@
             <RowDefinition Height="22*"/>
             <RowDefinition Height="195*"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="1" Margin="10,0,10,10"/>
-        <ComboBox ItemsSource="{Binding Path=CMBBX}" SelectedIndex="0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="222" Height="22"/>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding AllInventoryItems, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="10,0,10,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Navn" Binding="{Binding Path=Item.Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Antal" Binding="{Binding Path=Amount}"></DataGridTextColumn>
+                <DataGridTextColumn Header="EAN" Binding="{Binding Path=Item.Ean}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Dato tilføjet" Binding="{Binding Path=DateAddedStringFormat}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lokation" Binding="{Binding Path=Category}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox Grid.Row="0" ItemsSource="{Binding Path=CMBBX}" SelectedIndex="0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="222" Height="22"/>
 
     </Grid>
 </Window>

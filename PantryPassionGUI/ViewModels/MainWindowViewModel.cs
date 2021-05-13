@@ -18,6 +18,7 @@ namespace PantryPassionGUI.ViewModels
         private ICommand _addItemCommand;
         private ICommand _removeItemCommand;
         private ICommand _shoppingListCommand;
+        private ICommand _viewInventoriesCommand;
 
         public tempUser T1
         {
@@ -81,6 +82,18 @@ namespace PantryPassionGUI.ViewModels
         {
             get { return _findItemCommand ??= new DelegateCommand(FindItemExecute); }
         }
+
+        public ICommand ViewInventoriesCommand
+        {
+            get { return _viewInventoriesCommand ??= new DelegateCommand(ViewInventoriesExecute); }
+        }
+
+        void ViewInventoriesExecute()
+        {
+            ViewInventories viewInventories = new ViewInventories();
+            viewInventories.ShowDialog();
+        }
+
 
         void FindItemExecute()
         {
