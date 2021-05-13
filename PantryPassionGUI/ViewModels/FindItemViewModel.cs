@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using PantryPassionGUI.Models;
+using PantryPassionGUI.Utilities;
 using PantryPassionGUI.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -138,7 +139,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void OkHandler()
         {
-            _backendConnection.SetNewItem("Test", "Test", "Test");
+            //_backendConnection.SetNewItem("Test", "Test", "Test");
             
             _sharedOberserverableCollection.SharedInventoryItems.Add(Items.ElementAt(CurrentIndex));
 

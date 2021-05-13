@@ -84,9 +84,8 @@
 
                 <Label Grid.Row="4" Grid.Column="0" Margin="0,5">Kategori:</Label>
                 <ComboBox Grid.Row="4" Grid.Column="1" x:Name="CategoryComboBox" MinWidth="200" Margin="0,5" SelectedIndex="0" SelectedValue="{Binding Path=InventoryItem.Category}">
-                    <ComboBoxItem Tag="AllItems">Alle vare</ComboBoxItem>
-                    <ComboBoxItem Tag="Fridge">Køleskab</ComboBoxItem>
-                    <ComboBoxItem Tag="Freezer">Fryser</ComboBoxItem>
+                    <ComboBoxItem Tag="Freezer">Køleskab</ComboBoxItem>
+                    <ComboBoxItem Tag="Fridge">Fryser</ComboBoxItem>
                     <ComboBoxItem Tag="Pantry">Spisekammer (øvrige vare)</ComboBoxItem>
                 </ComboBox>
 
