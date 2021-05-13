@@ -21,7 +21,7 @@ namespace PantryPassionGUI.Utilities
         public BackendConnection()
         {
             _client = new HttpClient();
-            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
         }
 
         class CreateExistingItem
