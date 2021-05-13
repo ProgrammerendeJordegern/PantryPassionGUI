@@ -20,7 +20,7 @@ namespace PantryPassionGUI.Operations
 
         public ApiOperations()
         {
-            this.baseUrl = "http://localhost:5000/api";
+            this.baseUrl = "https://localhost:44380/api";
         }
 
         /**
@@ -34,7 +34,7 @@ namespace PantryPassionGUI.Operations
             string method = "POST";
             string json = JsonConvert.SerializeObject(new
             {
-                username = username,
+                Email = username,
                 //password = HashUser(username,password)
                 //password = BCrypt.Net.BCrypt.HashPassword(username+password,11)
                 password = password
@@ -60,7 +60,7 @@ namespace PantryPassionGUI.Operations
         public User GetUserDetails(User user)
         {
             string endpoint = this.baseUrl + "/users/" + user.Id;
-            string access_token = user.access_token;
+            string access_token = user.AccessJWTToken;
 
             WebClient wc = new WebClient();
             wc.Headers["Content-Type"] = "application/json";
@@ -69,7 +69,7 @@ namespace PantryPassionGUI.Operations
             {
                 string response = wc.DownloadString(endpoint);
                 user = JsonConvert.DeserializeObject<User>(response);
-                user.access_token = access_token;
+                user.AccessJWTToken = access_token;
                 return user;
             }
             catch (Exception)
@@ -89,15 +89,15 @@ namespace PantryPassionGUI.Operations
  */
         public User RegisterUser(string username, string password, string fullname)
         {
-            string endpoint = this.baseUrl + "/accounts/Register";
+            string endpoint = this.baseUrl + "/accounts/register";
             string method = "POST";
             string json = JsonConvert.SerializeObject(new
             {
-                username = username,
+                email = username,
                 //password = HashUser(username,password),
                 //password = BCrypt.Net.BCrypt.HashPassword(username + password, 11),
                 password = password,
-                fullname = fullname
+                fullName = fullname
             });
 
             WebClient wc = new WebClient();
@@ -121,21 +121,22 @@ namespace PantryPassionGUI.Operations
             string method = "POST";
             string json = JsonConvert.SerializeObject(new
             {
-                JWTToken = Globals.LoggedInUser.access_token
+
             });
 
             WebClient wc = new WebClient();
             wc.Headers["Content-Type"] = "application/json";
+            wc.Headers["Authorization"] = "Bearer "+ Globals.LoggedInUser.AccessJWTToken;
             try
             {
-                string response = wc.UploadString(endpoint, method, json);
+                string response = wc.UploadString(endpoint, method,json);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                MessageBox.Show("Error Logging Out");
+                MessageBox.Show("Error Logging Out" + e);
             }
 
-            Globals.LoggedInUser.access_token = null;
+            Globals.LoggedInUser.AccessJWTToken = null;
             Globals.LoggedInUser = null;
         }
         public byte[] HashUser(string username, string password)

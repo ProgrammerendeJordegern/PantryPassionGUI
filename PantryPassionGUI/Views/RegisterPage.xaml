@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PantryPassionGUI.Views"
         mc:Ignorable="d"
-        Title="RegistrationPage" Height="450" Width="400">
+        Title="Pantry Passion Registration" Height="450" Width="400"
+        Icon="../Images/pantrypassionlogoudentekst.jpg">
     <Window.Resources>
         <Style x:Key="RoundedCorner" TargetType="{x:Type Button}">
             <Setter Property="Foreground" Value="White"></Setter>
@@ -25,7 +26,7 @@
     <Grid>
         <Image Source="../Images/pantrypassionlogoudentekst.jpg" Opacity=".4"></Image>
         <StackPanel HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="300">
-            <TextBlock Text="Create Account" HorizontalAlignment="Center" FontSize="36" />
+            <TextBlock Text="Opret Konto" HorizontalAlignment="Center" FontSize="36" />
             <TextBlock Text="Username:" FontWeight="Bold" Margin="0,5,0,0" />
             <TextBox x:Name="tbxUsername" Padding="5" />
             <TextBlock Text="Password:" FontWeight="Bold" Margin="0,5,0,0" />

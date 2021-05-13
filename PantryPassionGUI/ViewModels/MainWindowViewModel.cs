@@ -24,10 +24,21 @@ namespace PantryPassionGUI.ViewModels
             get;
             set;
         }
-        
+
+        public User CurrentUser { get; set; }
+        public string CurrentUserFirstName { get; set; }
+
         public MainWindowViewModel()
         {
             T1 = new tempUser("Jesper");
+            CurrentUser = Globals.LoggedInUser;
+
+            if (CurrentUser.FullName.Contains(" "))
+            {
+                string[] splitName = CurrentUser.FullName.Split(" ");
+                CurrentUserFirstName = splitName[0];
+            }
+            else CurrentUserFirstName = CurrentUser.FullName;
         }
 
         public ICommand AddItemCommand
