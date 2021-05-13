@@ -68,10 +68,6 @@ namespace PantryPassionGUI.ViewModels
             CameraViewModel = new CameraViewModel();
             //CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
 
-            //Camera
-            CameraViewModel = new CameraViewModel();
-            //CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
-
         }
 
         private bool UserFilter(object item)
@@ -141,14 +137,6 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private void OkHandler()
-        {
-            //_backendConnection.SetNewItem("Test", "Test", "Test");
-            
-            _sharedOberserverableCollection.SharedInventoryItems.Add(Items.ElementAt(CurrentIndex));
-
-            CameraViewModel.Camera.CameraOff();
-
         //Ok button
         public ICommand OkCommand
         {
@@ -165,29 +153,6 @@ namespace PantryPassionGUI.ViewModels
             _sharedOberserverableCollection.SharedInventoryItems.Add(Items.ElementAt(CurrentIndex));
 
             CameraViewModel.Camera.CameraOff();
-        }
-
-        private InventoryItem _currentItem = null;
-        public InventoryItem CurrentItem
-        {
-            get
-            {
-                return _currentItem;
-            }
-            set
-            {
-                SetProperty(ref _currentItem, value);
-            }
-        }
-
-        private int _currentIndex = -1;
-        public int CurrentIndex
-        {
-            get { return _currentIndex; }
-            set
-            {
-                SetProperty(ref _currentIndex, value);
-            }
         }
 
         private InventoryItem _currentItem = null;
