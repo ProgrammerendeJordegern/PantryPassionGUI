@@ -156,8 +156,9 @@ namespace PantryPassionGUI.ViewModels
         {
             //_backendConnection.SetNewItem("Test", "Test", "Test");
 
-            _sharedOberserverableCollection.SharedInventoryItems.Add(Items.ElementAt(CurrentIndex));
+            _sharedOberserverableCollection.SendUpdateEvent = true;
 
+            Items.ElementAt(CurrentIndex).InventoryType = 3;
             Items.ElementAt(CurrentIndex).Amount = 1;
 
             try

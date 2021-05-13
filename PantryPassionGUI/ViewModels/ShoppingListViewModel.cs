@@ -20,7 +20,6 @@ namespace PantryPassionGUI.ViewModels
     {
         private BackendConnection _backendConnection;
         private InventoryItem _currentItem;
-
         public FindItemViewModel FindItemViewModel { get; private set; }
         public SharedOberserverableCollectionOfInventoryItems SharedOberserverableCollection { get; private set; }
         
@@ -34,8 +33,14 @@ namespace PantryPassionGUI.ViewModels
             _backendConnection = new BackendConnection();
             FindItemViewModel = new FindItemViewModel();
             SharedOberserverableCollection = SharedOberserverableCollectionOfInventoryItems.Instance();
+            SharedOberserverableCollection.UpdateShoppingList += UpdateHandler;
             SharedOberserverableCollection.SharedInventoryItems.Clear();
             _currentItem = new InventoryItem();
+            GetShoppingList();
+        }
+
+        private void UpdateHandler(object sender, EventArgs e)
+        {
             GetShoppingList();
         }
 
@@ -49,6 +54,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void DeleteItemInListHandler()
         {
+            Debug.WriteLine(CurrentInventoryItem.InventoryType);
             CurrentInventoryItem.Amount = 0;
             UpdateInventoryItemQuantity();
             SharedOberserverableCollection.SharedInventoryItems.Clear();

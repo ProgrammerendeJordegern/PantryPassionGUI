@@ -115,7 +115,7 @@ namespace PantryPassionGUI.Utilities
             else
             {
                 url = _baseUrl + "/InventoryItem/newItem/" + type;
-                inventoryItem.InventoryType = 4;
+                inventoryItem.InventoryType = 3;
                 informationToSend = inventoryItem;
             }
 
