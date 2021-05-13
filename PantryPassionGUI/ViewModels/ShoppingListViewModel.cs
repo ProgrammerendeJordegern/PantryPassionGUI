@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.Utilities;
+using PantryPassionGUI.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -112,8 +114,25 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private void AddItemsOnListToOwnedItemsHandler()
+        private async void AddItemsOnListToOwnedItemsHandler()
         {
+            foreach (var item in SharedOberserverableCollection.SharedInventoryItems)
+            {
+                try
+                {
+                    await _backendConnection.SetNewItem(item, true);
+                }
+                catch (ApiException e)
+                {
+                    MessageBox.Show($"Fejl {e.StatusCode}", "Error!");
+                }
+                catch (HttpRequestException exception)
+                {
+                    MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
+                }
+            }
+
+
             //Tjek om varen allerede findes i ejede vare - true = tilføj antallet til det nuværende antal
 
             //Hvis varen ikke allerede findes i ejede vare tjek db om varen findes der - true = tilføj antal og kategori
