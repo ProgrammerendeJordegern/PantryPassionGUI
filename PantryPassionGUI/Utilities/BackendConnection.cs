@@ -16,12 +16,12 @@ namespace PantryPassionGUI.Utilities
     {
         private readonly HttpClient _client;
         private static string _baseUrl = "https://localhost:44380/api";
-        private string _accessToken = "test";
+        //private string _accessToken = "test";
 
         public BackendConnection()
         {
             _client = new HttpClient();
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Globals.LoggedInUser.AccessJWTToken);
         }
 
         class CreateExistingItem
@@ -51,14 +51,13 @@ namespace PantryPassionGUI.Utilities
             return await GetInformationFromBackendServer<Item>(url);
         }
 
-        public async Task<List<InventoryItem>> GetInventory(int jwt)
+        public async Task<ObservableCollection<InventoryItem>> GetInventory()
         {
-            string url = _baseUrl + "/api/Inventory";
+            string url = _baseUrl + "/Inventory";
 
-            return await GetItemInformation<List<InventoryItem>>(url);
+            return await GetInformationFromBackendServer<ObservableCollection<InventoryItem>>(url);
         }
 
-        public async Task<T> GetItemInformation<T>(string url)
         public async Task<ObservableCollection<InventoryItem>> GetListOfInventoryItems(int itemId)
         {
 
