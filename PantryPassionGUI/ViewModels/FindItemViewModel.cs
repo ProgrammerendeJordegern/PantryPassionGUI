@@ -143,7 +143,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void OkHandler()
         {
-            _backendConnection.SetNewItem("Test", "Test", "Test");
+            //_backendConnection.SetNewItem("Test", "Test", "Test");
             
             _sharedOberserverableCollection.SharedInventoryItems.Add(Items.ElementAt(CurrentIndex));
 
