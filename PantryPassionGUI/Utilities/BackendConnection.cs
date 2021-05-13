@@ -51,6 +51,14 @@ namespace PantryPassionGUI.Utilities
             return await GetInformationFromBackendServer<Item>(url);
         }
 
+        public async Task<List<InventoryItem>> GetInventory(int jwt)
+        {
+            string url = _baseUrl + "/api/Inventory";
+
+            return await GetItemInformation<List<InventoryItem>>(url);
+        }
+
+        public async Task<T> GetItemInformation<T>(string url)
         public async Task<ObservableCollection<InventoryItem>> GetListOfInventoryItems(int itemId)
         {
 
