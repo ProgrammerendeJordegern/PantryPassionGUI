@@ -16,12 +16,11 @@ namespace PantryPassionGUI.Utilities
     {
         private readonly HttpClient _client;
         private static string _baseUrl = "https://localhost:44380/api";
-        private string _accessToken = "test";
 
         public BackendConnection()
         {
             _client = new HttpClient();
-            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Globals.LoggedInUser.AccessJWTToken);
         }
 
         class CreateExistingItem
@@ -65,6 +64,13 @@ namespace PantryPassionGUI.Utilities
             return await GetInformationFromBackendServer<ObservableCollection<Item>>(url);
         }
 
+        public async Task<ObservableCollection<InventoryItem>> GetInventoryItemListByType(int inventoryType)
+        {
+            string url = _baseUrl + "/Inventory/" + inventoryType;
+
+            return await GetInformationFromBackendServer<ObservableCollection<InventoryItem>>(url);
+        }
+
         public async Task<T> GetInformationFromBackendServer<T>(string url)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
@@ -99,7 +105,7 @@ namespace PantryPassionGUI.Utilities
 
             if (itemExistsInDatabase)
             {
-                url = _baseUrl + "/InventoryItem/existingItem/1/" + type;
+                url = _baseUrl + "/InventoryItem/existingItem/" + type;
                 CreateExistingItem data = new CreateExistingItem();
 
                 data.ItemId = inventoryItem.Item.ItemId;
@@ -108,7 +114,7 @@ namespace PantryPassionGUI.Utilities
             }
             else
             {
-                url = _baseUrl + "/InventoryItem/newItem/1/" + type;
+                url = _baseUrl + "/InventoryItem/newItem/" + type;
                 inventoryItem.InventoryType = 4;
                 informationToSend = inventoryItem;
             }
@@ -116,7 +122,7 @@ namespace PantryPassionGUI.Utilities
             return await SendInformationToBackendServer(HttpMethod.Post, url, informationToSend);
         }
 
-        private async Task<int> SendInformationToBackendServer(HttpMethod httpMethodType,string url, object informationToSend)
+        private async Task<int> SendInformationToBackendServer(HttpMethod httpMethodType, string url, object informationToSend)
         {
             using (var request = new HttpRequestMessage(httpMethodType, url))
             {
@@ -160,6 +166,13 @@ namespace PantryPassionGUI.Utilities
             }
 
             return await SendInformationToBackendServer(HttpMethod.Put, url, inventoryItem);
+        }
+
+        public async Task<int> DeleteShoppingList()
+        {
+            string url = _baseUrl + "/Inventory/allContent/" + 3;
+
+            return await SendInformationToBackendServer(HttpMethod.Delete, url, new object());
         }
     }
 }

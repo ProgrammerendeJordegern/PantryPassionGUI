@@ -26,8 +26,9 @@ namespace PantryPassionGUI.ViewModels
         private ICommand _upArrowCommand;
         private ICommand _downArrowCommand;
         private ICommand _findItemByNamCommand;
-        private int _currentIndex;
         private InventoryItem _inventoryItem;
+        private InventoryItem _currentItem;
+
         public int OriginalQuantity { get; private set; }
 
         private ObservableCollection<InventoryItem> _inventoryItemsList;
@@ -38,7 +39,7 @@ namespace PantryPassionGUI.ViewModels
             _backendConnection = new BackendConnection();
             _inventoryItem = new InventoryItem();
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
-
+            _currentItem = new InventoryItem();
             _inventoryItemsList = new ObservableCollection<InventoryItem>();
 
             //For testing
@@ -83,20 +84,6 @@ namespace PantryPassionGUI.ViewModels
             set
             {
                 SetProperty(ref _inventoryItemsList, value);
-            }
-        }
-
-        public int CurrentIndex
-        {
-            get
-            {
-                return _currentIndex;
-            }
-            set
-            {
-                OriginalQuantity = InventoryItemsList.ElementAt(value).Amount;
-                InventoryItem.Amount = InventoryItemsList.ElementAt(value).Amount;
-                SetProperty(ref _currentIndex, value);
             }
         }
 
@@ -249,9 +236,26 @@ namespace PantryPassionGUI.ViewModels
             GetInventoryItemsList();
         }
 
+        public InventoryItem CurrentInventoryItem
+        {
+            get
+            {
+                return _currentItem;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    OriginalQuantity = value.Amount;
+                    InventoryItem.Amount = value.Amount;
+                }
+                
+                SetProperty(ref _currentItem, value);
+            }
+        }
         private void ItemNotFound(int statusCode)
         {
-            MessageBox.Show($"Fejl {statusCode}\nVare belv ikke fundet i systemet!\nIndtast venlist selv vares informationer", "Error!");
+            MessageBox.Show($"Fejl {statusCode}\nVare blev ikke fundet i systemet!\nIndtast venlist selv vares informationer", "Error!");
         }
 
         private async void GetInventoryItemsList()
@@ -266,11 +270,11 @@ namespace PantryPassionGUI.ViewModels
 
         private async void UpdateInventoryItemAmount()
         {
-            InventoryItemsList.ElementAt(CurrentIndex).Amount = InventoryItem.Amount;
+            CurrentInventoryItem.Amount = InventoryItem.Amount;
 
             try
             {
-                int statusCode = await _backendConnection.SetQuantity(InventoryItemsList.ElementAt(CurrentIndex));
+                int statusCode = await _backendConnection.SetQuantity(CurrentInventoryItem);
             }
             catch (ApiException exception)
             {

@@ -24,11 +24,6 @@ namespace PantryPassionGUI.Views
             InitializeComponent();
         }
 
-        private void CloseWindowOnOK(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
         private void CloseWindowOnCancel(object sender, RoutedEventArgs e)
         {
             this.Close();

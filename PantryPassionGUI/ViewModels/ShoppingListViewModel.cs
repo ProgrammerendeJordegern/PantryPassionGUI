@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -18,37 +19,40 @@ namespace PantryPassionGUI.ViewModels
     public class ShoppingListViewModel : BindableBase
     {
         private BackendConnection _backendConnection;
-        private InventoryItem _currentItem = null;
+        private InventoryItem _currentItem;
 
-        public ObservableCollection<InventoryItem> ItemsList { get; set; }
         public FindItemViewModel FindItemViewModel { get; private set; }
         public SharedOberserverableCollectionOfInventoryItems SharedOberserverableCollection { get; private set; }
-
-        private ICommand _autoGenerateListCommand;
+        
         private ICommand _addItemToListCommand;
+        private ICommand _deleteItemInListCommand;
         private ICommand _clearListCommand;
-        private ICommand _addItemsOnListToOwnedItemsCommand;
         private ICommand _updateListCommand;
 
         public ShoppingListViewModel()
         {
             _backendConnection = new BackendConnection();
-            ItemsList = new ObservableCollection<InventoryItem>();
             FindItemViewModel = new FindItemViewModel();
             SharedOberserverableCollection = SharedOberserverableCollectionOfInventoryItems.Instance();
+            SharedOberserverableCollection.SharedInventoryItems.Clear();
+            _currentItem = new InventoryItem();
+            GetShoppingList();
         }
 
-        public ICommand AutoGenerateListCommand
+        public ICommand DeleteItemInListCommand
         {
             get
             {
-                return _autoGenerateListCommand ??= new DelegateCommand(AutoGenerateListHandler);
+                return _deleteItemInListCommand ??= new DelegateCommand(DeleteItemInListHandler);
             }
         }
 
-        private void AutoGenerateListHandler()
+        private void DeleteItemInListHandler()
         {
-            //Fra præferencer
+            CurrentInventoryItem.Amount = 0;
+            UpdateInventoryItemQuantity();
+            SharedOberserverableCollection.SharedInventoryItems.Clear();
+            GetShoppingList();
         }
 
         public ICommand AddItemToListCommand
@@ -66,7 +70,7 @@ namespace PantryPassionGUI.ViewModels
             findItemView.ShowDialog();
         }
 
-        public InventoryItem CurrentItem
+        public InventoryItem CurrentInventoryItem
         {
             get
             {
@@ -78,16 +82,6 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private int _currentIndex = -1;
-        public int CurrentIndex
-        {
-            get { return _currentIndex; }
-            set
-            {
-                SetProperty(ref _currentIndex, value);
-            }
-        }
-
         public ICommand ClearListCommand
         {
             get
@@ -96,7 +90,7 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private void ClearListHandler()
+        private async void ClearListHandler()
         {
             //Clear list in view
 
@@ -104,54 +98,77 @@ namespace PantryPassionGUI.ViewModels
 
             //Clear list in db
 
+            try
+            {
+                await _backendConnection.DeleteShoppingList();
+            }
+            catch (ApiException e)
+            {
+                MessageBox.Show($"Fejl {e.StatusCode}", "Error!");
+            }
+            catch (HttpRequestException exception)
+            {
+                MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
+            }
         }
 
-        public ICommand AddItemsOnListToOwnedItemsCommand
+        public async void GetShoppingList()
+        {
+            var temp = new ObservableCollection<InventoryItem>();
+            try
+            {
+                temp = await _backendConnection.GetInventoryItemListByType(3);
+            }
+            catch (ApiException e)
+            {
+                MessageBox.Show($"Fejl {e.StatusCode}", "Error!");
+            }
+            catch (HttpRequestException exception)
+            {
+                MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
+            }
+            finally
+            {
+                foreach (var inventoryItem in temp)
+                {
+                    SharedOberserverableCollection.SharedInventoryItems.Add(inventoryItem);
+                }
+            }
+        }
+
+        public ICommand UpdateSelectedItemCommand
         {
             get
             {
-                return _addItemsOnListToOwnedItemsCommand ??= new DelegateCommand(AddItemsOnListToOwnedItemsHandler);
+                return _updateListCommand ??= new DelegateCommand(UpdateSelectedItemHandler);
             }
         }
 
-        private async void AddItemsOnListToOwnedItemsHandler()
-        {
-            foreach (var item in SharedOberserverableCollection.SharedInventoryItems)
-            {
-                try
-                {
-                    await _backendConnection.SetNewItem(item, true);
-                }
-                catch (ApiException e)
-                {
-                    MessageBox.Show($"Fejl {e.StatusCode}", "Error!");
-                }
-                catch (HttpRequestException exception)
-                {
-                    MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
-                }
-            }
-
-
-            //Tjek om varen allerede findes i ejede vare - true = tilføj antallet til det nuværende antal
-
-            //Hvis varen ikke allerede findes i ejede vare tjek db om varen findes der - true = tilføj antal og kategori
-
-            //Hvis varen ikke finde nogen steder skal der så tilføjes stregkode og kategori??
-        }
-
-        public ICommand UpdateListCommand
-        {
-            get
-            {
-                return _updateListCommand ??= new DelegateCommand(UpdateListHandler);
-            }
-        }
-
-        private void UpdateListHandler()
+        private void UpdateSelectedItemHandler()
         {
             //_backendConnection.SendInformationToBackendServer("Test", "Test", "Test");
             //Update to db
+            UpdateInventoryItemQuantity();
+        }
+
+        private async void UpdateInventoryItemQuantity()
+        {
+            try
+            {
+                int temp = await _backendConnection.SetQuantity(CurrentInventoryItem);
+                foreach (var inventoryItem in SharedOberserverableCollection.SharedInventoryItems)
+                {
+                    Debug.WriteLine($"InventoryItem: {inventoryItem}");
+                }
+            }
+            catch (ApiException e)
+            {
+                MessageBox.Show($"Fejl {e.StatusCode}", "Error!");
+            }
+            catch (HttpRequestException exception)
+            {
+                MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
+            }
         }
     }
 }

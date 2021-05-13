@@ -110,17 +110,16 @@ namespace PantryPassionGUI.Models
         {
             switch (inventoryType)
             {
-                case 1:
+                case 0:
                     Category = "Fryser";
                     break;
-                case 2:
+                case 1:
                     Category = "Køleskab";
                     break;
-                case 3:
+                case 2:
                     Category = "Spisekammer (øvrige vare)";
-                    
                     break;
-                case 4:
+                case 3:
                     Category = "Indkøbsliste";
                     break;
             }
@@ -131,13 +130,13 @@ namespace PantryPassionGUI.Models
             switch (category)
             {
                 case "System.Windows.Controls.ComboBoxItem: Køleskab":
-                    InventoryType = 2;
-                    break;
-                case "System.Windows.Controls.ComboBoxItem: Fryser":
                     InventoryType = 1;
                     break;
+                case "System.Windows.Controls.ComboBoxItem: Fryser":
+                    InventoryType = 0;
+                    break;
                 case "System.Windows.Controls.ComboBoxItem: Spisekammer (øvrige vare)":
-                    InventoryType = 3;
+                    InventoryType = 2;
                     break;
             }
         }

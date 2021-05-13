@@ -76,7 +76,7 @@
                 <Label Grid.Row="5" Grid.Column="0" Margin="0,5">Stregkode:</Label>
                 <TextBox Grid.Row="5" Grid.Column="1" MinWidth="200" Margin="0,5" IsReadOnly="True" Text="{Binding Path=InventoryItem.Item.Ean}"></TextBox>
 
-                <DataGrid Grid.Row="6" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False" MinHeight="75" VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=InventoryItemsList}" HorizontalAlignment="Center" VerticalAlignment="Top" SelectedIndex="{Binding Path=CurrentIndex}">
+                <DataGrid Grid.Row="6" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False" MinHeight="75" VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Path=InventoryItemsList}" HorizontalAlignment="Center" VerticalAlignment="Top" SelectedItem="{Binding Path=CurrentInventoryItem}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Dato tilføjet" MinWidth="75" Binding="{Binding Path=DateAddedStringFormat}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Kategori" MinWidth="75" Binding="{Binding Path=Category}"></DataGridTextColumn>

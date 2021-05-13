@@ -27,8 +27,7 @@
             <DataGrid Grid.Row="1"
                   IsSynchronizedWithCurrentItem="True"
                   ItemsSource="{Binding Path=SharedOberserverableCollection.SharedInventoryItems}"
-                  SelectedItem="{Binding Path= CurrentItem}"
-                  SelectedIndex="{Binding Path=CurrentIndex}" 
+                  SelectedItem="{Binding Path=CurrentInventoryItem}"
                   AutoGenerateColumns="False"
                   Margin="10,0"
                   MinWidth="300"
@@ -38,7 +37,9 @@
                 </DataGrid.InputBindings>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Vare" IsReadOnly="True" Binding="{Binding Path=Item.Name}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Antal" IsReadOnly="True" Binding="{Binding Path=Item.Size}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Antal" Binding="{Binding Path=Amount}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Størrelse" IsReadOnly="True" Binding="{Binding Path=Item.Size}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Enhed" IsReadOnly="True" Binding="{Binding Path=Item.SizeUnit}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -50,15 +51,14 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Button Content="Autoudfyld indkøbsliste" Margin="30,2" Command="{Binding Path=AutoGenerateListCommand}"></Button>
-                <Button Grid.Row="1" Content="Tilføj vare" Margin="30, 2" Command="{Binding Path=AddItemToListCommand}"></Button>
+                <Button Grid.Row="0" Content="Tilføj vare" Margin="30, 2" Command="{Binding Path=AddItemToListCommand}"></Button>
+                <Button Grid.Row="1" Content="Slet vare" Margin="30, 2" Command="{Binding Path=DeleteItemInListCommand}"></Button>
                 <Button Grid.Row="2" Content="Slet indkøbsliste" Margin="30,2" Command="{Binding Path=ClearListCommand}"></Button>
-                <Button Grid.Row="3" Content="Tilføj vare på indkøbsliste til ejede vare" Margin="30,30" Command="{Binding Path=AddItemsOnListToOwnedItemsCommand}"></Button>
             </Grid>
         </Grid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,30">
-            <Button Grid.Row="4" Content="Opdater indkøbsliste" MinWidth="35" Margin="10,0" Command="{Binding Path=UpdateListCommand}" Click="CloseWindowOnOK"></Button>
+            <Button Grid.Row="4" Content="Opdater valgte vare" MinWidth="35" Margin="10,0" Command="{Binding Path=UpdateSelectedItemCommand}"></Button>
             <Button Grid.Row="4" Grid.Column="1" Content="_Cancel" Width="45" Margin="10,0" Click="CloseWindowOnCancel"></Button>
         </StackPanel>
     </StackPanel>

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,7 +18,7 @@ using Prism.Mvvm;
 
 namespace PantryPassionGUI.ViewModels
 {
-    
+
     public class FindItemViewModel : BindableBase
     {
         private ICommand _okCommand;
@@ -25,7 +26,7 @@ namespace PantryPassionGUI.ViewModels
         //private ShoppingListViewModel _shoppingList;
         private SharedOberserverableCollectionOfInventoryItems _sharedOberserverableCollection;
 
-        public ObservableCollection<InventoryItem> Items { get; set; }
+        private ObservableCollection<InventoryItem> _items;
         public ObservableCollection<InventoryItem> ChosenItems { get; set; }
         public CameraViewModel CameraViewModel { get; private set; }
 
@@ -45,7 +46,6 @@ namespace PantryPassionGUI.ViewModels
 
             _sharedOberserverableCollection = SharedOberserverableCollectionOfInventoryItems.Instance();
 
-
             inventoryItem1.Item = i1;
             inventoryItem2.Item = i2;
             inventoryItem3.Item = i3;
@@ -53,16 +53,18 @@ namespace PantryPassionGUI.ViewModels
             inventoryItem5.Item = i5;
 
             Items = new ObservableCollection<InventoryItem>();
-            Items.Add(inventoryItem1);
-            Items.Add(inventoryItem2);
-            Items.Add(inventoryItem3);
-            Items.Add(inventoryItem4);
-            Items.Add(inventoryItem5); 
-            
+            //Items.Add(inventoryItem1);
+            //Items.Add(inventoryItem2);
+            //Items.Add(inventoryItem3);
+            //Items.Add(inventoryItem4);
+            //Items.Add(inventoryItem5);
+
             ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(Items);
             //ViewFilter.Filter = o => String.IsNullOrEmpty(Filter) || ((string)o).Contains(Filter);
             ViewFilter.Filter = UserFilter;
             _backendConnection = new BackendConnection();
+
+            GetInventoryForfindItem();
 
             //Camera
             CameraViewModel = new CameraViewModel();
@@ -82,7 +84,7 @@ namespace PantryPassionGUI.ViewModels
 
         private ICollectionView ViewFilter;
         private string namefilter;
-        
+
         public string NameFilter
         {
             get { return namefilter; }
@@ -115,6 +117,19 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
+        public ObservableCollection<InventoryItem> Items
+        {
+            get
+            {
+                return _items;
+            }
+            set
+            {
+                SetProperty(ref _items, value);
+            }
+        }
+
+
         private ICommand _scanEANCommand;
 
         public ICommand ScanEANCommand
@@ -137,20 +152,26 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        //Ok button
-        public ICommand OkCommand
-        {
-            get
-            {
-                return _okCommand ??= new DelegateCommand(OkHandler);
-            }
-        }
-
-        private void OkHandler()
+        private async void OkHandler()
         {
             //_backendConnection.SetNewItem("Test", "Test", "Test");
-            
+
             _sharedOberserverableCollection.SharedInventoryItems.Add(Items.ElementAt(CurrentIndex));
+
+            Items.ElementAt(CurrentIndex).Amount = 1;
+
+            try
+            {
+                await _backendConnection.SetNewItem(Items.ElementAt(CurrentIndex), true);
+            }
+            catch (ApiException e)
+            {
+                MessageBox.Show($"Fejl {e.StatusCode}", "Error!");
+            }
+            catch (HttpRequestException exception)
+            {
+                MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
+            }
 
             CameraViewModel.Camera.CameraOff();
         }
@@ -176,6 +197,11 @@ namespace PantryPassionGUI.ViewModels
             {
                 SetProperty(ref _currentIndex, value);
             }
+        }
+
+        private async void GetInventoryForfindItem()
+        {
+            Items = await _backendConnection.GetInventoryItemListByType(2);
         }
 
         //ICommand _okButtonCommand;
