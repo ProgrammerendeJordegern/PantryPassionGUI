@@ -41,7 +41,7 @@ namespace PantryPassionGUI.ViewModels
 
             ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(InventoryItems);
             ViewFilter.Filter = UserFilter;
-            _backendConnection = new BackendConnection();
+            _backendConnection = new BackendConnection(); 
 
             GetInventoryForFindItem();
 
