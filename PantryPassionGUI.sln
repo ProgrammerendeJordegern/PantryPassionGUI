@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PantryPassionGUI", "PantryP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PantryPassion.Test.Unit", "PantryPassion.Test.Unit\PantryPassion.Test.Unit.csproj", "{DEF6B8BE-CCA5-4435-9B19-55FEBC7094CB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6D1AFF07-B636-42AE-82E4-10AC1DACBF28}"
+	ProjectSection(SolutionItems) = preProject
+		dotCoverCoverageConfigCore.xml = dotCoverCoverageConfigCore.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
