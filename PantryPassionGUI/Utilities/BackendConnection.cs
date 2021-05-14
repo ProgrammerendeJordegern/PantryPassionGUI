@@ -12,7 +12,7 @@ using PantryPassionGUI.Models;
 
 namespace PantryPassionGUI.Utilities
 {
-    public class BackendConnection
+    public class BackendConnection : IBackendConection
     {
         private readonly HttpClient _client;
         private static string _baseUrl = "https://localhost:44380/api";
@@ -71,7 +71,7 @@ namespace PantryPassionGUI.Utilities
             return await GetInformationFromBackendServer<ObservableCollection<InventoryItem>>(url);
         }
 
-        public async Task<T> GetInformationFromBackendServer<T>(string url)
+        private async Task<T> GetInformationFromBackendServer<T>(string url)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
