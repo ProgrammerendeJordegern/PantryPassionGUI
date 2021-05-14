@@ -11,14 +11,14 @@ namespace PantryPassion.Test.Unit.ViewModelTest
     {
         private AddItemViewModel _uut;
         private ICameraViewModel _cameraViewModel;
-        private BackendConnection _backendConnection;
+        private IBackendConnection _backendConnection;
         private object _obj;
 
         [SetUp]
         public void Setup()
         {
-            _backendConnection = new BackendConnection();
             _cameraViewModel = Substitute.For<ICameraViewModel>();
+            _backendConnection = Substitute.For<IBackendConnection>();
             _uut = new AddItemViewModel(_cameraViewModel, _backendConnection);
             _obj = new object();
         }

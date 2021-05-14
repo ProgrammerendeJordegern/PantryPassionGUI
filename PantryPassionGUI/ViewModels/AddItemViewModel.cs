@@ -16,7 +16,7 @@ namespace PantryPassionGUI.ViewModels
 {
     public class AddItemViewModel : BindableBase
     {
-        private BackendConnection _backendConnection;
+        private IBackendConnection _backendConnection;
         private ICommand _cancelCommand;
         private ICommand _okCommand;
         private ICommand _addInventoryItemCommand;
@@ -36,7 +36,7 @@ namespace PantryPassionGUI.ViewModels
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
         }
 
-        public AddItemViewModel(ICameraViewModel cameraViewModel, BackendConnection backendConnection)
+        public AddItemViewModel(ICameraViewModel cameraViewModel, IBackendConnection backendConnection)
         {
             _backendConnection = backendConnection;
             _inventoryItem = new InventoryItem();

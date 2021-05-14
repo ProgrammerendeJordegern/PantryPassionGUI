@@ -20,7 +20,7 @@ using Prism.Mvvm;
 namespace PantryPassionGUI.ViewModels
 {
 
-    public class FindItemViewModel : BindableBase
+    public class FindItemViewModel : BindableBase, IFindItemViewModel
     {
         private ICommand _okCommand;
         private ICommand _scanEANCommand;
