@@ -21,22 +21,46 @@ namespace PantryPassionGUI.ViewModels
     {
         public ObservableCollection<InventoryItem> InventoryItems { get; private set; }
 
-        private BackendConnection _backendConnection;
-        private InventoryItem _currentItem;
-        public FindItemViewModel FindItemViewModel { get; private set; }
+        private IBackendConnection _backendConnection;
+        public IFindItemViewModel FindItemViewModel { get; private set; }
         public FindItemView FindItemView { get; private set; }
+        private InventoryItem _currentItem;
 
         private ICommand _addItemToListCommand;
         private ICommand _deleteItemInListCommand;
         private ICommand _clearListCommand;
-        private ICommand _updateListCommand;
+        private ICommand _updateSelectedItemCommand;
+        private ICommand _updateShoppingListCommand;
 
         public ShoppingListViewModel()
         {
             _backendConnection = new BackendConnection();
             FindItemViewModel = new FindItemViewModel();
             _currentItem = new InventoryItem();
-            InventoryItems = new List<InventoryItem>();
+            InventoryItems = new ObservableCollection<InventoryItem>();
+            GetShoppingList();
+        }
+
+        public ShoppingListViewModel(IBackendConnection backendConnection, IFindItemViewModel findItemViewModel)
+        {
+            _backendConnection = backendConnection;
+            FindItemViewModel = findItemViewModel;
+            _currentItem = new InventoryItem();
+            InventoryItems = new ObservableCollection<InventoryItem>();
+            GetShoppingList();
+        }
+
+        public ICommand UpdateShoppingListCommand
+        {
+            get
+            {
+                return _updateShoppingListCommand ??= new DelegateCommand(UpdateShoppingList);
+            }
+        }
+
+        private void UpdateShoppingList()
+        {
+            InventoryItems.Clear();
             GetShoppingList();
         }
 
@@ -115,6 +139,7 @@ namespace PantryPassionGUI.ViewModels
         public async void GetShoppingList()
         {
             var temp = new ObservableCollection<InventoryItem>();
+
             try
             {
                 temp = await _backendConnection.GetInventoryItemListByType(3);
@@ -140,7 +165,7 @@ namespace PantryPassionGUI.ViewModels
         {
             get
             {
-                return _updateListCommand ??= new DelegateCommand(UpdateSelectedItemHandler);
+                return _updateSelectedItemCommand ??= new DelegateCommand(UpdateSelectedItemHandler);
             }
         }
 
@@ -155,10 +180,6 @@ namespace PantryPassionGUI.ViewModels
             try
             {
                 int temp = await _backendConnection.SetQuantity(CurrentInventoryItem);
-                foreach (var inventoryItem in InventoryItems)
-                {
-                    Debug.WriteLine($"InventoryItem: {inventoryItem}");
-                }
             }
             catch (ApiException e)
             {

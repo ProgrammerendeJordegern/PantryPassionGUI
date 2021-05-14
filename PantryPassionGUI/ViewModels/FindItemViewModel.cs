@@ -20,7 +20,7 @@ using Prism.Mvvm;
 namespace PantryPassionGUI.ViewModels
 {
 
-    public class FindItemViewModel : BindableBase
+    public class FindItemViewModel : BindableBase, IFindItemViewModel
     {
         private ICommand _okCommand;
         private ICommand _scanEANCommand;
@@ -31,9 +31,9 @@ namespace PantryPassionGUI.ViewModels
         private int _currentIndex = -1;
 
         private InventoryItem _currentItem = null;
-        private BackendConnection _backendConnection;
+        private IBackendConnection _backendConnection;
         private ObservableCollection<InventoryItem> _inventoryItems;
-        public CameraViewModel CameraViewModel { get; private set; }
+        public ICameraViewModel CameraViewModel { get; private set; }
 
         public FindItemViewModel()
         {
@@ -48,6 +48,17 @@ namespace PantryPassionGUI.ViewModels
             //Camera
             CameraViewModel = new CameraViewModel();
 
+        }
+
+        public FindItemViewModel(IBackendConnection backendConnection, ICameraViewModel cameraViewModel)
+        {
+            InventoryItems = new ObservableCollection<InventoryItem>();
+
+            ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(InventoryItems);
+            ViewFilter.Filter = UserFilter;
+            _backendConnection = backendConnection;
+            CameraViewModel = cameraViewModel;
+            GetInventoryForFindItem();
         }
 
         private bool UserFilter(object item)

@@ -12,14 +12,14 @@ namespace PantryPassion.Test.Unit.ViewModelTest
     {
         private RemoveItemViewModel _uut;
         private ICameraViewModel _cameraViewModel;
-        private BackendConnection _backendConnection;
+        private IBackendConnection _backendConnection;
         private object _obj;
 
         [SetUp]
         public void Setup()
         {
             _cameraViewModel = Substitute.For<ICameraViewModel>();
-            _backendConnection = new BackendConnection();
+            _backendConnection = Substitute.For<IBackendConnection>();
             _uut = new RemoveItemViewModel(_cameraViewModel, _backendConnection, 5);
             _obj = new object();
         }
@@ -94,7 +94,10 @@ namespace PantryPassion.Test.Unit.ViewModelTest
         public void AddItemViewModel_BarcodeFoundEventToViewModels_AddOneToAmount()
         {
             _cameraViewModel.BarcodeFoundEventToViewModels += Raise.EventWith(new EventArgs());
-            Assert.That(_uut.OriginalQuantity, Is.EqualTo(0));
+            InventoryItem inventoryItem = new InventoryItem();
+            inventoryItem.Amount = 1;
+            _uut.CurrentInventoryItem = inventoryItem;
+            Assert.That(_uut.OriginalQuantity, Is.EqualTo(1));
         }
 
         [Test]

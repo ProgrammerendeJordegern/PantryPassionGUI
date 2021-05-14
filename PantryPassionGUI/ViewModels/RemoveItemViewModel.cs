@@ -19,7 +19,7 @@ namespace PantryPassionGUI.ViewModels
     public class RemoveItemViewModel : BindableBase
     {
         public ICameraViewModel CameraViewModel { get; private set; }
-        private BackendConnection _backendConnection;
+        private IBackendConnection _backendConnection;
         private ICommand _cancelCommand;
         private ICommand _okCommand;
         private ICommand _removeInventoryItemCommand;
@@ -41,16 +41,15 @@ namespace PantryPassionGUI.ViewModels
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
             _currentItem = new InventoryItem();
             _inventoryItemsList = new ObservableCollection<InventoryItem>();
-
-            //For testing
-            OriginalQuantity = 5;
         }
 
-        public RemoveItemViewModel(ICameraViewModel cameraViewModel, BackendConnection backendConnection , int originalQuantity)
+        public RemoveItemViewModel(ICameraViewModel cameraViewModel, IBackendConnection backendConnection , int originalQuantity)
         {
             CameraViewModel = cameraViewModel;
             _backendConnection = backendConnection;
             _inventoryItem = new InventoryItem();
+            _inventoryItemsList = new ObservableCollection<InventoryItem>();
+            _currentItem = new InventoryItem();
             CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
             OriginalQuantity = originalQuantity;
         }

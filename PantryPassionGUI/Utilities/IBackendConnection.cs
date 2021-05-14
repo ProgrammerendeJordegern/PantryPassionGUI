@@ -8,7 +8,7 @@ using PantryPassionGUI.Models;
 
 namespace PantryPassionGUI.Utilities
 {
-    public interface IBackendConection
+    public interface IBackendConnection
     {
         Task<Item> CheckBarcode(string barcode);
         Task<Item> GetItemByName(string name);
