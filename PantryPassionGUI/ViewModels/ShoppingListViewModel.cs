@@ -36,7 +36,7 @@ namespace PantryPassionGUI.ViewModels
             _backendConnection = new BackendConnection();
             FindItemViewModel = new FindItemViewModel();
             _currentItem = new InventoryItem();
-            InventoryItems = new List<InventoryItem>();
+            InventoryItems = new ObservableCollection<InventoryItem>();
             GetShoppingList();
         }
 
@@ -115,6 +115,7 @@ namespace PantryPassionGUI.ViewModels
         public async void GetShoppingList()
         {
             var temp = new ObservableCollection<InventoryItem>();
+
             try
             {
                 temp = await _backendConnection.GetInventoryItemListByType(3);
@@ -155,10 +156,6 @@ namespace PantryPassionGUI.ViewModels
             try
             {
                 int temp = await _backendConnection.SetQuantity(CurrentInventoryItem);
-                foreach (var inventoryItem in InventoryItems)
-                {
-                    Debug.WriteLine($"InventoryItem: {inventoryItem}");
-                }
             }
             catch (ApiException e)
             {
