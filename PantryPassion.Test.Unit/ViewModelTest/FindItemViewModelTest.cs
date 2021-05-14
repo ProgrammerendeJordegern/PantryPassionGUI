@@ -45,6 +45,7 @@ namespace PantryPassion.Test.Unit.ViewModelTest
         public void FindItemViewModel_ScanEANCommand_CanExecute()
         {
             Assert.That(_uut.ScanEANCommand.CanExecute(null), Is.True);
+
         }
 
         //[Test]
