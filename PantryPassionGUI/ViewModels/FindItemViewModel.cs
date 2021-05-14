@@ -39,8 +39,7 @@ namespace PantryPassionGUI.ViewModels
         {
             InventoryItems = new ObservableCollection<InventoryItem>();
 
-            ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(InventoryItems);
-            ViewFilter.Filter = UserFilter;
+           
             _backendConnection = new BackendConnection();
 
             GetInventoryForFindItem();
@@ -54,8 +53,7 @@ namespace PantryPassionGUI.ViewModels
         {
             InventoryItems = new ObservableCollection<InventoryItem>();
 
-            ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(InventoryItems);
-            ViewFilter.Filter = UserFilter;
+
             _backendConnection = backendConnection;
             CameraViewModel = cameraViewModel;
             GetInventoryForFindItem();
@@ -178,6 +176,8 @@ namespace PantryPassionGUI.ViewModels
         private async void GetInventoryForFindItem()
         {
             InventoryItems = await _backendConnection.GetInventoryItemListByType(2);
+            ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(InventoryItems);
+            ViewFilter.Filter = UserFilter;
         }
     }
 }
