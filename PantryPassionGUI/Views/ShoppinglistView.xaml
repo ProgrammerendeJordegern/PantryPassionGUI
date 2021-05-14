@@ -26,7 +26,7 @@
             <Label Grid.Row="0" Grid.Column="0" Content="Indkøbsliste: "></Label>
             <DataGrid Grid.Row="1"
                   IsSynchronizedWithCurrentItem="True"
-                  ItemsSource="{Binding Path=SharedOberserverableCollection.SharedInventoryItems}"
+                  ItemsSource="{Binding Path=InventoryItems}"
                   SelectedItem="{Binding Path=CurrentInventoryItem}"
                   AutoGenerateColumns="False"
                   Margin="10,0"

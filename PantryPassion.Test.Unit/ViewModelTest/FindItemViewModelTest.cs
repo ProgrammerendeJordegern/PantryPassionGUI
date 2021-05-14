@@ -43,14 +43,14 @@ namespace PantryPassion.Test.Unit.ViewModelTest
         [Test]
         public void FindItemViewModel_AddsItemCorrectly()
         {
-            var currentItemCount = _uut.Items.Count;
+            var currentItemCount = _uut.InventoryItems.Count;
             Item testItem = new Item("Test Item", "9988776655", 99, 98);
-            _uut.Items.Add(testItem);
-            Assert.That(_uut.Items.Count, Is.EqualTo(currentItemCount + 1));
-            Assert.That(_uut.Items.Last().Name, Is.EqualTo("Test Item"));
-            Assert.That(_uut.Items.Last().Ean, Is.EqualTo("9988776655"));
-            Assert.That(_uut.Items.Last().AverageLifespanDays, Is.EqualTo(99));
-            Assert.That(_uut.Items.Last().Size, Is.EqualTo(98));
+            _uut.InventoryItems.Add(testItem);
+            Assert.That(_uut.InventoryItems.Count, Is.EqualTo(currentItemCount + 1));
+            Assert.That(_uut.InventoryItems.Last().Name, Is.EqualTo("Test Item"));
+            Assert.That(_uut.InventoryItems.Last().Ean, Is.EqualTo("9988776655"));
+            Assert.That(_uut.InventoryItems.Last().AverageLifespanDays, Is.EqualTo(99));
+            Assert.That(_uut.InventoryItems.Last().Size, Is.EqualTo(98));
         }
     }
 }

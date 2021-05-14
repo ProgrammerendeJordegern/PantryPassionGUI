@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Threading;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.Utilities;
 using PantryPassionGUI.Views;
@@ -22,77 +23,51 @@ namespace PantryPassionGUI.ViewModels
     public class FindItemViewModel : BindableBase
     {
         private ICommand _okCommand;
-        private BackendConnection _backendConnection;
-        //private ShoppingListViewModel _shoppingList;
-        private SharedOberserverableCollectionOfInventoryItems _sharedOberserverableCollection;
+        private ICommand _scanEANCommand;
+        private ICollectionView ViewFilter;
 
-        private ObservableCollection<InventoryItem> _items;
-        public ObservableCollection<InventoryItem> ChosenItems { get; set; }
+        private string _namefilter;
+        private string _eanfilter;
+        private int _currentIndex = -1;
+
+        private InventoryItem _currentItem = null;
+        private BackendConnection _backendConnection;
+        private ObservableCollection<InventoryItem> _inventoryItems;
         public CameraViewModel CameraViewModel { get; private set; }
 
         public FindItemViewModel()
         {
-            Item i1 = new Item("Nutella", "42069", 100, 500);
-            Item i2 = new Item("Kyllingebryst", "1337", 10, 1000);
-            Item i3 = new Item("Støvsuger", "666", 3, 69);
-            Item i4 = new Item("Blomkål", "5705830008275", 9999, 4);
-            Item i5 = new Item("Glock 9mm", "MLG42066669", 1, 1);
+            InventoryItems = new ObservableCollection<InventoryItem>();
 
-            InventoryItem inventoryItem1 = new InventoryItem();
-            InventoryItem inventoryItem2 = new InventoryItem();
-            InventoryItem inventoryItem3 = new InventoryItem();
-            InventoryItem inventoryItem4 = new InventoryItem();
-            InventoryItem inventoryItem5 = new InventoryItem();
-
-            _sharedOberserverableCollection = SharedOberserverableCollectionOfInventoryItems.Instance();
-
-            inventoryItem1.Item = i1;
-            inventoryItem2.Item = i2;
-            inventoryItem3.Item = i3;
-            inventoryItem4.Item = i4;
-            inventoryItem5.Item = i5;
-
-            Items = new ObservableCollection<InventoryItem>();
-            //Items.Add(inventoryItem1);
-            //Items.Add(inventoryItem2);
-            //Items.Add(inventoryItem3);
-            //Items.Add(inventoryItem4);
-            //Items.Add(inventoryItem5);
-
-            ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(Items);
-            //ViewFilter.Filter = o => String.IsNullOrEmpty(Filter) || ((string)o).Contains(Filter);
+            ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(InventoryItems);
             ViewFilter.Filter = UserFilter;
             _backendConnection = new BackendConnection();
 
-            GetInventoryForfindItem();
+            GetInventoryForFindItem();
 
             //Camera
             CameraViewModel = new CameraViewModel();
-            //CameraViewModel.BarcodeFoundEventToViewModels += BarcodeAction;
 
         }
 
         private bool UserFilter(object item)
         {
             if (!(String.IsNullOrEmpty(EANFilter)))
-                return ((item as Item).Ean.IndexOf(EANFilter, StringComparison.OrdinalIgnoreCase) >= 0);
+                return ((item as InventoryItem).Item.Ean.IndexOf(EANFilter, StringComparison.OrdinalIgnoreCase) >= 0);
             else if (!(String.IsNullOrEmpty(NameFilter)))
-                return ((item as Item).Name.IndexOf(NameFilter, StringComparison.OrdinalIgnoreCase) >= 0);
+                return ((item as InventoryItem).Item.Name.IndexOf(NameFilter, StringComparison.OrdinalIgnoreCase) >= 0);
             else return true;
         }
 
 
-        private ICollectionView ViewFilter;
-        private string namefilter;
-
         public string NameFilter
         {
-            get { return namefilter; }
+            get { return _namefilter; }
             set
             {
-                if (value != namefilter)
+                if (value != _namefilter)
                 {
-                    namefilter = value;
+                    _namefilter = value;
                     ViewFilter.Refresh();
                     RaisePropertyChanged("NameFilter");
                 }
@@ -100,16 +75,14 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private string eanfilter;
-
         public string EANFilter
         {
-            get { return eanfilter; }
+            get { return _eanfilter; }
             set
             {
-                if (value != eanfilter)
+                if (value != _eanfilter)
                 {
-                    eanfilter = value;
+                    _eanfilter = value;
                     ViewFilter.Refresh();
                     RaisePropertyChanged("EANFilter");
                 }
@@ -117,20 +90,17 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        public ObservableCollection<InventoryItem> Items
+        public ObservableCollection<InventoryItem> InventoryItems
         {
             get
             {
-                return _items;
+                return _inventoryItems;
             }
             set
             {
-                SetProperty(ref _items, value);
+                SetProperty(ref _inventoryItems, value);
             }
         }
-
-
-        private ICommand _scanEANCommand;
 
         public ICommand ScanEANCommand
         {
@@ -139,8 +109,8 @@ namespace PantryPassionGUI.ViewModels
 
         void ScanEANExecute()
         {
-            ScanEANWindow SEW1 = new ScanEANWindow(this);
-            SEW1.ShowDialog();
+            ScanEANWindow scanEanWindow = new ScanEANWindow(this);
+            scanEanWindow.ShowDialog();
         }
 
         //Ok button
@@ -154,16 +124,12 @@ namespace PantryPassionGUI.ViewModels
 
         private async void OkHandler()
         {
-            //_backendConnection.SetNewItem("Test", "Test", "Test");
-
-            _sharedOberserverableCollection.SendUpdateEvent = true;
-
-            Items.ElementAt(CurrentIndex).InventoryType = 3;
-            Items.ElementAt(CurrentIndex).Amount = 1;
+            InventoryItems.ElementAt(CurrentIndex).InventoryType = 3;
+            InventoryItems.ElementAt(CurrentIndex).Amount = 1;
 
             try
             {
-                await _backendConnection.SetNewItem(Items.ElementAt(CurrentIndex), true);
+                await _backendConnection.SetNewItem(InventoryItems.ElementAt(CurrentIndex), true);
             }
             catch (ApiException e)
             {
@@ -176,8 +142,7 @@ namespace PantryPassionGUI.ViewModels
 
             CameraViewModel.Camera.CameraOff();
         }
-
-        private InventoryItem _currentItem = null;
+        
         public InventoryItem CurrentItem
         {
             get
@@ -189,8 +154,7 @@ namespace PantryPassionGUI.ViewModels
                 SetProperty(ref _currentItem, value);
             }
         }
-
-        private int _currentIndex = -1;
+        
         public int CurrentIndex
         {
             get { return _currentIndex; }
@@ -200,38 +164,9 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private async void GetInventoryForfindItem()
+        private async void GetInventoryForFindItem()
         {
-            Items = await _backendConnection.GetInventoryItemListByType(2);
+            InventoryItems = await _backendConnection.GetInventoryItemListByType(2);
         }
-
-        //ICommand _okButtonCommand;
-
-        //public ICommand OkButtonCommand
-        //{
-        //    get { return _okButtonCommand ?? (_okButtonCommand = new DelegateCommand(OkButtonExecute)); }
-        //}
-
-        //void OkButtonExecute()
-        //{
-        //    FindItemWindow FIW1 = new FindItemWindow();
-        //    FIW1.Close();
-        //}
-
-        //private void Cancel(Window window)
-        //{
-        //    window.Close();
-        //}
-
-        //private ICommand _cancelCommand;
-        //public ICommand CancelCommand
-        //{
-        //    get
-        //    {
-        //        return _cancelCommand ?? (_cancelCommand = new Command.RelayCommand<Window>(
-        //            (window) => Cancel(window),
-        //            (window) => (true)));
-        //    }
-        //}
     }
 }

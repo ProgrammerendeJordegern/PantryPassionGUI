@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.Utilities;
 using PantryPassionGUI.Views;
@@ -18,11 +19,13 @@ namespace PantryPassionGUI.ViewModels
 {
     public class ShoppingListViewModel : BindableBase
     {
+        public ObservableCollection<InventoryItem> InventoryItems { get; private set; }
+
         private BackendConnection _backendConnection;
         private InventoryItem _currentItem;
         public FindItemViewModel FindItemViewModel { get; private set; }
-        public SharedOberserverableCollectionOfInventoryItems SharedOberserverableCollection { get; private set; }
-        
+        public FindItemView FindItemView { get; private set; }
+
         private ICommand _addItemToListCommand;
         private ICommand _deleteItemInListCommand;
         private ICommand _clearListCommand;
@@ -32,15 +35,8 @@ namespace PantryPassionGUI.ViewModels
         {
             _backendConnection = new BackendConnection();
             FindItemViewModel = new FindItemViewModel();
-            SharedOberserverableCollection = SharedOberserverableCollectionOfInventoryItems.Instance();
-            SharedOberserverableCollection.UpdateShoppingList += UpdateHandler;
-            SharedOberserverableCollection.SharedInventoryItems.Clear();
             _currentItem = new InventoryItem();
-            GetShoppingList();
-        }
-
-        private void UpdateHandler(object sender, EventArgs e)
-        {
+            InventoryItems = new List<InventoryItem>();
             GetShoppingList();
         }
 
@@ -57,7 +53,6 @@ namespace PantryPassionGUI.ViewModels
             Debug.WriteLine(CurrentInventoryItem.InventoryType);
             CurrentInventoryItem.Amount = 0;
             UpdateInventoryItemQuantity();
-            SharedOberserverableCollection.SharedInventoryItems.Clear();
             GetShoppingList();
         }
 
@@ -71,9 +66,8 @@ namespace PantryPassionGUI.ViewModels
 
         private void AddItemToListHandler()
         {
-            //Brug find funktion fra finditemview
-            FindItemView findItemView = new FindItemView();
-            findItemView.ShowDialog();
+            FindItemView = new FindItemView();
+            FindItemView.ShowDialog();
         }
 
         public InventoryItem CurrentInventoryItem
@@ -100,7 +94,7 @@ namespace PantryPassionGUI.ViewModels
         {
             //Clear list in view
 
-            SharedOberserverableCollection.SharedInventoryItems.Clear();
+            InventoryItems.Clear();
 
             //Clear list in db
 
@@ -137,7 +131,7 @@ namespace PantryPassionGUI.ViewModels
             {
                 foreach (var inventoryItem in temp)
                 {
-                    SharedOberserverableCollection.SharedInventoryItems.Add(inventoryItem);
+                    InventoryItems.Add(inventoryItem);
                 }
             }
         }
@@ -152,7 +146,6 @@ namespace PantryPassionGUI.ViewModels
 
         private void UpdateSelectedItemHandler()
         {
-            //_backendConnection.SendInformationToBackendServer("Test", "Test", "Test");
             //Update to db
             UpdateInventoryItemQuantity();
         }
@@ -162,7 +155,7 @@ namespace PantryPassionGUI.ViewModels
             try
             {
                 int temp = await _backendConnection.SetQuantity(CurrentInventoryItem);
-                foreach (var inventoryItem in SharedOberserverableCollection.SharedInventoryItems)
+                foreach (var inventoryItem in InventoryItems)
                 {
                     Debug.WriteLine($"InventoryItem: {inventoryItem}");
                 }

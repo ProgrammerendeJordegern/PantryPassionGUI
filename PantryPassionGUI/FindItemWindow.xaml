@@ -28,7 +28,7 @@
     </UserControl.DataContext>
     
     <Grid>
-        <DataGrid x:Name="FindItemDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding Path=Items}" 
+        <DataGrid x:Name="FindItemDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding Path=InventoryItems}" 
                   HorizontalAlignment="Left" Margin="10,67,10,10" VerticalAlignment="Stretch"
                   SelectedItem="{Binding Path= CurrentItem}"
                   SelectedIndex="{Binding Path=CurrentIndex}" 
