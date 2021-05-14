@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -26,6 +27,7 @@ namespace PantryPassionGUI.ViewModels
         public ObservableCollection<Item> ShoppingListItems { get; set; }
 
         public BackendConnection BackendConn { get; set; }
+        private ICollectionView ViewFilter;
 
         public ViewInventoriesViewModel()
         {
@@ -43,18 +45,11 @@ namespace PantryPassionGUI.ViewModels
             CMBBX.Add("Fryser");
             CMBBX.Add("Spisekammer (øvrige)");
             CMBBX.Add("Indkøbsliste");
+            CMBBX.Add("Ukendt");
 
             GetInventoryItems();
 
-            
-
-            //MessageBox.Show(AllInventoryItems.Count.ToString());
         }
-
-        //public string Category
-        //{
-        //    get { return GetCategory(); }
-        //}
 
         public string GetCategory(int id)
         {
@@ -107,6 +102,10 @@ namespace PantryPassionGUI.ViewModels
                     inventoryItem.Category = GetCategory(inventoryItem.InventoryId);
                 }
 
+                ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(AllInventoryItems);
+
+                ViewFilter.Filter = UserFilter;
+
             }
             catch (ApiException exception)
             {
@@ -127,6 +126,25 @@ namespace PantryPassionGUI.ViewModels
             MessageBox.Show($"Fejl {statusCode}\nVare belv ikke fundet i systemet!\nIndtast venlist selv vares informationer", "Error!");
         }
 
-    }
+        private bool UserFilter(object item)
+        {
+            if (CmbbxFilter != "Alle varer")
+                return (item as InventoryItem).Category.IndexOf(CmbbxFilter, StringComparison.OrdinalIgnoreCase) >= 0;
 
+            return true;
+        }
+
+        private string cmbbxFilter;
+
+        public string CmbbxFilter
+        {
+            get { return cmbbxFilter; }
+            set
+            {
+                cmbbxFilter = value;
+                ViewFilter.Refresh();
+                RaisePropertyChanged("CmbbxFilter");
+            }
+        }
+    }
 }

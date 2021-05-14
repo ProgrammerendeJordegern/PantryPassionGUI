@@ -26,7 +26,11 @@
                 <DataGridTextColumn Header="Lokation" Binding="{Binding Path=Category}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <ComboBox Grid.Row="0" ItemsSource="{Binding Path=CMBBX}" SelectedIndex="0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="222" Height="22"/>
+        <ComboBox x:Name="cmbbox" Grid.Row="0" ItemsSource="{Binding Path=CMBBX}" Text="{Binding Path=CmbbxFilter, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="222" Height="22">
+
+        </ComboBox>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="281,14,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,13,0,0" Text="{Binding Path=CmbbxFilter}" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
