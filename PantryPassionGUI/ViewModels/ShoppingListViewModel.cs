@@ -30,6 +30,7 @@ namespace PantryPassionGUI.ViewModels
         private ICommand _deleteItemInListCommand;
         private ICommand _clearListCommand;
         private ICommand _updateListCommand;
+        private ICommand _updateShoppingListCommand;
 
         public ShoppingListViewModel()
         {
@@ -37,6 +38,20 @@ namespace PantryPassionGUI.ViewModels
             FindItemViewModel = new FindItemViewModel();
             _currentItem = new InventoryItem();
             InventoryItems = new ObservableCollection<InventoryItem>();
+            GetShoppingList();
+        }
+
+        public ICommand UpdateShoppingListCommand
+        {
+            get
+            {
+                return _updateShoppingListCommand ??= new DelegateCommand(UpdateShoppingList);
+            }
+        }
+
+        private void UpdateShoppingList()
+        {
+            InventoryItems.Clear();
             GetShoppingList();
         }
 
