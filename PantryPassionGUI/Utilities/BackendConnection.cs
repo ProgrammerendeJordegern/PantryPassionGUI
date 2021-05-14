@@ -12,7 +12,7 @@ using PantryPassionGUI.Models;
 
 namespace PantryPassionGUI.Utilities
 {
-    public class BackendConnection : IBackendConection
+    public class BackendConnection : IBackendConnection
     {
         private readonly HttpClient _client;
         private static string _baseUrl = "https://localhost:44380/api";

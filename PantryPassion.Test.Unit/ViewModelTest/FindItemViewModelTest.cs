@@ -17,14 +17,14 @@ namespace PantryPassion.Test.Unit.ViewModelTest
     {
         private FindItemViewModel _uut;
         private ICameraViewModel _cameraViewModel;
-        private IBackendConection _backendConection;
+        private IBackendConnection _backendConnection;
 
         [SetUp]
         public void Setup()
         {
             _cameraViewModel = Substitute.For<ICameraViewModel>();
-            _backendConection = Substitute.For<IBackendConection>();
-            _uut = new FindItemViewModel(_backendConection, _cameraViewModel);
+            _backendConnection = Substitute.For<IBackendConnection>();
+            _uut = new FindItemViewModel(_backendConnection, _cameraViewModel);
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace PantryPassion.Test.Unit.ViewModelTest
         //public void FindItemViewModel_AddsItemCorrectly()
         //{
 
-        //    _backendConection.GetInventoryItemListByType(2).Returns(new ObservableCollection<InventoryItem>());
+        //    _backendConnection.GetInventoryItemListByType(2).Returns(new ObservableCollection<InventoryItem>());
         //    var currentItemCount = _uut.InventoryItems.Count;
         //    InventoryItem inventoryItem = new InventoryItem();
         //    inventoryItem.Item = new Item("Test Item", "9988776655", 99, 98);

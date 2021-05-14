@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.ViewModels;
+using PantryPassionGUI.Views;
 
 namespace PantryPassion.Test.Unit.ViewModelTest
 {
@@ -45,7 +46,8 @@ namespace PantryPassion.Test.Unit.ViewModelTest
         [Test]
         public void ShoppingListViewMode_AddItemToListCommand_FindItemViewOpen()
         {
-            //make findItem view public get and private get
+            _uut.AddItemToListCommand.Execute(_obj);
+            Assert.That(_uut.FindItemView.IsLoaded,Is.True);
         }
     }
 }

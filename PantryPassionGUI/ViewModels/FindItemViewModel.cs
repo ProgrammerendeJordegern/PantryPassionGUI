@@ -31,7 +31,7 @@ namespace PantryPassionGUI.ViewModels
         private int _currentIndex = -1;
 
         private InventoryItem _currentItem = null;
-        private IBackendConection _backendConnection;
+        private IBackendConnection _backendConnection;
         private ObservableCollection<InventoryItem> _inventoryItems;
         public ICameraViewModel CameraViewModel { get; private set; }
 
@@ -50,13 +50,13 @@ namespace PantryPassionGUI.ViewModels
 
         }
 
-        public FindItemViewModel(IBackendConection backendConection, ICameraViewModel cameraViewModel)
+        public FindItemViewModel(IBackendConnection backendConnection, ICameraViewModel cameraViewModel)
         {
             InventoryItems = new ObservableCollection<InventoryItem>();
 
             ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(InventoryItems);
             ViewFilter.Filter = UserFilter;
-            _backendConnection = backendConection;
+            _backendConnection = backendConnection;
             CameraViewModel = cameraViewModel;
             GetInventoryForFindItem();
         }
