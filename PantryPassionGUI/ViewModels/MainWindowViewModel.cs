@@ -93,5 +93,24 @@ namespace PantryPassionGUI.ViewModels
             //    MessageBox.Show((FIWindow.FindItemDataGrid.SelectedItem as Item).Name);
             //}
         }
+
+        ICommand _editItemCommand;
+
+        public ICommand EditItemCommand
+        {
+            get { return _editItemCommand ??= new DelegateCommand(EditItemExecute); }
+        }
+
+        void EditItemExecute()
+        {
+            EditItemsView EIW = new EditItemsView();
+            EIW.ShowDialog();
+            //FIWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //if (FIWindow.ShowDialog() == true)
+            //{
+            //    // Kan returnere det fundne item, msgbox er bare for debug
+            //    MessageBox.Show((FIWindow.FindItemDataGrid.SelectedItem as Item).Name);
+            //}
+        }
     }
 }

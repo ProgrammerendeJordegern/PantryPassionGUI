@@ -11,6 +11,8 @@ namespace PantryPassionGUI.Models
     class Globals
     {
         public static User LoggedInUser { get; set; }
-        
+
+        public static InventoryItem FoundItem { get; set; }
+
     }
 }

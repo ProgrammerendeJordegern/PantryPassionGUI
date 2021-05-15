@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PantryPassionGUI"
         xmlns:viewModels="clr-namespace:PantryPassionGUI.ViewModels"
         mc:Ignorable="d"
-        Title="EditItemWindow" Height="268" Width="295">
+        Title="EditItemWindow" Height="300" Width="295">
     <Window.DataContext>
         <viewModels:EditItemsViewModel></viewModels:EditItemsViewModel>
     </Window.DataContext>
@@ -14,16 +14,23 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBox HorizontalAlignment="Left" Margin="101,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="101,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.52,0.562"/>
-        <TextBox HorizontalAlignment="Left" Margin="101,107,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="101,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Save item" HorizontalAlignment="Left" Margin="141,165,0,0" VerticalAlignment="Top" Width="80"/>
-        <Button Content="Find item" HorizontalAlignment="Left" Margin="45,165,0,0" VerticalAlignment="Top" Width="80"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="42,57,0,0" VerticalAlignment="Top"/>
-        <Label Content="EAN" HorizontalAlignment="Left" Margin="42,80,0,0" VerticalAlignment="Top"/>
-        <Label Content="Lifespan" HorizontalAlignment="Left" Margin="42,103,0,0" VerticalAlignment="Top"/>
-        <Label Content="Size" HorizontalAlignment="Left" Margin="42,126,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding Path=TheItem.Item.Name,UpdateSourceTrigger=PropertyChanged}" Margin="101,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding Path=TheItem.Item.Ean,UpdateSourceTrigger=PropertyChanged}" Margin="101,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.52,0.562"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding Path=TheItem.Item.AverageLifespanDays,UpdateSourceTrigger=PropertyChanged}" Margin="101,72,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding Path=TheItem.Item.Size,UpdateSourceTrigger=PropertyChanged}" Margin="101,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Save item" HorizontalAlignment="Left" Command="{Binding Path=SaveItemCommand}" Margin="163,207,0,0" VerticalAlignment="Top" Width="80"/>
+        <Button Content="Find item" HorizontalAlignment="Left" Command="{Binding Path=FindItemCommand}" Margin="67,207,0,0" VerticalAlignment="Top" Width="80"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="42,22,0,0" VerticalAlignment="Top"/>
+        <Label Content="EAN" HorizontalAlignment="Left" Margin="42,45,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lifespan" HorizontalAlignment="Left" Margin="42,68,0,0" VerticalAlignment="Top"/>
+        <Label Content="Size" HorizontalAlignment="Left" Margin="42,120,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Date" HorizontalAlignment="Left" Margin="42,165,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" SelectedDate="{Binding Path=TheItem.DateAdded,UpdateSourceTrigger=PropertyChanged}" Margin="101,169,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding TheItem.Item.SizeUnit, UpdateSourceTrigger=PropertyChanged}" Margin="101,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="SizeUnit" HorizontalAlignment="Left" Margin="42,142,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding TheItem.Amount, UpdateSourceTrigger=PropertyChanged}" Margin="101,98,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Amount" HorizontalAlignment="Left" Margin="42,94,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

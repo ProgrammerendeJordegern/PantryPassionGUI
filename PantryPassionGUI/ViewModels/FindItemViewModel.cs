@@ -16,6 +16,7 @@ using PantryPassionGUI.Utilities;
 using PantryPassionGUI.Views;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Services.Dialogs;
 
 namespace PantryPassionGUI.ViewModels
 {
@@ -23,6 +24,7 @@ namespace PantryPassionGUI.ViewModels
     public class FindItemViewModel : BindableBase, IFindItemViewModel
     {
         private ICommand _okCommand;
+        private ICommand _addToShoppingCommand;
         private ICommand _scanEANCommand;
         private ICollectionView ViewFilter;
 
@@ -130,8 +132,20 @@ namespace PantryPassionGUI.ViewModels
                 return _okCommand ??= new DelegateCommand(OkHandler);
             }
         }
-
         private async void OkHandler()
+        {
+            Globals.FoundItem = InventoryItems.ElementAt(CurrentIndex);
+        }
+
+        //AddToShoppingList button
+        public ICommand AddToShoppingListCommand
+        {
+            get
+            {
+                return _addToShoppingCommand ??= new DelegateCommand(AddToShoppingListHandler);
+            }
+        }
+        private async void AddToShoppingListHandler()
         {
             InventoryItems.ElementAt(CurrentIndex).InventoryType = 3;
             InventoryItems.ElementAt(CurrentIndex).Amount = 1;

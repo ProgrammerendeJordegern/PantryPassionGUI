@@ -168,6 +168,13 @@ namespace PantryPassionGUI.Utilities
             return await SendInformationToBackendServer(HttpMethod.Put, url, inventoryItem);
         }
 
+        public async Task<int> EditItem(Item item)
+        {
+            string url = _baseUrl + "/Item";
+
+            return await SendInformationToBackendServer(HttpMethod.Put, url, item);
+        }
+
         public async Task<int> DeleteShoppingList()
         {
             string url = _baseUrl + "/Inventory/allContent/" + 3;

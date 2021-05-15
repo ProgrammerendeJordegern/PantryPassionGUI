@@ -22,6 +22,7 @@ namespace PantryPassionGUI.Views
         public EditItemsView()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
     }
 }
