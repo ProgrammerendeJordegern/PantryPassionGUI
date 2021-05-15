@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PantryPassionGUI.Models;
 using PantryPassionGUI.Views;
 
 namespace PantryPassionGUI
@@ -25,6 +26,12 @@ namespace PantryPassionGUI
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        }
+
+        // Makes sure the camera is turned of when the program is closed. So the program can close properly
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            CameraConnection.Instance.CameraOff();
         }
     }
 }

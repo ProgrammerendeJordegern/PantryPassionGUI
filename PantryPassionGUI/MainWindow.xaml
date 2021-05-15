@@ -7,7 +7,7 @@
         xmlns:viewModels="clr-namespace:PantryPassionGUI.ViewModels"
         mc:Ignorable="d"
         Title="Pantry Passion" Height="450" Width="800"
-        Icon="Images/pantrypassionlogoudentekst.jpg"
+        Icon="Images/pantrypassionlogoudentekst.jpg" Unloaded="Window_Unloaded"
         >
     <Window.Resources>
         <Style x:Key="RoundedCorner" TargetType="{x:Type Button}">
@@ -45,7 +45,7 @@
             <TextBlock Text="Velkommen" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" FontWeight="Bold" Foreground="#ff6529 " Opacity="1" Margin="18,10,18,48"/>
             <TextBlock Text="{Binding Path=CurrentUserFirstName}"  TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" FontWeight="Bold" Foreground="#ff6529 " Opacity="1" Margin="0,48,0,10"/>
         </Grid>
-        <Button Grid.Row="1" Margin="10" Content="Se alle dine varer" Style="{StaticResource RoundedCorner}" Command="{Binding Path=ViewInventoriesCommand}"></Button>
+        <Button Grid.Row="1" Margin="10" Content="Se alle dine varer" Style="{StaticResource RoundedCorner}" Command="{Binding Path=ViewInventoriesCommand}"/>
         <Button Command="{Binding Path=AddItemCommand}" Grid.Row="1" Grid.Column="1" Margin="10" Content="Tilføj vare" Style="{StaticResource RoundedCorner}"></Button>
         <Button Grid.Row="1" Grid.Column="2" Margin="10" Content="Fjern vare" Style="{StaticResource RoundedCorner}" Command="{Binding Path=RemoveItemCommand}"></Button>
         <Button Grid.Row="2" Margin="10" Content="Se indkøbsliste" Style="{StaticResource RoundedCorner}" Command="{Binding Path=ShoppingListCommand}"></Button>
