@@ -13,6 +13,7 @@ namespace PantryPassionGUI.Views
         public AddItemView()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void OkExitOnClick(object sender, RoutedEventArgs e)

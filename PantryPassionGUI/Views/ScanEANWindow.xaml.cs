@@ -25,6 +25,7 @@ namespace PantryPassionGUI.Views
         {
             ENO1 = new ScanEANViewModel(ELA1);
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
     }
 }

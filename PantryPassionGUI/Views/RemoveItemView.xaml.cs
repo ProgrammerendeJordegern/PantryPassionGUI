@@ -23,6 +23,7 @@ namespace PantryPassionGUI.Views
         public RemoveItemView()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void OkExitOnClick(object sender, RoutedEventArgs e)

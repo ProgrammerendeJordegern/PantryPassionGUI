@@ -22,6 +22,7 @@ namespace PantryPassionGUI.Views
         public FindItemView()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
     }
 }

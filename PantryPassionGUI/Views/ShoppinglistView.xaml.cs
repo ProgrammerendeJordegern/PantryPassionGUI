@@ -22,6 +22,7 @@ namespace PantryPassionGUI.Views
         public ShoppinglistView()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void CloseWindowOnCancel(object sender, RoutedEventArgs e)
