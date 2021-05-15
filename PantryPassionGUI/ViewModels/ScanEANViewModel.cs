@@ -10,7 +10,7 @@ namespace PantryPassionGUI.ViewModels
 {
     public class ScanEANViewModel
     {
-        public CameraViewModel CameraViewModel { get; private set; }
+        public ICameraViewModel CameraViewModel { get; private set; }
         private FindItemViewModel FIV1;
 
 
@@ -26,7 +26,7 @@ namespace PantryPassionGUI.ViewModels
             Application.Current.Dispatcher.BeginInvoke(new Action(() => { FIV1.EANFilter = CameraViewModel.Barcode; }));
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
-                Application.Current.Windows[Application.Current.Windows.Count - 2].Close();
+                Application.Current.Windows[Application.Current.Windows.Count - 1].Close();
             }));
         }
     }

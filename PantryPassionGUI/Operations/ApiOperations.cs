@@ -47,8 +47,9 @@ namespace PantryPassionGUI.Operations
                 string response = wc.UploadString(endpoint, method, json);
                 return JsonConvert.DeserializeObject<User>(response);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message);
                 return null;
             }
         }
