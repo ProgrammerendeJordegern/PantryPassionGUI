@@ -26,7 +26,7 @@
     <UserControl.DataContext>
         <viewModels:FindItemViewModel></viewModels:FindItemViewModel>
     </UserControl.DataContext>
-    
+
     <Grid>
         <DataGrid x:Name="FindItemDataGrid"  AutoGenerateColumns="False" ItemsSource="{Binding Path=InventoryItems}" 
                   HorizontalAlignment="Left" Margin="10,67,10,10" VerticalAlignment="Stretch"
@@ -48,6 +48,7 @@
         <TextBlock FontWeight="DemiBold" Text="Find by EAN:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,18,0,0" Width="142" Height="16"/>
         <Button IsDefault="True" IsCancel="True" Style="{StaticResource RoundedCorner}" Command="{Binding OkCommand}" Content="OK" HorizontalAlignment="Left" Margin="425,39,0,0" VerticalAlignment="Top" Width="89" Height="23" Click="CloseWindowOK"/>
         <Button Command="{Binding Path=ScanEANCommand}" IsDefault="True" IsCancel="True" Style="{StaticResource RoundedCorner}" Content="Scan EAN" HorizontalAlignment="Left" Margin="297,39,0,0" VerticalAlignment="Top" Width="89" Height="23" />
+        <Button IsCancel="True" Style="{StaticResource RoundedCorner}" Command="{Binding AddToShoppingListCommand}" Content="Add To ShoppingList" HorizontalAlignment="Left" Margin="297,10,0,0" VerticalAlignment="Top" Width="217" Height="23" Click="CloseWindowOK"/>
 
     </Grid>
 </UserControl>
