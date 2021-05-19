@@ -23,12 +23,6 @@ namespace PantryPassionGUI.Utilities
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Globals.LoggedInUser.AccessJWTToken);
         }
 
-        class CreateExistingItem
-        {
-            public int ItemId { get; set; }
-            public int Amount { get; set; }
-        }
-
         public async Task<Item> CheckBarcode(string barcode)
         {
             string url = _baseUrl + "/item/byEan/" + barcode;
@@ -160,7 +154,6 @@ namespace PantryPassionGUI.Utilities
             }
         }
 
-        //virker ikke hvis Amount er 0!!!! Backend delen kan ikke håntere det!!!
         public async Task<int> SetQuantity(InventoryItem inventoryItem)
         {
             string url = _baseUrl + "/InventoryItem";

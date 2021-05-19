@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PantryPassionGUI.Models.CameraConnection" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAEEAAAAABAgAEACEMMABAAEAAABAAAgQACAAAAAAQA=</HashCode>
+      <FileName>Models\CameraConnection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Models.Globals" Collapsed="true">
+    <Position X="2.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Globals.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.Models.BarcodeFoundEventArgs" Collapsed="true">
+    <Position X="1" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ICamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.Models.InventoryItem" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAAAABAAAAAQBAABAAEgAAiEABAAAAAIAUBAAAABiAA=</HashCode>
+      <FileName>Models\InventoryItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Models.Item" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAEACQgAABhAEAAAQAAAAAAAAJAAAAAAIRgQA=</HashCode>
+      <FileName>Models\Item.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Models.ReadBarcode" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAQAAAABAAABAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ReadBarcode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Models.SharedOberserverableCollectionOfInventoryItems" Collapsed="true">
+    <Position X="8" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABQAAAAAAAAAAAAAAAAAAARAABAAAAAQAACAAAAAAA=</HashCode>
+      <FileName>Models\SharedOberserverableCollectionOfInventoryItems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.Models.SoundPlayer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Models\SoundPlayer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Models.TimerClock" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAACAAAAAAAAAAAAAAgAEAAAAA=</HashCode>
+      <FileName>Models\TimerClock.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Models.tempUser" Collapsed="true">
+    <Position X="4.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.Models.User" Collapsed="true">
+    <Position X="8" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAACACAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.Operations.ApiOperations" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAACAAAAAAAAAAAAAAAAAIAUAAAAAIAAAAAIAAAAAA=</HashCode>
+      <FileName>Operations\ApiOperations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.Utilities.ApiException" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\ApiException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.Utilities.BackendConnection" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAABAAAAAEAAAQQAiAACABAAAgAACAAgAACAAAA=</HashCode>
+      <FileName>Utilities\BackendConnection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.ViewModels.AddItemViewModel" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQAAAAAAKAhAgAEAAAAGADCgAAAQAFLQAAAAwAkgAA=</HashCode>
+      <FileName>ViewModels\AddItemViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.ViewModels.CameraViewModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAACACAAggEAAAAAAEAAAEJAACAAAAIIAACAAAAAQAA=</HashCode>
+      <FileName>ViewModels\CameraViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.ViewModels.FindItemViewModel" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAAAAgAAQABCAAAEAgAmAQAABJAAABIUAABAgAAAQA=</HashCode>
+      <FileName>ViewModels\FindItemViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.ViewModels.MainWindowViewModel" Collapsed="true">
+    <Position X="4.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BBQEAIAAAMACEAAAAAAAAAAAAABACAAAAEAAEAAQACA=</HashCode>
+      <FileName>ViewModels\MainWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.ViewModels.RemoveItemViewModel" Collapsed="true">
+    <Position X="2.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEQAAAAACCBBAgAEAAhAGACCEAAAQAFJQAAIAwAlQEA=</HashCode>
+      <FileName>ViewModels\RemoveItemViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.ViewModels.ScanEANViewModel" Collapsed="true">
+    <Position X="4.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAABAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>ViewModels\ScanEANViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.ViewModels.ShoppingListViewModel" Collapsed="true">
+    <Position X="1" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEACCAAEAACAAAgACBAAEQEAAACAQAqAAAQBCAA=</HashCode>
+      <FileName>ViewModels\ShoppingListViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.Views.AddItemView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AddItemView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Views.CameraView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CameraView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Views.FindItemView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\FindItemView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Views.LoginPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAACAAAAAgAAA=</HashCode>
+      <FileName>Views\LoginPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Views.LoginWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LoginWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Views.LogoutWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LogoutWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Views.RegisterPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\RegisterPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Views.RemoveItemView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\RemoveItemView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Views.ScanEANWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ScanEANWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.Views.ShoppinglistView" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ShoppinglistView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.App" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PantryPassionGUI.FindItemWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="1" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FindItemWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PantryPassionGUI.PrimaryWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PrimaryWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="PantryPassionGUI.Models.IBarcodeReader" Collapsed="true">
+    <Position X="1" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAABAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\IBarcodeReader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PantryPassionGUI.Models.ICamera" Collapsed="true">
+    <Position X="2.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAABAAAAAAEAAABAAAAAABAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Models\ICamera.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PantryPassionGUI.Models.ISoundPlayer" Collapsed="true">
+    <Position X="6.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Models\ISoundPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PantryPassionGUI.Models.ITimer&lt;T&gt;" Collapsed="true">
+    <Position X="8" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAgAEAAAAA=</HashCode>
+      <FileName>Models\ITimer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PantryPassionGUI.ViewModels.ICameraViewModel" Collapsed="true">
+    <Position X="4.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAAgAEAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ICameraViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
