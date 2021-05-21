@@ -57,12 +57,6 @@ namespace PantryPassionGUI.Models
         }
 
 
-        //Skal måske bare fjernes igen da man ikke kan lave mellemrum!!
-        public enum CategoryEnum
-        {
-            Allevare
-        }
-
         public InventoryItem()
         {
             _item = new Item();
