@@ -53,15 +53,15 @@ namespace PantryPassion.Test.Unit.ViewModelTest
         //{
 
         //    _backendConnection.GetInventoryItemListByType(2).Returns(new ObservableCollection<InventoryItem>());
-        //    var currentItemCount = _uut.InventoryItems.Count;
+        //    var currentItemCount = _uut.Items.Count;
         //    InventoryItem inventoryItem = new InventoryItem();
         //    inventoryItem.Item = new Item("Test Item", "9988776655", 99, 98);
-        //    _uut.InventoryItems.Add(inventoryItem);
-        //    Assert.That(_uut.InventoryItems.Count, Is.EqualTo(currentItemCount + 1));
-        //    Assert.That(_uut.InventoryItems.Last().Item.Name, Is.EqualTo("Test Item"));
-        //    Assert.That(_uut.InventoryItems.Last().Item.Ean, Is.EqualTo("9988776655"));
-        //    Assert.That(_uut.InventoryItems.Last().Item.AverageLifespanDays, Is.EqualTo(99));
-        //    Assert.That(_uut.InventoryItems.Last().Item.Size, Is.EqualTo(98));
+        //    _uut.Items.Add(inventoryItem);
+        //    Assert.That(_uut.Items.Count, Is.EqualTo(currentItemCount + 1));
+        //    Assert.That(_uut.Items.Last().Item.Name, Is.EqualTo("Test Item"));
+        //    Assert.That(_uut.Items.Last().Item.Ean, Is.EqualTo("9988776655"));
+        //    Assert.That(_uut.Items.Last().Item.AverageLifespanDays, Is.EqualTo(99));
+        //    Assert.That(_uut.Items.Last().Item.Size, Is.EqualTo(98));
         //}
     }
 }
