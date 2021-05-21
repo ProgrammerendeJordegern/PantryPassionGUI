@@ -46,7 +46,7 @@
         <TextBox x:Name="txtBoxName" Text="{Binding Path=NameFilter, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="10,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"/>
         <TextBox Text="{Binding Path=EANFilter, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="150,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
         <TextBlock FontWeight="DemiBold" Text="Søg efter navn:" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" Width="135" Height="16"/>
-        <TextBlock FontWeight="DemiBold" Text="Søg efter stegkode:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,18,0,0" Width="142" Height="16"/>
+        <TextBlock FontWeight="DemiBold" Text="Søg efter stregkode:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,18,0,0" Width="142" Height="16"/>
         <Button IsDefault="True" IsCancel="True" Style="{StaticResource RoundedCorner}" Command="{Binding OkCommand}" Content="OK" HorizontalAlignment="Left" Margin="425,39,0,0" VerticalAlignment="Top" Width="89" Height="23" Click="CloseWindowOK"/>
         <Button Command="{Binding Path=ScanEANCommand}" IsDefault="True" IsCancel="True" Style="{StaticResource RoundedCorner}" Content="Scan stregkode" HorizontalAlignment="Left" Margin="297,39,0,0" VerticalAlignment="Top" Width="120" Height="23" />
         <Button IsCancel="True" Style="{StaticResource RoundedCorner}" Command="{Binding AddToShoppingListCommand}" Content="Tilføj til indkøbsliste" HorizontalAlignment="Left" Margin="297,10,0,0" VerticalAlignment="Top" Width="217" Height="23" Click="CloseWindowOK"/>
