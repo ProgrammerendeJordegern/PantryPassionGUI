@@ -15,7 +15,7 @@ namespace PantryPassionGUI.Utilities
     public class BackendConnection : IBackendConnection
     {
         private readonly HttpClient _client;
-        private static string _baseUrl = "https://localhost:44380/api";
+        private static string _baseUrl = "https://pantrypassion-auecei4prj4gr3.azurewebsites.net/api";
 
         public BackendConnection()
         {
@@ -58,7 +58,7 @@ namespace PantryPassionGUI.Utilities
             return await GetInformationFromBackendServer<ObservableCollection<InventoryItem>>(url);
         }
 
-        public async Task<ObservableCollection<Item>> GetListOfItems(int userId)
+        public async Task<ObservableCollection<Item>> GetListOfItems()
         {
             string url = _baseUrl + "/Item";
 
