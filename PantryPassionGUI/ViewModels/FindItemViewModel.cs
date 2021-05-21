@@ -32,16 +32,16 @@ namespace PantryPassionGUI.ViewModels
         private string _eanfilter;
         private int _currentIndex = -1;
 
-        private InventoryItem _currentItem = null;
+        private Item _currentItem = null;
         private IBackendConnection _backendConnection;
-        private ObservableCollection<InventoryItem> _inventoryItems;
+        private ObservableCollection<Item> _items;
         public ICameraViewModel CameraViewModel { get; private set; }
 
         public FindItemViewModel()
         {
-            InventoryItems = new ObservableCollection<InventoryItem>();
+            Items = new ObservableCollection<Item>();
 
-           
+
             _backendConnection = new BackendConnection();
 
             GetInventoryForFindItem();
@@ -53,7 +53,7 @@ namespace PantryPassionGUI.ViewModels
 
         public FindItemViewModel(IBackendConnection backendConnection, ICameraViewModel cameraViewModel)
         {
-            InventoryItems = new ObservableCollection<InventoryItem>();
+            Items = new ObservableCollection<Item>();
 
 
             _backendConnection = backendConnection;
@@ -64,10 +64,22 @@ namespace PantryPassionGUI.ViewModels
         private bool UserFilter(object item)
         {
             if (!(String.IsNullOrEmpty(EANFilter)))
-                return ((item as InventoryItem).Item.Ean.IndexOf(EANFilter, StringComparison.OrdinalIgnoreCase) >= 0);
+            {
+                if ((item as Item).Ean != null)
+                {
+                    return ((item as Item).Ean.IndexOf(EANFilter, StringComparison.OrdinalIgnoreCase) >= 0);
+                }
+                else
+                {
+                    return false;
+                }
+            }
             else if (!(String.IsNullOrEmpty(NameFilter)))
-                return ((item as InventoryItem).Item.Name.IndexOf(NameFilter, StringComparison.OrdinalIgnoreCase) >= 0);
-            else return true;
+            {
+                return ((item as Item).Name.IndexOf(NameFilter, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+            
+            return true;
         }
 
 
@@ -101,15 +113,15 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        public ObservableCollection<InventoryItem> InventoryItems
+        public ObservableCollection<Item> Items
         {
             get
             {
-                return _inventoryItems;
+                return _items;
             }
             set
             {
-                SetProperty(ref _inventoryItems, value);
+                SetProperty(ref _items, value);
             }
         }
 
@@ -134,7 +146,7 @@ namespace PantryPassionGUI.ViewModels
         }
         private async void OkHandler()
         {
-            Globals.FoundItem = InventoryItems.ElementAt(CurrentIndex);
+            //Globals.FoundItem = Items.ElementAt(CurrentIndex);
         }
 
         //AddToShoppingList button
@@ -147,12 +159,16 @@ namespace PantryPassionGUI.ViewModels
         }
         private async void AddToShoppingListHandler()
         {
-            InventoryItems.ElementAt(CurrentIndex).InventoryType = 3;
-            InventoryItems.ElementAt(CurrentIndex).Amount = 1;
+
+            InventoryItem inventoryItemToShoppingList = new InventoryItem();
+
+            inventoryItemToShoppingList.Item = Items.ElementAt(CurrentIndex);
+            inventoryItemToShoppingList.Amount = 1;
+            inventoryItemToShoppingList.InventoryType = 3;
 
             try
             {
-                await _backendConnection.SetNewItem(InventoryItems.ElementAt(CurrentIndex), true);
+                await _backendConnection.SetNewItem(inventoryItemToShoppingList, true);
             }
             catch (ApiException e)
             {
@@ -165,8 +181,8 @@ namespace PantryPassionGUI.ViewModels
 
             CameraViewModel.Camera.CameraOff();
         }
-        
-        public InventoryItem CurrentItem
+
+        public Item CurrentItem
         {
             get
             {
@@ -177,7 +193,7 @@ namespace PantryPassionGUI.ViewModels
                 SetProperty(ref _currentItem, value);
             }
         }
-        
+
         public int CurrentIndex
         {
             get { return _currentIndex; }
@@ -189,8 +205,8 @@ namespace PantryPassionGUI.ViewModels
 
         private async void GetInventoryForFindItem()
         {
-            InventoryItems = await _backendConnection.GetInventoryItemListByType(2);
-            ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(InventoryItems);
+            Items = await _backendConnection.GetListOfItems();
+            ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(Items);
             ViewFilter.Filter = UserFilter;
         }
     }
