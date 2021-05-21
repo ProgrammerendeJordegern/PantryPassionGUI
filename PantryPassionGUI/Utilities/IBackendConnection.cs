@@ -19,5 +19,6 @@ namespace PantryPassionGUI.Utilities
         Task<int> SetNewItem(InventoryItem inventoryItem, bool itemExistsInDatabase);
         Task<int> SetQuantity(InventoryItem inventoryItem);
         Task<int> DeleteShoppingList();
+        Task<int> EditItem(Item item);
     }
 }
