@@ -74,9 +74,9 @@ namespace PantryPassionGUI.ViewModels
 
         private void DeleteItemInListHandler()
         {
-            Debug.WriteLine(CurrentInventoryItem.InventoryType);
             CurrentInventoryItem.Amount = 0;
             UpdateInventoryItemQuantity();
+            InventoryItems.Clear();
             GetShoppingList();
         }
 

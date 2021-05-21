@@ -14,7 +14,7 @@ namespace PantryPassionGUI.Utilities
         Task<Item> GetItemByName(string name);
         Task<Item> GetItemById(int id);
         Task<ObservableCollection<InventoryItem>> GetListOfInventoryItems(int itemId);
-        Task<ObservableCollection<Item>> GetListOfItems(int userId);
+        Task<ObservableCollection<Item>> GetListOfItems();
         Task<ObservableCollection<InventoryItem>> GetInventoryItemListByType(int inventoryType);
         Task<int> SetNewItem(InventoryItem inventoryItem, bool itemExistsInDatabase);
         Task<int> SetQuantity(InventoryItem inventoryItem);

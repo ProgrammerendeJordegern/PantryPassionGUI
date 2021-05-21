@@ -20,7 +20,7 @@ namespace PantryPassionGUI.Operations
 
         public ApiOperations()
         {
-            this.baseUrl = "https://localhost:44380/api";
+            this.baseUrl = "https://pantrypassion-auecei4prj4gr3.azurewebsites.net/api";
         }
 
         /**
