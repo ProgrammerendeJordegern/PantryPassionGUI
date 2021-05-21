@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using PantryPassionGUI.Utilities;
 using PantryPassionGUI.Views;
 
 namespace PantryPassionGUI.ViewModels
@@ -12,6 +13,7 @@ namespace PantryPassionGUI.ViewModels
     {
         public ICameraViewModel CameraViewModel { get; private set; }
         private FindItemViewModel FIV1;
+        private IOutput _output;
 
 
         public ScanEANViewModel(FindItemViewModel FIV2)
@@ -19,6 +21,15 @@ namespace PantryPassionGUI.ViewModels
             FIV1 = FIV2;
             CameraViewModel = new CameraViewModel();
             CameraViewModel.BarcodeFoundEventToViewModels += CloseScanWindow;
+            _output = new Output();
+        }
+
+        public ScanEANViewModel(FindItemViewModel FIV2, IOutput output, ICameraViewModel cameraViewModel)
+        {
+            FIV1 = FIV2;
+            CameraViewModel = cameraViewModel;
+            CameraViewModel.BarcodeFoundEventToViewModels += CloseScanWindow;
+            _output = output;
         }
 
         public void CloseScanWindow(object sender, EventArgs e)
@@ -28,6 +39,8 @@ namespace PantryPassionGUI.ViewModels
             {
                 Application.Current.Windows[Application.Current.Windows.Count - 1].Close();
             }));
+
+            _output.OutputLine("ScanEANWindow closed");
         }
     }
 }

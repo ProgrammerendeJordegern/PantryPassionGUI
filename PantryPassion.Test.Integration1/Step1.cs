@@ -5,6 +5,7 @@ using AForge.Video;
 using NSubstitute;
 using NUnit.Framework;
 using PantryPassionGUI.Models;
+using PantryPassionGUI.Utilities;
 using Timer = System.Timers.Timer;
 
 namespace PantryPassion.Test.Integration1
@@ -12,9 +13,10 @@ namespace PantryPassion.Test.Integration1
     public class Step1
     {
         private ICamera _sut;
-        private IVideoSource _fakeVideoSource; //Har vi den her?
+        private IVideoSource _fakeVideoSource;
         private ITimer<Timer> _timer;
         private IBarcodeReader _barcodeReader;
+        private IOutput _fakeOutput;
         private Bitmap myBitmap;
 
         [SetUp]
@@ -23,14 +25,16 @@ namespace PantryPassion.Test.Integration1
             _fakeVideoSource = Substitute.For<IVideoSource>();
             _timer = new TimerClock(100);
             _barcodeReader = new ReadBarcode();
+            _fakeOutput = Substitute.For<IOutput>();
 
-            _sut = new CameraConnection(_timer, _barcodeReader, _fakeVideoSource);
+            _sut = new CameraConnection(_timer, _barcodeReader, _fakeVideoSource, _fakeOutput);
         }
 
         [Test]
         public void CameraConnection_CameraOn_StartVideo()
         {
             _sut.CameraOn();
+            _fakeOutput.Received(1).OutputLine(Arg.Is<string>(s => s.ToLower().Contains("camera on")));
             _fakeVideoSource.Received(1).Start();
         }
 
@@ -41,6 +45,7 @@ namespace PantryPassion.Test.Integration1
             _sut.CameraOn();
             _fakeVideoSource.IsRunning.Returns(true);
             _sut.CameraOff();
+            _fakeOutput.Received(1).OutputLine(Arg.Is<string>(s => s.ToLower().Contains("camera off")));
             _fakeVideoSource.Received(1).SignalToStop();
             _fakeVideoSource.Received(1).WaitForStop();
         }
@@ -54,19 +59,15 @@ namespace PantryPassion.Test.Integration1
             Assert.That(_barcodeReader.ActivateBool, Is.EqualTo(true));
         }
 
-        //[Test]
-        //public void CameraConnection_VideoCaptureDevice_NewFrame()
-        //{
-        //    _sut.CameraOn();
-        //    Thread.Sleep(110);
+        [Test]
+        public void CameraConnection_VideoCaptureDevice_NewFrame()
+        {
+            myBitmap = new Bitmap(Environment.CurrentDirectory + @"\barcode.png");
+            myBitmap.Save("myBitmap.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
 
-        //    myBitmap = new Bitmap(Environment.CurrentDirectory + @"\barcode.png");
-        //    myBitmap.Save("myBitmap.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
-        //    NewFrameEventArgs nfEventArgs = new NewFrameEventArgs(myBitmap);
+            _sut.SimulateEventFromVideoCaptureDevice(myBitmap);
 
-        //    _fakeVideoSource.NewFrame += Raise.EventWith(nfEventArgs);
-
-        //    Assert.That(_barcodeReader.ActivateBool, Is.EqualTo(true));
-        //}
+            Assert.That(_barcodeReader.ActivateBool, Is.EqualTo(false));
+        }
     }
 }

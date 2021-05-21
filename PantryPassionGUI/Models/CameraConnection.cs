@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using AForge.Video;
+using PantryPassionGUI.Utilities;
 using Prism.Mvvm;
 
 namespace PantryPassionGUI.Models
@@ -22,6 +23,7 @@ namespace PantryPassionGUI.Models
         private BitmapImage _cameraFeed;
         private IBarcodeReader _reader;
         private ITimer<Timer> _timer;
+        private IOutput _output;
 
         public event EventHandler<BarcodeFoundEventArgs> BarcodeFoundEvent;
 
@@ -45,11 +47,12 @@ namespace PantryPassionGUI.Models
         }
         
         //For test
-        public CameraConnection(ITimer<Timer> timer, IBarcodeReader barcodeReader, IVideoSource videoSource)
+        public CameraConnection(ITimer<Timer> timer, IBarcodeReader barcodeReader, IVideoSource videoSource, IOutput output)
         {
             _timer = timer;
             _reader = barcodeReader;
             _videoCaptureDevice = videoSource;
+            _output = output;
         }
 
         private CameraConnection()
@@ -60,6 +63,7 @@ namespace PantryPassionGUI.Models
             _timer.GetTimer().Elapsed += new ElapsedEventHandler(TimeHandler);
             CamerasList = new ObservableCollection<string>();
             _filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            _output = new Output();
 
             foreach (FilterInfo device in _filterInfoCollection)
             {
@@ -85,6 +89,8 @@ namespace PantryPassionGUI.Models
         {
             _videoCaptureDevice.NewFrame += VideoCaptureDevice_NewFrame;
             _videoCaptureDevice.Start();
+
+            _output.OutputLine("Camera on");
         }
 
 
@@ -98,11 +104,10 @@ namespace PantryPassionGUI.Models
             return _cameraListIndex;
         }
 
+
         private void VideoCaptureDevice_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
             Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
-
-           
 
             string barcode = _reader.GetBarcode(bitmap);
 
@@ -117,7 +122,21 @@ namespace PantryPassionGUI.Models
 
             Application.Current.Dispatcher.BeginInvoke(new Action(() => { CameraFeed = Convert(bitmap); }));
             Application.Current.Dispatcher.BeginInvoke(new Action(() => { CameraFeed.Freeze(); }));
-            
+
+        }
+
+        public void SimulateEventFromVideoCaptureDevice(Bitmap myBitmap)
+        {
+            string barcode = _reader.GetBarcode(myBitmap);
+
+            //Debug.WriteLine("her");
+            if (barcode != null)
+            {
+                //Debug.WriteLine("test2");
+                BarcodeFound(new BarcodeFoundEventArgs { Barcode = barcode });
+                _reader.Deactivate();
+                _timer.Enable();
+            }
         }
 
         private void TimeHandler(object source, ElapsedEventArgs e)
@@ -147,6 +166,8 @@ namespace PantryPassionGUI.Models
                     _videoCaptureDevice.WaitForStop();
                 }
             }
+
+            _output.OutputLine("Camera off");
         }
 
         protected virtual void BarcodeFound(BarcodeFoundEventArgs e)

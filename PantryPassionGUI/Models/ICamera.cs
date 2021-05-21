@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Windows.Media.Imaging;
 
 namespace PantryPassionGUI.Models
@@ -18,5 +19,6 @@ namespace PantryPassionGUI.Models
         int GetCameraListIndex();
         BitmapImage CameraFeed { get; set; }
         ObservableCollection<string> CamerasList { get; }
+        void SimulateEventFromVideoCaptureDevice(Bitmap myBitmap);
     }
 }
