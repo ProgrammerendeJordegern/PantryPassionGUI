@@ -116,7 +116,9 @@ namespace PantryPassionGUI.Models
                 SetProperty(ref _sizeUnit, value);
             }
         }
+
         public int DesiredMinimumAmount { get; set; }
+
 
         #region INotifyDataErrorInfo implementation
         public bool HasErrors
