@@ -3,6 +3,7 @@ using AForge.Video;
 using NSubstitute;
 using NUnit.Framework;
 using PantryPassionGUI.Models;
+using PantryPassionGUI.Utilities;
 
 namespace PantryPassion.Test.Unit.ModelTest
 {
@@ -12,14 +13,16 @@ namespace PantryPassion.Test.Unit.ModelTest
         private IBarcodeReader _barcodeReader;
         private ITimer<Timer> _timer;
         private IVideoSource _video;
+        private IOutput _output;
 
-            [SetUp]
+        [SetUp]
         public void Setup()
         {
             _barcodeReader = Substitute.For<IBarcodeReader>();
             _timer = Substitute.For<ITimer<Timer>>();
             _video = Substitute.For<IVideoSource>();
-            _uut = new CameraConnection(_timer, _barcodeReader,_video);
+            _output = Substitute.For<IOutput>();
+            _uut = new CameraConnection(_timer, _barcodeReader,_video,_output);
         }
 
         [Test]

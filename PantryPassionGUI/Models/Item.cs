@@ -23,7 +23,8 @@ namespace PantryPassionGUI.Models
             Gram,
             kg,
             Liter,
-            ml
+            ml,
+            stk
         }
 
         public Item(string name, string ean = "", int averageLifespanDays = 0, int itemSize = 0)
