@@ -20,6 +20,21 @@
                 <x:Type TypeName="model:Item+UnitsEnum"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+
+        <Style x:Key="RoundedCorner" TargetType="{x:Type Button}">
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="FontWeight" Value="ExtraBold"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="5" Background="#61b776" Opacity="0.85" Margin="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <StackPanel>
         <Grid>
@@ -37,9 +52,9 @@
             </Grid.RowDefinitions>
 
             <!--Column1-->
-            <Label>Tilføj vare</Label>
+            <Label Content="Tilføj vare" FontWeight="DemiBold" FontSize="16" Foreground="#61b776" HorizontalAlignment="Center" Margin="20"></Label>
 
-            <Label Grid.Row="1" Grid.Column="0">Scan vare</Label>
+            <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold" HorizontalAlignment="Center">Scan vare</Label>
 
             <Grid Grid.Row="2" Margin="5,0">
                 <Grid.ColumnDefinitions>
@@ -97,15 +112,15 @@
                 <TextBox Grid.Row="5" Grid.Column="1" MinWidth="200" Margin="0,5" IsReadOnly="True" Text="{Binding Path=InventoryItem.Item.Ean}"></TextBox>
             </Grid>
 
-            <Button Grid.Row="3" HorizontalAlignment="Center" Command="{Binding Path=AddInventoryItemCommand}">Tilføj vare</Button>
-            
+            <Button Grid.Row="3" HorizontalAlignment="Center" Width="90" Style="{StaticResource RoundedCorner}" Command="{Binding Path=AddInventoryItemCommand}" Grid.RowSpan="3" VerticalAlignment="Top">Tilføj vare</Button>
+
             <view:CameraView Grid.Row="2" Grid.Column="1"></view:CameraView>
 
         </Grid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <Button Grid.Row="4" Content="_Ok" Width="35" Margin="10,0" Command="{Binding Path=OkCommand}" Click="OkExitOnClick" ></Button>
-            <Button Grid.Row="4" Grid.Column="1" Content="_Cancel" Width="45" Margin="10,0" Command="{Binding Path=CancelCommand}" Click="CancelExitOnClick"></Button>
+            <Button Grid.Row="4" Content="Ok" Width="40" Margin="10,0" Style="{StaticResource RoundedCorner}" Command="{Binding Path=OkCommand}" Click="OkExitOnClick" ></Button>
+            <Button Grid.Row="4" Grid.Column="1" Content="Cancel" Width="70" Margin="10,0" Style="{StaticResource RoundedCorner}" Command="{Binding Path=CancelCommand}" Click="CancelExitOnClick"></Button>
         </StackPanel>
 
     </StackPanel>
