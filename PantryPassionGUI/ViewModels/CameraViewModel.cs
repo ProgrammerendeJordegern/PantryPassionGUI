@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using PantryPassionGUI.Models;
+using PantryPassionGUI.Models.Interfaces;
+using PantryPassionGUI.ViewModels.Interfaces;
 using Prism.Mvvm;
 using Prism.Commands;
 

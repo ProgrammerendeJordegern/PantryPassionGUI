@@ -1,6 +1,7 @@
 ﻿using NSubstitute;
 using NUnit.Framework;
 using PantryPassionGUI.Models;
+using PantryPassionGUI.Models.Interfaces;
 using PantryPassionGUI.ViewModels;
 
 namespace PantryPassion.Test.Unit.ViewModelTest

@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using ZXing;
+using IBarcodeReader = PantryPassionGUI.Models.Interfaces.IBarcodeReader;
 
 namespace PantryPassionGUI.Models
 {

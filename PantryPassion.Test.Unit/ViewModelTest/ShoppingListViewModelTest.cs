@@ -8,7 +8,9 @@ using NSubstitute;
 using NUnit.Framework;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.Utilities;
+using PantryPassionGUI.Utilities.Interfaces;
 using PantryPassionGUI.ViewModels;
+using PantryPassionGUI.ViewModels.Interfaces;
 using PantryPassionGUI.Views;
 
 namespace PantryPassion.Test.Unit.ViewModelTest

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using PantryPassionGUI.Models;
 
-namespace PantryPassionGUI.Utilities
+namespace PantryPassionGUI.Utilities.Interfaces
 {
     public interface IBackendConnection
     {

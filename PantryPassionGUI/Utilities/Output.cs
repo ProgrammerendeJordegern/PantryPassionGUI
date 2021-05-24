@@ -1,4 +1,6 @@
-﻿namespace PantryPassionGUI.Utilities
+﻿using PantryPassionGUI.Utilities.Interfaces;
+
+namespace PantryPassionGUI.Utilities
 {
     public class Output : IOutput
     {

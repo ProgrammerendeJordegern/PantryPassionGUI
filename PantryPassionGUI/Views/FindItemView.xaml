@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PantryPassionGUI"
+        xmlns:views="clr-namespace:PantryPassionGUI.Views"
         mc:Ignorable="d"
         Title="FindItemView" Height="450" Width="800">
     <Grid>
-        <local:FindItemWindow></local:FindItemWindow>
+        <views:FindItemWindow></views:FindItemWindow>
     </Grid>
 </Window>

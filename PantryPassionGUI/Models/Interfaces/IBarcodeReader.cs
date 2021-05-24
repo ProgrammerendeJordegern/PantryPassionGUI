@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace PantryPassionGUI.Models
+namespace PantryPassionGUI.Models.Interfaces
 {
     public interface IBarcodeReader
     {

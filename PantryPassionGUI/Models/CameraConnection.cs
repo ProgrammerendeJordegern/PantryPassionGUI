@@ -9,7 +9,9 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using AForge.Video;
+using PantryPassionGUI.Models.Interfaces;
 using PantryPassionGUI.Utilities;
+using PantryPassionGUI.Utilities.Interfaces;
 using Prism.Mvvm;
 
 namespace PantryPassionGUI.Models

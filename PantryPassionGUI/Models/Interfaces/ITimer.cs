@@ -1,4 +1,4 @@
-﻿namespace PantryPassionGUI.Models
+﻿namespace PantryPassionGUI.Models.Interfaces
 {
     public interface ITimer<T>
     {

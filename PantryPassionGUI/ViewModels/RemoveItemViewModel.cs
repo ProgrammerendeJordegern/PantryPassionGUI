@@ -11,6 +11,8 @@ using System.Windows.Input;
 using AForge.Video.DirectShow;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.Utilities;
+using PantryPassionGUI.Utilities.Interfaces;
+using PantryPassionGUI.ViewModels.Interfaces;
 using Prism.Commands;
 using Prism.Mvvm;
 

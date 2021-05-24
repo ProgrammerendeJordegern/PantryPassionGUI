@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows.Media.Imaging;
 
-namespace PantryPassionGUI.Models
+namespace PantryPassionGUI.Models.Interfaces
 {
     public class BarcodeFoundEventArgs : EventArgs
     {

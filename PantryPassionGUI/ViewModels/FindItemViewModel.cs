@@ -13,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.Utilities;
+using PantryPassionGUI.Utilities.Interfaces;
+using PantryPassionGUI.ViewModels.Interfaces;
 using PantryPassionGUI.Views;
 using Prism.Commands;
 using Prism.Mvvm;

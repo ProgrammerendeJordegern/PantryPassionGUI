@@ -1,6 +1,7 @@
 ﻿    using System.Timers;
+    using PantryPassionGUI.Models.Interfaces;
 
-namespace PantryPassionGUI.Models
+    namespace PantryPassionGUI.Models
 {
     public class TimerClock : ITimer<Timer>
     {

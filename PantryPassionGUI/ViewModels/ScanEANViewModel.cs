@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using PantryPassionGUI.Utilities;
+using PantryPassionGUI.Utilities.Interfaces;
+using PantryPassionGUI.ViewModels.Interfaces;
 using PantryPassionGUI.Views;
 
 namespace PantryPassionGUI.ViewModels
