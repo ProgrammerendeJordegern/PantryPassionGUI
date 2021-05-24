@@ -54,7 +54,7 @@ namespace PantryPassionGUI.ViewModels
         {
             try
             {
-                Item ItemToSend = TheItem.Item;
+                Item ItemToSend = TheItem;
                 //InventoryItem inventoryItemToSend = TheItem;
                 await _backendConnection.EditItem(ItemToSend);
                 //await _backendConnection.SetQuantity(inventoryItemToSend);
@@ -78,9 +78,9 @@ namespace PantryPassionGUI.ViewModels
         }
 
 
-        private InventoryItem theitem;
+        private Item theitem;
 
-        public InventoryItem TheItem
+        public Item TheItem
         {
             get { return theitem; }
             set

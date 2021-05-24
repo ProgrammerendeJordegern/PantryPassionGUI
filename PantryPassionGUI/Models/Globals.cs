@@ -12,7 +12,7 @@ namespace PantryPassionGUI.Models
     {
         public static User LoggedInUser { get; set; }
 
-        public static InventoryItem FoundItem { get; set; }
+        public static Item FoundItem { get; set; }
 
     }
 }
