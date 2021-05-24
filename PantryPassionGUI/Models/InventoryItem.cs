@@ -2,11 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Prism.Mvvm;
 
 namespace PantryPassionGUI.Models
@@ -28,6 +23,7 @@ namespace PantryPassionGUI.Models
             }
             set
             {
+                //Set Category by InventoryType
                 SetInventoryCategory(value);
                 SetProperty(ref _inventoryType, value);
             }
@@ -35,6 +31,7 @@ namespace PantryPassionGUI.Models
             
         public DateTime DateAdded { get; set; }
 
+        //Uses to convert DateAdded to string
         public string DateAddedStringFormat
         {
             get
@@ -95,6 +92,7 @@ namespace PantryPassionGUI.Models
             }
             set
             {
+                //Set InventoryType by Category
                 SetInventoryType(value);
                 SetProperty(ref _category, value);
             }

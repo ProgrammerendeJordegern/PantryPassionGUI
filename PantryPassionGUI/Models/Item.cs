@@ -86,6 +86,7 @@ namespace PantryPassionGUI.Models
             }
             set
             {
+                //calculate the lifespan for a Item
                 AverageLifespanDays = Math.Abs((value.Date - DateTime.Now.Date).Days);
                 SetProperty(ref _date, value);
                 
@@ -113,7 +114,6 @@ namespace PantryPassionGUI.Models
             }
             set
             {
-                Debug.WriteLine(value);
                 SetProperty(ref _sizeUnit, value);
             }
         }
