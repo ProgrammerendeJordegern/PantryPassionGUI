@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PantryPassionGUI.Utilities
+﻿namespace PantryPassionGUI.Utilities
 {
     public class CreateExistingItem
     {
