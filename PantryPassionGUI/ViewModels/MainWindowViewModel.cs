@@ -20,18 +20,11 @@ namespace PantryPassionGUI.ViewModels
         private ICommand _shoppingListCommand;
         private ICommand _viewInventoriesCommand;
 
-        public tempUser T1
-        {
-            get;
-            set;
-        }
-
         public User CurrentUser { get; set; }
         public string CurrentUserFirstName { get; set; }
 
         public MainWindowViewModel()
         {
-            T1 = new tempUser("Jesper");
             CurrentUser = Globals.LoggedInUser;
 
             if (CurrentUser.FullName.Contains(" "))

@@ -1,11 +1,11 @@
-﻿using System.Diagnostics;
-using System.Drawing;
+﻿using System.Drawing;
 using ZXing;
 
 namespace PantryPassionGUI.Models
 {
     public class ReadBarcode : IBarcodeReader
     {
+        //uses BarcodeReader in ZXing library 
         private BarcodeReader _reader;
         public bool ActivateBool { get; private set; }
 
@@ -15,9 +15,10 @@ namespace PantryPassionGUI.Models
             ActivateBool = true;
         }
 
+        //Get Barcode in image and return it as a string
         public string GetBarcode(Bitmap image)
         {
-            
+            //It reads only the barcode if it is activated
             if (ActivateBool == true)
             {
                 
