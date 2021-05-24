@@ -26,13 +26,13 @@
     <Grid>
         <Image Source="../Images/pantrypassionlogoudentekst.jpg" Opacity=".4"></Image>
         <StackPanel HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="300">
-            <TextBlock Text="Velkommen til PantryPassion login" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" TextAlignment="Center" FontSize="36" />
-            <TextBlock Text="Username:" FontWeight="Bold" Margin="0,5,0,0" />
+            <TextBlock Text="Velkommen til PantryPassion login" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" TextAlignment="Center" FontSize="36" />
+            <TextBlock Text="Brugernavn:" FontWeight="Bold" Margin="0,5,0,0" />
             <TextBox x:Name="tbxUsername" Padding="5" />
-            <TextBlock Text="Password:" FontWeight="Bold" Margin="0,5,0,0" />
+            <TextBlock Text="Kodeord:" FontWeight="Bold" Margin="0,5,0,0" />
             <PasswordBox x:Name="pbxPassword" Padding="5" />
             <Button x:Name="btnLogin" Style="{StaticResource RoundedCorner}" Content="LOGIN" Padding="5" Margin="0,5,0,0" Click="btnLogin_Click" IsDefault="True"/>
-            <Button x:Name="btnRegister" Style="{StaticResource RoundedCorner}" Content="REGISTER" Padding="5" Margin="0,5,0,0" Click="btnRegister_Click" />
+            <Button x:Name="btnRegister" Style="{StaticResource RoundedCorner}" Content="REGISTER BRUGER" Padding="5" Margin="0,5,0,0" Click="btnRegister_Click" />
         </StackPanel>
     </Grid>
 </Window>
