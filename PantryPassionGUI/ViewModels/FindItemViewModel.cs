@@ -146,7 +146,7 @@ namespace PantryPassionGUI.ViewModels
         }
         private async void OkHandler()
         {
-            Globals.FoundItem = Items.ElementAt(CurrentIndex);
+            Globals.FoundItem = CurrentItem;
         }
 
         //AddToShoppingList button
