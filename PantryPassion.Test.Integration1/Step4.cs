@@ -57,18 +57,18 @@ namespace PantryPassion.Test.Integration1
             Assert.That(_sut.Items.Count, Is.EqualTo(1));
         }
 
-        [Test]
-        public void FindItemViewModel_AddToShoppingListHandler_AddCorrectly()
-        {
-            _sut.CurrentIndex = 0;
-            _sut.AddToShoppingListCommand.Execute(_obj);
-            InventoryItem iitem = new InventoryItem();
-            iitem.Item = _item;
-            iitem.Amount = 1;
-            iitem.InventoryType = 3;
+        //[Test]
+        //public void FindItemViewModel_AddToShoppingListHandler_AddCorrectly()
+        //{
+        //    _sut.CurrentIndex = 0;
+        //    _sut.AddToShoppingListCommand.Execute(_obj);
+        //    InventoryItem iitem = new InventoryItem();
+        //    iitem.Item = _item;
+        //    iitem.Amount = 1;
+        //    iitem.InventoryType = 3;
 
-            _fakeBackendConnection.Received(1).SetNewItem(iitem, true);
-        }
+        //    _fakeBackendConnection.Received(1).SetNewItem(iitem, true);
+        //}
 
         [Test]
         public void FindItemViewModel_AddToShoppingListHandler_CameraOff()

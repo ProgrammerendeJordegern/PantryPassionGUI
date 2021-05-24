@@ -24,6 +24,15 @@ namespace PantryPassion.Test.Unit.ViewModelTest
         {
             _cameraViewModel = Substitute.For<ICameraViewModel>();
             _backendConnection = Substitute.For<IBackendConnection>();
+
+            ObservableCollection<Item> list = new ObservableCollection<Item>();
+            Item item = new Item();
+            item.Name = "mælk";
+            item.Ean = "123";
+            list.Add(item);
+
+            _backendConnection.GetListOfItems().Returns(list);
+
             _uut = new FindItemViewModel(_backendConnection, _cameraViewModel);
         }
 
