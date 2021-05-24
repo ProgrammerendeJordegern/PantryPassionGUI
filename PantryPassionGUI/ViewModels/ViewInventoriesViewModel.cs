@@ -55,16 +55,16 @@ namespace PantryPassionGUI.ViewModels
         {
             switch (id)
             {
-                case 1:
+                case 0:
                     return "Fryser";
                     break;
-                case 2:
+                case 1:
                     return "Køleskab";
                     break;
-                case 3:
+                case 2:
                     return "Spisekammer (øvrige)";
                     break;
-                case 4:
+                case 3:
                     return "Indkøbsliste";
                     break;
                 default:
@@ -99,7 +99,7 @@ namespace PantryPassionGUI.ViewModels
                             break;
                     }
                     AllItems.Add(inventoryItem.Item);
-                    inventoryItem.Category = GetCategory(inventoryItem.InventoryId);
+                    inventoryItem.Category = GetCategory(inventoryItem.InventoryType);
                 }
 
                 ViewFilter = (CollectionView)CollectionViewSource.GetDefaultView(AllInventoryItems);
