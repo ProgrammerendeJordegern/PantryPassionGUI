@@ -45,8 +45,8 @@ namespace PantryPassionGUI.Models
                 }
             }
         }
-        
-        //For test
+
+        //Used to do dependency injection in testing
         public CameraConnection(ITimer<Timer> timer, IBarcodeReader barcodeReader, IVideoSource videoSource, IOutput output)
         {
             _timer = timer;
@@ -55,6 +55,7 @@ namespace PantryPassionGUI.Models
             _output = output;
         }
 
+        //private constructor used to prevent creating instances of the class
         private CameraConnection()
         {
             _cameraListIndex = 0;
@@ -73,6 +74,7 @@ namespace PantryPassionGUI.Models
             _videoCaptureDevice = new VideoCaptureDevice(_filterInfoCollection[_cameraListIndex].MonikerString);
         }
 
+        //Image from camera
         public BitmapImage CameraFeed
         {
             get
@@ -90,6 +92,7 @@ namespace PantryPassionGUI.Models
             _videoCaptureDevice.NewFrame += VideoCaptureDevice_NewFrame;
             _videoCaptureDevice.Start();
 
+            //write line to output class for testing purpose
             _output.OutputLine("Camera on");
         }
 
@@ -104,46 +107,51 @@ namespace PantryPassionGUI.Models
             return _cameraListIndex;
         }
 
-
+        //Handler for event NewFrame in videoCaptureDevice
         private void VideoCaptureDevice_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
+            //Gets the image from eventArgs
             Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
 
+            //scan for barcode in image
             string barcode = _reader.GetBarcode(bitmap);
 
-            //Debug.WriteLine("her");
+
+            //If a barcode was found
             if (barcode != null)
             {
-                //Debug.WriteLine("test2");
                 BarcodeFound(new BarcodeFoundEventArgs { Barcode = barcode });
                 _reader.Deactivate();
                 _timer.Enable();
             }
 
+            //invoke new action on main thread, because camera uses it own thread
             Application.Current.Dispatcher.BeginInvoke(new Action(() => { CameraFeed = Convert(bitmap); }));
             Application.Current.Dispatcher.BeginInvoke(new Action(() => { CameraFeed.Freeze(); }));
 
         }
 
+        //Function used in integration test 
         public void SimulateEventFromVideoCaptureDevice(Bitmap myBitmap)
         {
             string barcode = _reader.GetBarcode(myBitmap);
 
-            //Debug.WriteLine("her");
             if (barcode != null)
             {
-                //Debug.WriteLine("test2");
                 BarcodeFound(new BarcodeFoundEventArgs { Barcode = barcode });
                 _reader.Deactivate();
                 _timer.Enable();
             }
         }
 
+        //Handler for event Elapsed in TimerClock
         private void TimeHandler(object source, ElapsedEventArgs e)
         {
             _reader.Activate();
         }
 
+        //Function found on stackoverflow post:
+        //https://stackoverflow.com/questions/5782913/how-to-convert-from-type-image-to-type-bitmapimage
         private BitmapImage Convert(Bitmap src)
         {
             MemoryStream ms = new MemoryStream();
@@ -167,6 +175,7 @@ namespace PantryPassionGUI.Models
                 }
             }
 
+            //write line to output class for testing purpose
             _output.OutputLine("Camera off");
         }
 
