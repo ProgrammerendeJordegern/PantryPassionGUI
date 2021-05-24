@@ -6,7 +6,6 @@ using NSubstitute;
 using NUnit.Framework;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.Models.Interfaces;
-using PantryPassionGUI.Utilities;
 using PantryPassionGUI.Utilities.Interfaces;
 using Timer = System.Timers.Timer;
 

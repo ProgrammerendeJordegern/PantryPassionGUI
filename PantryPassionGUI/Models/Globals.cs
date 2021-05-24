@@ -8,7 +8,7 @@ using PantryPassionGUI.Models;
 
 namespace PantryPassionGUI.Models
 {
-    class Globals
+    public class Globals
     {
         public static User LoggedInUser { get; set; }
 

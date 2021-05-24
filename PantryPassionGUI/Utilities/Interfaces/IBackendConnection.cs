@@ -9,6 +9,7 @@ namespace PantryPassionGUI.Utilities.Interfaces
         Task<Item> CheckBarcode(string barcode);
         Task<Item> GetItemByName(string name);
         Task<Item> GetItemById(int id);
+        Task<ObservableCollection<InventoryItem>> GetInventory();
         Task<ObservableCollection<InventoryItem>> GetListOfInventoryItems(int itemId);
         Task<ObservableCollection<Item>> GetListOfItems();
         Task<ObservableCollection<InventoryItem>> GetInventoryItemListByType(int inventoryType);

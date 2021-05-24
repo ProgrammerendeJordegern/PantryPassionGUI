@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using AForge.Video;
 using NSubstitute;
 using NUnit.Framework;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.Models.Interfaces;
-using PantryPassionGUI.Utilities;
 using PantryPassionGUI.Utilities.Interfaces;
 using PantryPassionGUI.ViewModels;
 using PantryPassionGUI.ViewModels.Interfaces;
