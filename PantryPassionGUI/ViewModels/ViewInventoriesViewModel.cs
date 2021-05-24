@@ -81,18 +81,18 @@ namespace PantryPassionGUI.ViewModels
 
                 foreach (var inventoryItem in AllInventoryItems)
                 {
-                    switch (inventoryItem.InventoryId)
+                    switch (inventoryItem.InventoryType)
                     {
-                        case 1:
+                        case 0:
                             FreezerItems.Add(inventoryItem.Item);
                             break;
-                        case 2:
+                        case 1:
                             FridgeItems.Add(inventoryItem.Item);
                             break;
-                        case 3:
+                        case 2:
                             PantryItems.Add(inventoryItem.Item);
                             break;
-                        case 4:
+                        case 3:
                             ShoppingListItems.Add(inventoryItem.Item);
                             break;
                         default:
