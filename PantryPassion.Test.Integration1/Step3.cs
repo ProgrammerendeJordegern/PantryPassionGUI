@@ -12,7 +12,7 @@ using PantryPassionGUI.Utilities.Interfaces;
 using PantryPassionGUI.ViewModels;
 using PantryPassionGUI.ViewModels.Interfaces;
 
-namespace PantryPassion.Test.Integration1
+namespace PantryPassion.Test.Integration
 {
     class Step3
     {

@@ -9,7 +9,7 @@ using PantryPassionGUI.Models.Interfaces;
 using PantryPassionGUI.Utilities.Interfaces;
 using Timer = System.Timers.Timer;
 
-namespace PantryPassion.Test.Integration1
+namespace PantryPassion.Test.Integration
 {
     public class Step1
     {
