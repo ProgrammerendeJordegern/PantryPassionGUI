@@ -11,7 +11,22 @@
         <viewModels:CameraViewModel>
         </viewModels:CameraViewModel>
     </UserControl.DataContext>
-    
+    <UserControl.Resources>
+        <Style x:Key="RoundedCorner" TargetType="{x:Type Button}">
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="FontWeight" Value="ExtraBold"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="5" Background="#61b776" Opacity="0.85" Margin="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" ></ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
 
     <Grid Margin="5,0">
         <Grid.ColumnDefinitions>
@@ -26,7 +41,7 @@
 
         <ComboBox Grid.Row="0" ItemsSource="{Binding Path=CameraList}" SelectedIndex="{Binding Path=CameraListIndex}"></ComboBox>
         <Image Grid.Row="1" MinHeight="150" MaxHeight="150" MinWidth="300" MaxWidth="300" Margin="0,5" Source="{Binding Path=Camera.CameraFeed}"></Image>
-        <Button Grid.Row="2" HorizontalAlignment="Center" Margin="0,5" Content="{Binding Path=CameraButtonText}" Command="{Binding Path=TurnOffCamera}"></Button>
-        <Label Grid.Row="3" Margin="0,5">Placer vare foran kamera</Label>
+        <Button Grid.Row="2" HorizontalAlignment="Center" Margin="0,5" Width="110" Style="{StaticResource RoundedCorner}" Content="{Binding Path=CameraButtonText}" Command="{Binding Path=TurnOffCamera}"></Button>
+        <Label Grid.Row="3" Margin="0,5" FontWeight="Bold" HorizontalAlignment="Center">Placer vare foran kameraet</Label>
     </Grid>
 </UserControl>
