@@ -30,23 +30,20 @@
     </Window.DataContext>
     <Grid>
         <Label Content="Ret Vare" FontWeight="DemiBold" FontSize="16" Foreground="#61b776" HorizontalAlignment="Center" Margin="20"></Label>
-        <TextBox HorizontalAlignment="Left" Text="{Binding Path=TheItem.Item.Name,UpdateSourceTrigger=PropertyChanged}" Margin="101,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Text="{Binding Path=TheItem.Item.Ean,UpdateSourceTrigger=PropertyChanged}" Margin="101,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.52,0.562"/>
-        <TextBox HorizontalAlignment="Left" Text="{Binding Path=TheItem.Item.AverageLifespanDays,UpdateSourceTrigger=PropertyChanged}" Margin="101,107,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Text="{Binding Path=TheItem.Item.Size,UpdateSourceTrigger=PropertyChanged}" Margin="101,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Save item" Style="{StaticResource RoundedCorner}" HorizontalAlignment="Left" Command="{Binding Path=SaveItemCommand}" Margin="163,242,0,0" VerticalAlignment="Top" Width="80"/>
-        <Button Content="Find item" Style="{StaticResource RoundedCorner}" HorizontalAlignment="Left" Command="{Binding Path=FindItemCommand}" Margin="67,242,0,0" VerticalAlignment="Top" Width="80"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="42,57,0,0" VerticalAlignment="Top"/>
-        <Label Content="EAN" HorizontalAlignment="Left" Margin="42,80,0,0" VerticalAlignment="Top"/>
-        <Label Content="Lifespan" HorizontalAlignment="Left" Margin="42,103,0,0" VerticalAlignment="Top"/>
-        <Label Content="Size" HorizontalAlignment="Left" Margin="42,155,0,0" VerticalAlignment="Top"/>
-
-        <Label Content="Date" HorizontalAlignment="Left" Margin="42,200,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" SelectedDate="{Binding Path=TheItem.DateAdded,UpdateSourceTrigger=PropertyChanged}" Margin="101,204,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Text="{Binding TheItem.Item.SizeUnit, UpdateSourceTrigger=PropertyChanged}" Margin="101,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="SizeUnit" HorizontalAlignment="Left" Margin="42,177,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Text="{Binding TheItem.Amount, UpdateSourceTrigger=PropertyChanged}" Margin="101,132,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Amount" HorizontalAlignment="Left" Margin="42,127,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding Path=TheItem.Item.Name,UpdateSourceTrigger=PropertyChanged}" Margin="120,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding Path=TheItem.Item.Ean,UpdateSourceTrigger=PropertyChanged}" Margin="120,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.52,0.562"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding Path=TheItem.Item.AverageLifespanDays,UpdateSourceTrigger=PropertyChanged}" Margin="120,110,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding TheItem.Item.DesiredMinimumAmount, UpdateSourceTrigger=PropertyChanged}" Margin="120,135,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding Path=TheItem.Item.Size,UpdateSourceTrigger=PropertyChanged}" Margin="120,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding TheItem.Item.SizeUnit, UpdateSourceTrigger=PropertyChanged}" Margin="120,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Str. enhed:" HorizontalAlignment="Left" Margin="42,180,0,0" VerticalAlignment="Top"/>
+       <Label Content="MinAntal:" HorizontalAlignment="Left" Margin="42,130,0,0" VerticalAlignment="Top"/>
+        <Button Content="Find vare" Style="{StaticResource RoundedCorner}" HorizontalAlignment="Left" Command="{Binding Path=FindItemCommand}" Margin="67,242,0,0" VerticalAlignment="Top" Width="80"/>
+        <Button Content="Gem vare" Style="{StaticResource RoundedCorner}" HorizontalAlignment="Left" Command="{Binding Path=SaveItemCommand}" Margin="163,242,0,0" VerticalAlignment="Top" Width="80"/>
+        <Label Content="Navn:" HorizontalAlignment="Left" Margin="42,55,0,0" VerticalAlignment="Top"/>
+        <Label Content="EAN:" HorizontalAlignment="Left" Margin="42,80,0,0" VerticalAlignment="Top"/>
+        <Label Content="Livstid:" HorizontalAlignment="Left" Margin="42,105,0,0" VerticalAlignment="Top"/>
+        <Label Content="Størrelse:" HorizontalAlignment="Left" Margin="42,155,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
