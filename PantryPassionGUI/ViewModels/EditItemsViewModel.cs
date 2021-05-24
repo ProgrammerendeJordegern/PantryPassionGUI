@@ -35,6 +35,7 @@ namespace PantryPassionGUI.ViewModels
             {
                 MessageBox.Show("FIW IS TRUE");
             }
+            // FoundItem is found in the FindItemView and saved to globals
             TheItem = Globals.FoundItem;
 
         }
@@ -53,10 +54,10 @@ namespace PantryPassionGUI.ViewModels
         {
             try
             {
-                Item ItemToSend = TheItem.Item;
-                InventoryItem inventoryItemToSend = TheItem;
+                Item ItemToSend = TheItem;
+                //InventoryItem inventoryItemToSend = TheItem;
                 await _backendConnection.EditItem(ItemToSend);
-                await _backendConnection.SetQuantity(inventoryItemToSend);
+                //await _backendConnection.SetQuantity(inventoryItemToSend);
             }
             catch (ApiException e)
             {
@@ -69,15 +70,17 @@ namespace PantryPassionGUI.ViewModels
             finally
             {
                 MessageBox.Show("Item Updated Successfully");
+                TheItem = null;
             }
 
             Globals.FoundItem = null;
+            
         }
 
 
-        private InventoryItem theitem;
+        private Item theitem;
 
-        public InventoryItem TheItem
+        public Item TheItem
         {
             get { return theitem; }
             set
