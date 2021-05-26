@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:PantryPassionGUI.Views"
         xmlns:viewModels="clr-namespace:PantryPassionGUI.ViewModels"
         mc:Ignorable="d"
-        Title="Vis" Height="450" Width="800">
+        Title="Vis" Height="450" Width="800"
+        Icon="../Images/favicon.ico">
 
     <Window.DataContext>
         <viewModels:ViewInventoriesViewModel></viewModels:ViewInventoriesViewModel>
