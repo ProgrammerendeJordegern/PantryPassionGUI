@@ -71,7 +71,7 @@
                 <Button Grid.Row="0" Width="140" Content="Tilføj vare" Margin="30, 2" Style="{StaticResource RoundedCorner}" Command="{Binding Path=AddItemToListCommand}"></Button>
                 <Button Grid.Row="1" Width="140" Content="Slet vare" Margin="30, 2" Style="{StaticResource RoundedCorner}" Command="{Binding Path=DeleteItemInListCommand}"></Button>
                 <Button Grid.Row="2" Width="140" Content="Slet indkøbsliste" Margin="30,2" Style="{StaticResource RoundedCorner}" Command="{Binding Path=ClearListCommand}"></Button>
-                <Button Grid.Row="3" Width="140" Content="Updater liste" Margin="30,2" Style="{StaticResource RoundedCorner}" Command="{Binding Path=UpdateShoppingListCommand}"></Button>
+                <Button Grid.Row="3" Width="140" Content="Opdater liste" Margin="30,2" Style="{StaticResource RoundedCorner}" Command="{Binding Path=UpdateShoppingListCommand}"></Button>
             </Grid>
         </Grid>
 

@@ -263,9 +263,21 @@ namespace PantryPassionGUI.ViewModels
         {
             if (InventoryItem.Item.ItemId != 0)
             {
-                InventoryItemsList = await _backendConnection.GetListOfInventoryItems(InventoryItem.Item.ItemId);
-                OriginalQuantity = InventoryItemsList.ElementAt(0).Amount;
-                InventoryItem.Amount = InventoryItemsList.ElementAt(0).Amount;
+                try
+                {
+                    InventoryItemsList = await _backendConnection.GetListOfInventoryItems(InventoryItem.Item.ItemId);
+                    OriginalQuantity = InventoryItemsList.ElementAt(0).Amount;
+                    InventoryItem.Amount = InventoryItemsList.ElementAt(0).Amount;
+                }
+                catch (ApiException exception)
+                {
+                    ItemNotFound(exception.StatusCode);
+                }
+                catch (HttpRequestException exception)
+                {
+                    MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
+                }
+                
             }
         }
 
