@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PantryPassionGUI.Views"
         mc:Ignorable="d"
         Title="Pantry Passion Registration" Height="450" Width="400"
-        Icon="../Images/pantrypassionlogoudentekst.jpg">
+        Icon="../Images/favicon.ico">
     <Window.Resources>
         <Style x:Key="RoundedCorner" TargetType="{x:Type Button}">
             <Setter Property="Foreground" Value="White"></Setter>
