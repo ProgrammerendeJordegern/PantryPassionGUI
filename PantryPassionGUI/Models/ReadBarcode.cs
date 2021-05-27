@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics;
+using System.Drawing;
 using ZXing;
 using IBarcodeReader = PantryPassionGUI.Models.Interfaces.IBarcodeReader;
 
@@ -22,7 +23,7 @@ namespace PantryPassionGUI.Models
             //It reads only the barcode if it is activated
             if (ActivateBool == true)
             {
-                
+              
                 var barcode = _reader.Decode(image);
 
                 if (barcode != null)

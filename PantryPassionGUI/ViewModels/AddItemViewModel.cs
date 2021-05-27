@@ -51,7 +51,7 @@ namespace PantryPassionGUI.ViewModels
             InventoryItem.Item.Ean = CameraViewModel.Barcode;
 
             try
-            { 
+            {
                 InventoryItem.Item = await _backendConnection.CheckBarcode(InventoryItem.Item.Ean);
             }
             catch (ApiException exception)
@@ -122,7 +122,7 @@ namespace PantryPassionGUI.ViewModels
 
         private void ItemNotFound(int statusCode)
         {
-            MessageBox.Show($"Fejl {statusCode}\nVare belv ikke fundet i systemet!\nIndtast venlist selv vares informationer","Error!");
+            MessageBox.Show($"Fejl {statusCode}\nVare blev ikke fundet i systemet!\nIndtast venlist selv vares informationer","Error!");
         }
 
         public ICommand UpArrowCommand
