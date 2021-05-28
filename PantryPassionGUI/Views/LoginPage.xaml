@@ -32,7 +32,7 @@
             <TextBlock Text="Kodeord:" FontWeight="Bold" Margin="0,5,0,0" />
             <PasswordBox x:Name="pbxPassword" Padding="5" />
             <Button x:Name="btnLogin" Style="{StaticResource RoundedCorner}" Content="LOGIN" Padding="5" Margin="0,5,0,0" Click="btnLogin_Click" IsDefault="True"/>
-            <Button x:Name="btnRegister" Style="{StaticResource RoundedCorner}" Content="REGISTER BRUGER" Padding="5" Margin="0,5,0,0" Click="btnRegister_Click" />
+            <Button x:Name="btnRegister" Style="{StaticResource RoundedCorner}" Content="REGISTRER BRUGER" Padding="5" Margin="0,5,0,0" Click="btnRegister_Click" />
         </StackPanel>
     </Grid>
 </Window>
