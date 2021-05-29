@@ -74,10 +74,10 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private void DeleteItemInListHandler()
+        private async void DeleteItemInListHandler()
         {
             CurrentInventoryItem.Amount = 0;
-            UpdateInventoryItemQuantity();
+            await UpdateInventoryItemQuantity();
             InventoryItems.Clear();
             GetShoppingList();
         }
@@ -171,17 +171,19 @@ namespace PantryPassionGUI.ViewModels
             }
         }
 
-        private void UpdateSelectedItemHandler()
+        private async void UpdateSelectedItemHandler()
         {
             //Update to db
-            UpdateInventoryItemQuantity();
+            await UpdateInventoryItemQuantity();
         }
 
-        private async void UpdateInventoryItemQuantity()
+        private async Task<int> UpdateInventoryItemQuantity()
         {
+            int temp = 0;
             try
             {
-                int temp = await _backendConnection.SetQuantity(CurrentInventoryItem);
+                temp = await _backendConnection.SetQuantity(CurrentInventoryItem);
+                
             }
             catch (ApiException e)
             {
@@ -191,6 +193,8 @@ namespace PantryPassionGUI.ViewModels
             {
                 MessageBox.Show($"Der er ingen forbindele til serveren", "Error!");
             }
+
+            return temp;
         }
     }
 }
