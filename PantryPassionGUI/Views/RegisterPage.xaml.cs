@@ -49,7 +49,7 @@ namespace PantryPassionGUI.Views
                 return;
             }
 
-            Globals.LoggedInUser = user;
+            //Globals.LoggedInUser = user;
             MessageBox.Show("Registration successful");
             // NavigationService.Navigate(new DetailsPage());
             //NavigationService.GoBack(); // If page
