@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Data;
 using PantryPassionGUI.Models;
 using PantryPassionGUI.Utilities;
+using PantryPassionGUI.Utilities.Interfaces;
 using Prism.Mvvm;
 
 namespace PantryPassionGUI.ViewModels
@@ -26,7 +27,7 @@ namespace PantryPassionGUI.ViewModels
 
         public ObservableCollection<Item> ShoppingListItems { get; set; }
 
-        public BackendConnection BackendConn { get; set; }
+        public IBackendConnection BackendConn { get; set; }
         private ICollectionView ViewFilter;
 
         public ViewInventoriesViewModel()
@@ -48,8 +49,30 @@ namespace PantryPassionGUI.ViewModels
             CMBBX.Add("Ukendt");
 
             GetInventoryItems();
-
         }
+
+        public ViewInventoriesViewModel(IBackendConnection backendConnection)
+        {
+            CMBBX = new ObservableCollection<string>();
+            AllInventoryItems = new ObservableCollection<InventoryItem>();
+            AllItems = new ObservableCollection<Item>();
+            FridgeItems = new ObservableCollection<Item>();
+            FreezerItems = new ObservableCollection<Item>();
+            PantryItems = new ObservableCollection<Item>();
+            ShoppingListItems = new ObservableCollection<Item>();
+
+            BackendConn = backendConnection;
+
+            CMBBX.Add("Alle varer");
+            CMBBX.Add("Køleskab");
+            CMBBX.Add("Fryser");
+            CMBBX.Add("Spisekammer (øvrige)");
+            CMBBX.Add("Indkøbsliste");
+            CMBBX.Add("Ukendt");
+
+            GetInventoryItems();
+        }
+
 
         public string GetCategory(int id)
         {

@@ -9,7 +9,8 @@
         xmlns:view="clr-namespace:PantryPassionGUI.Views"
         xmlns:System="clr-namespace:System;assembly=System.Runtime"
         mc:Ignorable="d"
-        Title="Tilføj vare" Height="450" Width="650">
+        Title="Tilføj vare" Height="450" Width="650"
+        Icon="../Images/favicon.ico">
     <Window.DataContext>
         <viewModels:AddItemViewModel>
         </viewModels:AddItemViewModel>

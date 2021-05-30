@@ -12,9 +12,9 @@ using PantryPassionGUI.ViewModels.Interfaces;
 
 namespace PantryPassion.Test.Integration
 {
-    class Step5
+    public class Step6
     {
-        private AddItemViewModel _sut;
+        private RemoveItemViewModel _sut;
         private ICameraViewModel _cameraViewModel;
         private ICamera _camConnection;
         private IVideoSource _fakeVideoSource;
@@ -24,7 +24,7 @@ namespace PantryPassion.Test.Integration
         private IOutput _fakeOutput;
         private IBackendConnection _fakeBackendConnection;
         private Bitmap myBitmap;
-        private Object _obj;
+        private object _obj;
 
 
         [SetUp]
@@ -43,32 +43,19 @@ namespace PantryPassion.Test.Integration
             myBitmap = new Bitmap(Environment.CurrentDirectory + @"\barcode.png");
             myBitmap.Save("myBitmap.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
 
-            _sut = new AddItemViewModel(_cameraViewModel, _fakeBackendConnection);
+            _sut = new RemoveItemViewModel(_cameraViewModel, _fakeBackendConnection,5);
         }
 
         [Test]
-        public void AddItemViewModel_BarcodeAction_CheckBarcode()
+        public void RemoveItemViewModel_BarcodeAction_CorrectBarcode()
         {
+            Item item = new Item();
+            item.ItemId = 8;
+
+            _fakeBackendConnection.CheckBarcode("705632085943").Returns(item);
             _camConnection.SimulateEventFromVideoCaptureDevice(myBitmap);
 
-            _fakeBackendConnection.Received(1).CheckBarcode("705632085943");
-        }
-
-        [Test]
-        public void AddItemViewModel_BarcodeAction_ItemNotFound()
-        {
-            
-        }
-
-        [Test]
-        public void AddItemViewModel_FindItemByNameHandler_GetItemByName()
-        {
-            InventoryItem iitem = new InventoryItem();
-            iitem.Item.Name = "Jordbær";
-            _sut.InventoryItem = iitem;
-            _sut.FindItemByNameCommand.Execute(_obj);
-
-            _fakeBackendConnection.Received(1).GetItemByName("Jordbær");
+            _fakeBackendConnection.Received(1).GetListOfInventoryItems(8);
         }
 
         [Test]
@@ -79,17 +66,30 @@ namespace PantryPassion.Test.Integration
             _fakeOutput.Received(1).OutputLine(Arg.Is<string>(s => s.ToLower().Contains("camera off")));
         }
 
-        //[Test]
-        //public void AddItemViewModel_OkCommand_OkHandler()
-        //{
-        //    _sut.OkCommand.Execute(_obj);
+        [Test]
+        public void AddItemViewModel_OkCommand_UpdateInventoryItemAmountCalled()
+        {
+            _sut.OkCommand.Execute(_obj);
 
-        //    InventoryItem iitem = new InventoryItem();
-        //    iitem.Item.Name = "Jordbær";
-        //    _sut.InventoryItem = iitem;
+            _fakeBackendConnection.Received(1).SetQuantity(_sut.CurrentInventoryItem);
+        }
 
-        //    _fakeBackendConnection.Received(1).SetNewItem(iitem, true);
-        //    _fakeOutput.Received(1).OutputLine(Arg.Is<string>(s => s.ToLower().Contains("camera off")));
-        //}
+        [Test]
+        public void AddItemViewModel_OkCommand_CameraOff()
+        {
+            _sut.OkCommand.Execute(_obj);
+
+            _fakeOutput.Received(1).OutputLine(Arg.Is<string>(s => s.ToLower().Contains("camera off")));
+        }
+
+        [Test]
+        public void AddItemViewModel_CurrentInventoryItem_SetOriginalQuantity()
+        {
+            InventoryItem inventoryItem = new InventoryItem();
+            inventoryItem.Amount = 3;
+            _sut.CurrentInventoryItem = inventoryItem;
+
+            Assert.That(_sut.OriginalQuantity,Is.EqualTo(3));
+        }
     }
 }

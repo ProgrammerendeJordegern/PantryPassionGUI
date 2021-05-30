@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PantryPassionGUI"
         xmlns:viewModels="clr-namespace:PantryPassionGUI.ViewModels"
         mc:Ignorable="d"
-        Title="Ret vare" Height="320" Width="295" Icon="../Images/pantrypassionlogoudentekst.jpg">
+        Title="Ret vare" Height="320" Width="295" Icon="../Images/favicon.ico">
 
     <Window.Resources>
         <Style x:Key="RoundedCorner" TargetType="{x:Type Button}">

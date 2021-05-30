@@ -164,7 +164,7 @@ namespace PantryPassionGUI.ViewModels
 
             InventoryItem inventoryItemToShoppingList = new InventoryItem();
 
-            inventoryItemToShoppingList.Item = Items.ElementAt(CurrentIndex);
+            inventoryItemToShoppingList.Item = CurrentItem;
             inventoryItemToShoppingList.Amount = 1;
             inventoryItemToShoppingList.InventoryType = 3;
 

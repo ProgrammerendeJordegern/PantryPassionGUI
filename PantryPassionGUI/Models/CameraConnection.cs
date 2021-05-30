@@ -112,25 +112,28 @@ namespace PantryPassionGUI.Models
         //Handler for event NewFrame in videoCaptureDevice
         private void VideoCaptureDevice_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
-            //Gets the image from eventArgs
-            Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
-
-            //scan for barcode in image
-            string barcode = _reader.GetBarcode(bitmap);
-
-
-            //If a barcode was found
-            if (barcode != null)
+            
+            if (_reader.ActivateBool)
             {
-                BarcodeFound(new BarcodeFoundEventArgs { Barcode = barcode });
-                _reader.Deactivate();
-                _timer.Enable();
+                //Gets the image from eventArgs
+                Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
+
+                //scan for barcode in image
+                string barcode = _reader.GetBarcode(bitmap);
+
+
+                //If a barcode was found
+                if (barcode != null)
+                {
+                    BarcodeFound(new BarcodeFoundEventArgs { Barcode = barcode });
+                    _reader.Deactivate();
+                    _timer.Enable();
+                }
+
+                //invoke new action on main thread, because camera uses it own thread
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => { CameraFeed = Convert(bitmap); }));
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => { CameraFeed.Freeze(); }));
             }
-
-            //invoke new action on main thread, because camera uses it own thread
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => { CameraFeed = Convert(bitmap); }));
-            Application.Current.Dispatcher.BeginInvoke(new Action(() => { CameraFeed.Freeze(); }));
-
         }
 
         //Function used in integration test 
