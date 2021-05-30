@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		dotCoverCoverageConfigCore.xml = dotCoverCoverageConfigCore.xml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PantryPassion.Test.Integration", "PantryPassion.Test.Integration1\PantryPassion.Test.Integration.csproj", "{C8E61C8A-144A-4C58-8B1B-7E67162F3119}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PantryPassion.Test.Integration", "PantryPassion.Test.Integration\PantryPassion.Test.Integration.csproj", "{8330DC60-04CC-4FFE-90C8-618137057390}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,14 +38,14 @@ Global
 		{DEF6B8BE-CCA5-4435-9B19-55FEBC7094CB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DEF6B8BE-CCA5-4435-9B19-55FEBC7094CB}.Release|x64.ActiveCfg = Release|Any CPU
 		{DEF6B8BE-CCA5-4435-9B19-55FEBC7094CB}.Release|x64.Build.0 = Release|Any CPU
-		{C8E61C8A-144A-4C58-8B1B-7E67162F3119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8E61C8A-144A-4C58-8B1B-7E67162F3119}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8E61C8A-144A-4C58-8B1B-7E67162F3119}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C8E61C8A-144A-4C58-8B1B-7E67162F3119}.Debug|x64.Build.0 = Debug|Any CPU
-		{C8E61C8A-144A-4C58-8B1B-7E67162F3119}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8E61C8A-144A-4C58-8B1B-7E67162F3119}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8E61C8A-144A-4C58-8B1B-7E67162F3119}.Release|x64.ActiveCfg = Release|Any CPU
-		{C8E61C8A-144A-4C58-8B1B-7E67162F3119}.Release|x64.Build.0 = Release|Any CPU
+		{8330DC60-04CC-4FFE-90C8-618137057390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8330DC60-04CC-4FFE-90C8-618137057390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8330DC60-04CC-4FFE-90C8-618137057390}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8330DC60-04CC-4FFE-90C8-618137057390}.Debug|x64.Build.0 = Debug|Any CPU
+		{8330DC60-04CC-4FFE-90C8-618137057390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8330DC60-04CC-4FFE-90C8-618137057390}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8330DC60-04CC-4FFE-90C8-618137057390}.Release|x64.ActiveCfg = Release|Any CPU
+		{8330DC60-04CC-4FFE-90C8-618137057390}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
